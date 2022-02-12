@@ -8,12 +8,14 @@ import React from 'react';
 import Home from './Home';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import NavBar from './NavBar';
 
 function App() {
   return (
     <>
     <div className="App">
       <Router>
+        <NavBar></NavBar>
         <Routes>
             <Route index element={<Home />} />
             <Route path="sign-up" element={<SignUp />} />
