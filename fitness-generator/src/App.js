@@ -9,6 +9,7 @@ import Home from './Home';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import NavBar from './NavBar';
+import Assessment from './Assessment';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="sign-up" element={<SignUp />} />
             <Route path="login" element={ <SignIn/> } />
+            <Route path="assessment" element={ <Assessment/> } />
         </Routes>
       </Router>
     </div>
