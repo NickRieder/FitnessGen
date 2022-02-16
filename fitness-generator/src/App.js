@@ -9,7 +9,7 @@ import Home from './Home';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import NavBar from './NavBar';
-import Assessment from './Assessment';
+import Assessment from './Assessment/Assessment';
 
 function App() {
   return (

@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
-import background from "./images/fitness-rdl.jpg";
+import background from '../images/fitness-rdl.jpg';
 
 const Assessment = () => {
     const navigate = useNavigate();
@@ -15,7 +15,7 @@ const Assessment = () => {
             <Form>
                 <Form.Group className="mb-3">
                     <Form.Label>Wall Sit Time</Form.Label>
-                    <Form.Control type="time" placeholder="Enter time" />
+                    <Form.Control type="number" placeholder="Enter time" />
                     <Form.Text className="text-muted">
                     In seconds.
                     </Form.Text>
