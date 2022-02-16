@@ -10,6 +10,7 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 import NavBar from './NavBar';
 import Questionnaire from './Questionnaire';
+import IntensityInfo from './IntensityInfo';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="sign-up" element={<SignUp />} />
             <Route path="login" element={ <SignIn/> } />
             <Route path="questionnaire" element={<Questionnaire />} />
+            <Route path="intensityinfo" element={<IntensityInfo />} />
         </Routes>
       </Router>
     </div>
