@@ -11,6 +11,7 @@ import SignUp from './SignUp';
 import NavBar from './NavBar';
 import Questionnaire from './Questionnaire';
 import IntensityInfo from './IntensityInfo';
+import Assessment from './Assessment/Assessment';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="login" element={ <SignIn/> } />
             <Route path="questionnaire" element={<Questionnaire />} />
             <Route path="intensityinfo" element={<IntensityInfo />} />
+            <Route path="assessment" element={ <Assessment/> } />
         </Routes>
       </Router>
     </div>
