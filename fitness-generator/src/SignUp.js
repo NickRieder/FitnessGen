@@ -2,6 +2,11 @@ import React, { useRef } from "react";
 import { Button, Form, Card, Container } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 
+// string vars
+const alreadyAccSignIn = "Already have an account? Sign in...";
+
+export { alreadyAccSignIn };
+
 export default function SignUp() {
     
     // useNavigate hook
@@ -20,7 +25,7 @@ export default function SignUp() {
             {/* Users with accoutn or dont want to make an account */}
             <Container style={{ minHeight: '400px', maxWidth: '500px' }}>
                     <div className="text-center pt-4">
-                        <Button onClick={() => navigate('/login')}>Already have an account? Sign in...</Button>
+                        <Button onClick={() => navigate('/login')}>{alreadyAccSignIn}</Button>
                     </div>
                     
                     <h3 className="mt-4 mb-4 text-center"> OR </h3>
