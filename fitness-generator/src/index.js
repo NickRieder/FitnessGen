@@ -2,13 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import { AuthProvider } from "./config/firebase";
 import reportWebVitals from './reportWebVitals';
 // Importing the Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
     <React.StrictMode>
-      <App />
+      <AuthProvider>
+      {
+        /* We add this Auth Provider to give the app context of the user */
+      }
+        <App />
+      </AuthProvider>
+      
     </React.StrictMode>,
   document.getElementById('root')
 );
