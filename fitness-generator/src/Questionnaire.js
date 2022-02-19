@@ -199,7 +199,7 @@ export default function Questionnaire() {
         </Container>
         
         <div className='d-flex justify-content-end me-2 mt-4'>
-          <Button onClick={() => console.log('f')}>Sumbit</Button>
+          <Button onClick={() => navigate('/assessment')}>Sumbit</Button>
         </div>
     
       </div>
