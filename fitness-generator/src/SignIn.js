@@ -1,6 +1,11 @@
 import React, {useRef} from 'react'
 import { useNavigate } from "react-router-dom";
 import { Button, Form, Card, Container } from 'react-bootstrap';
+import { continueGuestBtnText } from './SignUp';
+
+const signUpBtnText = "Don't have an account? Sign up...";
+
+export { signUpBtnText };
 
 export default function SignIn() {
     // useNavigate hook
@@ -18,13 +23,13 @@ export default function SignIn() {
             {/* Users with accoutn or dont want to make an account */}
             <Container style={{ minHeight: '400px', maxWidth: '500px' }}>
                     <div className="text-center pt-4">
-                        <Button onClick={() => navigate('/sign-up')}>Don't have an account? Sign up...</Button>
+                        <Button onClick={() => navigate('/sign-up')}>{signUpBtnText}</Button>
                     </div>
                     
                     <h3 className="mt-4 mb-4 text-center"> OR </h3>
 
                     <div className="text-center">
-                        <Button onClick={() => navigate('/questionnaire')}>OR Continue as Guest...</Button>
+                        <Button onClick={() => navigate('/questionnaire')}>{continueGuestBtnText}</Button>
                     </div>    
             </Container>
         </div>
@@ -57,7 +62,7 @@ export default function SignIn() {
                         </div>
 
                         <div>
-                            <Button onClick={() => navigate('/questionnaire')}>Sign In</Button>
+                            <Button onClick={() => navigate('/')}>Sign In</Button>
                         </div>
                     </Card.Body>
                 </Card>

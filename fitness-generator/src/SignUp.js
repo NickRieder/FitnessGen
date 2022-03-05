@@ -3,9 +3,10 @@ import { Button, Form, Card, Container } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 
 // string vars
-const alreadyAccSignIn = "Already have an account? Sign in...";
+const signInBtnText = "Already have an account? Sign in...";
+const continueGuestBtnText = "Continue as Guest...";
 
-export { alreadyAccSignIn };
+export { signInBtnText, continueGuestBtnText };
 
 export default function SignUp() {
     
@@ -25,13 +26,13 @@ export default function SignUp() {
             {/* Users with accoutn or dont want to make an account */}
             <Container style={{ minHeight: '400px', maxWidth: '500px' }}>
                     <div className="text-center pt-4">
-                        <Button onClick={() => navigate('/login')}>{alreadyAccSignIn}</Button>
+                        <Button onClick={() => navigate('/login')}>{signInBtnText}</Button>
                     </div>
                     
                     <h3 className="mt-4 mb-4 text-center"> OR </h3>
 
                     <div className="text-center">
-                        <Button onClick={() => navigate('/questionnaire')}>OR Continue as Guest...</Button>
+                        <Button onClick={() => navigate('/questionnaire')}>{continueGuestBtnText}</Button>
                     </div>    
             </Container>
         </div>
@@ -66,7 +67,7 @@ export default function SignUp() {
                         </Form>
 
                         <div>
-                        <Button onClick={() => navigate('/questionnaire')}>Sign Up</Button>
+                        <Button onClick={() => navigate('/')}>Sign Up</Button>
                         </div>
                     </Card.Body>
                 </Card>

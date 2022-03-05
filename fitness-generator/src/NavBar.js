@@ -3,10 +3,10 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     
     return (
         <div style={{ marginBottom: '3.5rem' }}>

@@ -143,7 +143,7 @@ export default function Questionnaire() {
                     <option  
                       key={index}
                       value={currIntensity.value}
-                      checked={intensityVal == currIntensity.value}
+                      checked={intensityVal === currIntensity.value}
                       onClick={(e) => setIntensityVal(e.currentTarget.value)}
                       onChange={(e) => setIntensityVal(e.currentTarget.name)}
                     > {currIntensity.name} </option>
@@ -153,7 +153,7 @@ export default function Questionnaire() {
                 {/* Information icon button */}
                 <Button className="ms-2" style={{ minHeight: '40px' }} onClick={() => navigate('/intensityinfo', {state: {intensityVal: intensityVal}}) }>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" fill="currentColor" className="bi bi-info-circle" viewBox="0 0 16 16">
-                      <path d={iconPath1}></path>
+                      d<path d={iconPath1}></path>
                       <path d={iconPath2}></path>
                     </svg>
                 </Button>
@@ -199,7 +199,7 @@ export default function Questionnaire() {
         </Container>
         
         <div className='d-flex justify-content-end me-2 mt-4'>
-          <Button onClick={() => navigate('/assessment')}>Sumbit</Button>
+          <Button onClick={() => navigate('/assessment')}>Submit</Button>
         </div>
     
       </div>
