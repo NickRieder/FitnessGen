@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
-import { collection, addDoc, getFirestore, doc, onSnapshot, setDoc } from "firebase/firestore"
+import { collection, addDoc, getDoc, getFirestore, doc, onSnapshot, setDoc } from "firebase/firestore"
 import { createContext, useEffect, useState } from 'react';
 
 const firebaseConfig = {
@@ -128,3 +128,24 @@ export const updateUser = async (payload, user) => {
   const ref = doc(db, `/users/${user.uid}`); 
   await setDoc(ref, payload, { merge: true } );
 }
+
+
+export const getUserInfo =  async (user) => {
+  const docRef = doc(db, `/users/${user.uid}/Answers/ID`);
+  const docSnap = await getDoc(docRef);
+  return docSnap.data();
+}
+
+export const getWorkout =  async (body, difficulty, equipment) => {
+  const docRef = doc(db, `/Workouts/${body}/${difficulty}/${equipment}`);
+  const docSnap = await getDoc(docRef);
+  return docSnap.data();
+}
+
+/*const getUserData = (user) => {
+  setDifficulty(FirebaseError.doc.get().collection(users[user].get(difficulty)))
+}
+
+const getWorkout = (user) => {
+  firebsase.get(wokrouts.{difficulty}.{equipemtn}(());
+}*/

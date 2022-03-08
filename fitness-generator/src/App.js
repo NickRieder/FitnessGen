@@ -12,6 +12,7 @@ import NavBar from './NavBar';
 import Questionnaire from './Questionnaire';
 import IntensityInfo from './IntensityInfo';
 import Assessment from './Assessment/Assessment';
+import WorkoutGenerator from './WorkoutGenerator';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="questionnaire" element={<Questionnaire />} />
             <Route path="intensityinfo" element={<IntensityInfo />} />
             <Route path="assessment" element={ <Assessment/> } />
+            <Route path="workout" element={ <WorkoutGenerator/> } />
         </Routes>
       </Router>
     </div>

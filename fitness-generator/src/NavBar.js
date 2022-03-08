@@ -21,7 +21,7 @@ const NavBar = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                     <Nav.Link href="/">Home</Nav.Link>
-                    <Nav.Link href="assessment">Get Started</Nav.Link>
+                    <Nav.Link href="workout">Get Started</Nav.Link>
                     <NavDropdown title="Account" id="basic-nav-dropdown">
                         { user ? <><NavDropdown.Item onClick={logOut} >Logout</NavDropdown.Item></>: 
                                  <><NavDropdown.Item href="login">Sign In</NavDropdown.Item>
