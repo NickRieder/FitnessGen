@@ -2,11 +2,11 @@ import React from "react";
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from "react-bootstrap/Form";
-import { useNavigate } from "react-router-dom";
-import background from '../images/fitness-rdl.jpg';
+// import { useNavigate } from "react-router-dom";
+// import background from '../images/fitness-rdl.jpg';
 
 const Assessment = () => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     return (
         <div>
             <Container>

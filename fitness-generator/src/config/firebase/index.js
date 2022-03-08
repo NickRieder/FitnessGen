@@ -83,20 +83,28 @@ export const signInWithEmail = (email, password) => {
           console.log(error)
       });
 };
+let errorCode;
 
-export const createUserWithEmail = (email, password) => {
+export function reportErrorCode() {
+  return errorCode;
+}
+
+export function createUserWithEmail(email, password) {
   createUserWithEmailAndPassword(auth, email, password)
-      .then((result) => {
-          // The signed-in user info.
-          const user = result.user;
-      })
-      .catch((error) => {
-        console.log(error)
-        const errorCode = error.code;
-        const errorMessage = error.message;
+  .then((result) => {
+    // The signed-in user info.
+    const user = result.user;
+  })
+  .catch((error) => {
+    errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(error);
+    console.log(errorCode);
+    console.log(errorMessage);
     // ..
-      });
+  });
 };
+
 
 export const logOut = () => {
   signOut(auth)

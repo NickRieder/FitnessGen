@@ -1,7 +1,13 @@
-import React, { useRef, useState, useContext } from "react";
+import React, { useRef, useState, useContext, useEffect } from "react";
 import { Button, Form, Card, Container } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-import { createUserWithEmail, logOut, AuthContext, signInWithGoogle } from './config/firebase';
+import { createUserWithEmail, logOut, AuthContext, signInWithGoogle, reportErrorCode } from './config/firebase';
+
+// string vars
+const signInBtnText = "Already have an account? Sign in...";
+const continueGuestBtnText = "Continue as Guest...";
+
+export { signInBtnText, continueGuestBtnText };
 
 export default function SignUp() {
     
@@ -19,23 +25,37 @@ export default function SignUp() {
 
     const { user } = useContext(AuthContext); 
 
+    const [errorCode, setErrorCode ] = useState(() => "");
+
+    function userSignUpFullActions() {
+        // await 
+        setTimeout(createUserWithEmail(email, password), 2000);
+        // await 
+        setErrorCode(reportErrorCode());
+        setTimeout(console.log("log error" + reportErrorCode()), 10000);
+        return
+    }
+    // console.log(errorCode + "here");
+    //         setErrorCode(reportErrorCode()); 
+    //     };
 
     return (
       // empty fragment
       <>
       <h3 style={{color: 'green' }}>{`${user ? 'Success! Welcome ' + user.email : ''}`}</h3>
+      <h3 style={{color: 'green' }}>{ errorCode }</h3>
         {/* d-inline-flex makes the div elements inline */}
         <div className="d-inline-flex align-items-center w-50" style={{ minHeight: '100vh'}}>
             {/* Users with accoutn or dont want to make an account */}
             <Container style={{ minHeight: '400px', maxWidth: '500px' }}>
                     <div className="text-center pt-4">
-                        <Button onClick={() => navigate('/login')}>Already have an account? Sign in...</Button>
+                        <Button style={{ minWidth: '275px' }} onClick={() => navigate('/login')}>{signInBtnText}</Button>
                     </div>
                     
                     <h3 className="mt-4 mb-4 text-center"> OR </h3>
 
                     <div className="text-center">
-                        <Button onClick={() => navigate('/questionnaire')}>OR Continue as Guest...</Button>
+                        <Button style={{ minWidth: '275px' }} onClick={() => navigate('/questionnaire')}>{continueGuestBtnText}</Button>
                     </div>    
             </Container>
         </div>
@@ -90,11 +110,11 @@ export default function SignUp() {
                             </Form.Group>
                         </Form>
                         <div>
-                        <Button fluid color="blue" onClick={signInWithGoogle}>Sign in with Google</Button>
+                        <Button onClick={signInWithGoogle}>Sign in with Google</Button>
                         </div>
                         <br></br>
                         <div>
-                        <Button onClick={() => createUserWithEmail(email, password)}>Sign Up</Button>
+                        <Button onClick={() => userSignUpFullActions()}>Sign Up</Button>
                         </div>
                     </Card.Body>
                 </Card>

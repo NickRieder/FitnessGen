@@ -1,8 +1,12 @@
 import React, { useRef, useState, useContext } from 'react'
 import { useNavigate } from "react-router-dom";
 import { Button, Form, Card, Container } from 'react-bootstrap';
-import { signInWithEmail, logOut, AuthContext } from './config/firebase';
-import { signInWithGoogle } from './config/firebase';
+import { signInWithEmail, logOut, AuthContext, signInWithGoogle } from './config/firebase';
+import { continueGuestBtnText } from './SignUp';
+
+const signUpBtnText = "Don't have an account? Sign up...";
+
+export { signUpBtnText };
 
 
 export default function SignIn() {
@@ -27,13 +31,14 @@ export default function SignIn() {
             {/* Users with accoutn or dont want to make an account */}
             <Container style={{ minHeight: '400px', maxWidth: '500px' }}>
                     <div className="text-center pt-4">
-                        <Button onClick={() => navigate('/sign-up')}>Don't have an account? Sign up...</Button>
+                        <Button style={{ minWidth: '275px' }} onClick={signInWithGoogle}>Sign In with Google</Button>
                     </div>
                     
                     <h3 className="mt-4 mb-4 text-center"> OR </h3>
 
                     <div className="text-center">
-                        <Button onClick={() => navigate('/questionnaire')}>OR Continue as Guest...</Button>
+                        <Button style={{ minWidth: '275px' }} onClick={() => navigate('/sign-up')}>{signUpBtnText}</Button>
+                        {/* <Button onClick={() => navigate('/questionnaire')}>{continueGuestBtnText}</Button> */}
                     </div>    
             </Container>
         </div>

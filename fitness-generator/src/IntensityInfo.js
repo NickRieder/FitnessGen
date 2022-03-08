@@ -6,14 +6,15 @@ import { useNavigate } from 'react-router-dom'
 export default function IntensityInfo() {
   const navigate = useNavigate();
   const { state } = useLocation();
-  const { intensityVal } = state;
 
 //   console.log(state);
 
   return (
     <>
-        <div> {state.intensityVal} </div>
-        <Button onClick={() => navigate('/questionnaire')}>Sumbit</Button>
+        <div>
+          <p> {state.intensityVal} </p>
+        </div>
+        <Button onClick={() => navigate('/questionnaire')}>Go Back</Button>
     </>
   )
 }
