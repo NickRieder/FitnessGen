@@ -19,25 +19,26 @@ export default function SignUp() {
     const passwordRef = useRef();
     const passwordConfRef = useRef();
 
+
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [confirmPassWord, setConfirmPassword] = useState("");
 
     const { user } = useContext(AuthContext); 
 
+    // Error Catching
     const [errorCode, setErrorCode ] = useState(() => "");
 
     function userSignUpFullActions() {
-        // await 
-        setTimeout(createUserWithEmail(email, password), 2000);
+        // await, needs to add firstName and Lastname 
+        createUserWithEmail(email, password);
+
         // await 
         setErrorCode(reportErrorCode());
-        setTimeout(console.log("log error" + reportErrorCode()), 10000);
-        return
+        console.log("log error" + reportErrorCode());
     }
-    // console.log(errorCode + "here");
-    //         setErrorCode(reportErrorCode()); 
-    //     };
 
     return (
       // empty fragment
@@ -45,10 +46,10 @@ export default function SignUp() {
       <h3 style={{color: 'green' }}>{`${user ? 'Success! Welcome ' + user.email : ''}`}</h3>
       <h3 style={{color: 'green' }}>{ errorCode }</h3>
         {/* d-inline-flex makes the div elements inline */}
-        <div className="d-inline-flex align-items-center w-50" style={{ minHeight: '100vh'}}>
+        <div className="d-inline-flex align-items-center w-50 align-self-baseline" style={{}}>
             {/* Users with accoutn or dont want to make an account */}
-            <Container style={{ minHeight: '400px', maxWidth: '500px' }}>
-                    <div className="text-center pt-4">
+            <Container style={{ maxWidth: '500px' }}>
+                    <div className="text-center">
                         <Button style={{ minWidth: '275px' }} onClick={() => navigate('/login')}>{signInBtnText}</Button>
                     </div>
                     
@@ -61,15 +62,39 @@ export default function SignUp() {
         </div>
 
 
-        <div className="d-inline-flex align-items-center w-50" style={{ minHeight: '100vh'}}>
+        <div className="d-inline-flex align-items-center w-50" style={{ minHeight: '100vh' }}>
             {/* Sign up portion */}
             {/* d-flex makes container fit forms */}
             {/*  */}
-            <Container className="start-0">
+            <Container className="">
             <Card>
                 <Card.Body>
                         <h2 className="fst-italic d-flex justify-content-start mb-4"> Sign Up</h2>
                         <Form>
+                        {/* First Name Form*/}
+                            <Form.Group id="firstname">
+                                <Form.Label className="d-flex justify-content-start">First Name</Form.Label>
+                                <Form.Control 
+                                    name="firstname"
+                                    value={firstName || ""}
+                                    onChange={event => setFirstName(event.target.value)}
+                                    type="email" 
+                                    placeholder="Enter First Name" 
+                                    required/>
+                            </Form.Group>
+
+                        {/* Last name Form*/}
+                            <Form.Group id="lastname">
+                                <Form.Label className="d-flex justify-content-start">Last Name</Form.Label>
+                                <Form.Control 
+                                    name="lastname"
+                                    value={lastName || ""}
+                                    onChange={event => setLastName(event.target.value)}
+                                    type="email" 
+                                    placeholder="Enter Last Name" 
+                                    required/>
+                            </Form.Group>
+                        
                         {/* Email Address Form*/}
                             <Form.Group id="email">
                                 <Form.Label className="d-flex justify-content-start">E-mail</Form.Label>
@@ -109,12 +134,13 @@ export default function SignUp() {
                                     required/>
                             </Form.Group>
                         </Form>
+                        
                         <div>
-                        <Button onClick={signInWithGoogle}>Sign in with Google</Button>
+                            <Button onClick={() => userSignUpFullActions()}>Sign Up</Button>
                         </div>
                         <br></br>
                         <div>
-                        <Button onClick={() => userSignUpFullActions()}>Sign Up</Button>
+                            <Button onClick={signInWithGoogle}>Sign in with Google</Button>
                         </div>
                     </Card.Body>
                 </Card>

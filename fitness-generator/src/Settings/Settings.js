@@ -3,9 +3,21 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import { render } from 'react-dom';
+import { db } from '../config/firebase'
+import { collection, addDoc } from 'firebase/firestore'
 
 export default function Settings() {
+
+  async function f() {
+    try {
+        const docRef = await addDoc(collection(db, "users"), {
+            first: "TestUser"
+        });
+        console.log("Working with ", docRef.id);
+    } catch (error) {
+        console.error("Error while adding document", error);
+    }
+}
 
   const AccountForm = () => {
     return (                      
@@ -23,6 +35,12 @@ export default function Settings() {
       {/* Password Confirmation Form */}
           <Form.Group className="" id="Age">
               <Form.Label className="d-flex justify-content-start">Age</Form.Label>
+          </Form.Group>
+
+          <Form.Group>
+              <h1>Test</h1>
+              <p>This is the vision of the creator, Dan Bagin, a personal trainer with a goal of finding the ideal workout for all perspective clients to improve their fitness.</p>
+              <Button onClick={() => f()}>Sign Up</Button>   
           </Form.Group>
       </Form>)
   }
@@ -45,6 +63,12 @@ export default function Settings() {
         {/* Password Confirmation Form */}
             <Form.Group className="mb-5" id="Core">
                 <Form.Label className="d-flex justify-content-start">Core</Form.Label>
+            </Form.Group>
+
+            <Form.Group>
+                <h1>Test</h1>
+                <p>This is the vision of the creator, Dan Bagin, a personal trainer with a goal of finding the ideal workout for all perspective clients to improve their fitness.</p>
+                <Button onClick={() => f()}>Sign Up</Button>   
             </Form.Group>
         </Form>
       </>)

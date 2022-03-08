@@ -5,9 +5,23 @@ import Container from 'react-bootstrap/Container';
 // import Carousel from "react-bootstrap/Carousel";
 import { useNavigate } from "react-router-dom";
 import background from "./images/fitness-rdl.jpg";
+import { db } from './config/firebase'
+import { collection, addDoc } from 'firebase/firestore'
+
 
 const Home = () => {
     const navigate = useNavigate();
+
+    async function f() {
+        try {
+            const docRef = await addDoc(collection(db, "users"), {
+                first: "TestUser"
+            });
+            console.log("Working with ", docRef.id);
+        } catch (error) {
+            console.error("Error while adding document", error);
+        }
+    }
     
     return (
         <div className="mb-4" style={{height: '100vh', background: `url(${background})`, }}>
@@ -22,6 +36,11 @@ const Home = () => {
                     <h1>Who we are.</h1>
                     <p>This is the vision of the creator, Dan Bagin, a personal trainer with a goal of finding the ideal workout for all perspective clients to improve their fitness.</p>
                     <Button onClick={() => navigate('/sign-up')}>Sign Up</Button>
+                    </Container>
+                    <Container className="p-5 mb-4 bg-light rounded-3">
+                    <h1>Test</h1>
+                    <p>This is the vision of the creator, Dan Bagin, a personal trainer with a goal of finding the ideal workout for all perspective clients to improve their fitness.</p>
+                    <Button onClick={() => f()}>Sign Up</Button>
                     </Container>
             </div>
         </div>

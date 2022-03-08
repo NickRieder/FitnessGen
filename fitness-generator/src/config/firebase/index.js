@@ -75,6 +75,7 @@ export const signInWithEmail = (email, password) => {
   signInWithEmailAndPassword(auth, email, password)
       .then((result) => {
           // The signed-in user info.
+          // TO-DO await, needs to add firstName and Lastname 
           const user = result.user;
           console.log( user );
       })
