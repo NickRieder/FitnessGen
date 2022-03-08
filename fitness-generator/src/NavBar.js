@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -19,12 +20,18 @@ const NavBar = () => {
                     <Nav.Link href="/">Home</Nav.Link>
                     <Nav.Link href="assessment">Get Started</Nav.Link>
                     <NavDropdown title="Account" id="basic-nav-dropdown">
-                        { user ? <><NavDropdown.Item onClick={logOut} >Logout</NavDropdown.Item></>: 
+                        { user ? 
+                        <>
+                            <NavDropdown.Item href='settings' >Settings</NavDropdown.Item>
+                            <NavDropdown.Item onClick={logOut} >Logout</NavDropdown.Item>
+                        </>: 
                                  <><NavDropdown.Item href="login">Sign In</NavDropdown.Item>
                                  <NavDropdown.Item href="sign-up">Sign Up</NavDropdown.Item></>}
                     </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
+                {/* User Initials */}
+                {/* <Button > PP </Button> */}
                 </Container>
             </Navbar>
         </div>
