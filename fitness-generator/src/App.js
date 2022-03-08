@@ -13,6 +13,7 @@ import Questionnaire from './Questionnaire';
 import IntensityInfo from './IntensityInfo';
 import Assessment from './Assessment/Assessment';
 import Settings from './Settings/Settings';
+import WorkoutGenerator from './WorkoutGenerator';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="intensityinfo" element={<IntensityInfo />} />
             <Route path="assessment" element={ <Assessment/> } />
             <Route path="settings" element={ <Settings/> } />
+            <Route path="workout" element={ <WorkoutGenerator/> } />
         </Routes>
       </Router>
     </div>
