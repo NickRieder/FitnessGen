@@ -15,9 +15,24 @@ export default function SignUp() {
 
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
+    const [userName, setUserName] = useState("Gabe");
     const [confirmPassWord, setConfirmPassword] = useState("");
 
+
     const { user } = useContext(AuthContext); 
+    
+    const handleSubmit = (event, password, confirmPassWord, userName) => {
+        event.preventDefault();
+    
+        /*if(!isPasswordConfirmed(password, confirmPassWord)){
+            // password is not matching, you can show error to your user
+            return;
+        }*/
+    
+    
+        createUserWithEmail(email, password, userName);
+        // ... rest of the codes
+    }
 
 
     return (
@@ -70,7 +85,7 @@ export default function SignUp() {
                                     name="password"
                                     value={password || ""}
                                     onChange={event => setPassword(event.target.value)}
-                                    type="email" 
+                                    type="password" 
                                     ref={passwordRef} 
                                     placeholder="Enter password" 
                                     required/>
@@ -83,7 +98,7 @@ export default function SignUp() {
                                     name="confirmPassWord"
                                     value={confirmPassWord || ""}
                                     onChange={event => setConfirmPassword(event.target.value)} 
-                                    type="email" 
+                                    type="password" 
                                     ref={passwordConfRef} 
                                     placeholder="Confirm password" 
                                     required/>
@@ -94,7 +109,7 @@ export default function SignUp() {
                         </div>
                         <br></br>
                         <div>
-                        <Button onClick={() => createUserWithEmail(email, password)}>Sign Up</Button>
+                        <Button onClick={() => handleSubmit(email, password, userName)}>Sign Up</Button>
                         </div>
                     </Card.Body>
                 </Card>

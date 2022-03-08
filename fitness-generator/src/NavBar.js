@@ -9,6 +9,8 @@ import { AuthContext, logOut } from './config/firebase';
 const NavBar = () => {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext); 
+
+
     
     return (
         <div style={{ marginBottom: '3.5rem' }}>
@@ -25,6 +27,7 @@ const NavBar = () => {
                                  <><NavDropdown.Item href="login">Sign In</NavDropdown.Item>
                                  <NavDropdown.Item href="sign-up">Sign Up</NavDropdown.Item></>}
                     </NavDropdown>
+                    <Nav.Link >{`${user ? user.displayName : ''}`}</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
                 </Container>

@@ -67,7 +67,7 @@ export default function SignIn() {
                                 <Form.Control 
                                     value={loginPassword || ""}
                                     onChange={event => setPassword(event.target.value)}
-                                    type="email" 
+                                    type="password" 
                                     ref={passwordRef} 
                                     placeholder="Enter password" 
                                     required/>

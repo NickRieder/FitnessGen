@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
-import { collection, addDoc, getFirestore } from "firebase/firestore"
+import { collection, addDoc, getFirestore, doc, onSnapshot, setDoc } from "firebase/firestore"
 import { createContext, useEffect, useState } from 'react';
 
 const firebaseConfig = {
@@ -32,7 +32,16 @@ export const AuthProvider = ({ children }) => {
         setUserData(null)
         return;
       }
+
+      const ref = doc(db, `/users/${user.uid}`); 
+      const unsubscribe = onSnapshot(ref, doc => {
+          setUserData(doc.data())
+      })
+      // = await.getDoc(ref, doc => {
+
+   //   }
   
+      return unsubscribe;
     }, [user])
   
     useEffect(() => {
@@ -73,9 +82,13 @@ export const signInWithGoogle = () => {
 
 export const signInWithEmail = (email, password) => {
   signInWithEmailAndPassword(auth, email, password)
-      .then((result) => {
+      .then( async (result) => {
           // The signed-in user info.
           const user = result.user;
+          const ref = doc(db, `/users/${user.uid}`); 
+
+          await setDoc(ref, { email: user.email }, { merge: true });
+
           console.log( user );
       })
       .catch((error) => {
@@ -89,6 +102,7 @@ export const createUserWithEmail = (email, password) => {
       .then((result) => {
           // The signed-in user info.
           const user = result.user;
+
       })
       .catch((error) => {
         console.log(error)
@@ -107,4 +121,10 @@ export const logOut = () => {
   .catch(() => {
     // An error happened.
   })
+}
+
+export const updateUser = async (payload, user) => {
+  
+  const ref = doc(db, `/users/${user.uid}`); 
+  await setDoc(ref, payload, { merge: true } );
 }
