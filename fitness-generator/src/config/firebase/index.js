@@ -25,15 +25,15 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [userData, setUserData] = useState(null);
-  
+    const [userData, setUserData] = useState();
+
     useEffect(() => {
       if (!user) {
         setUserData(null)
         return;
       }
 
-      const ref = doc(db, `/users/${user.uid}`); 
+      const ref = doc(db, `/Users/${user.uid}`); 
       const unsubscribe = onSnapshot(ref, doc => {
           setUserData(doc.data())
       })
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
    //   }
   
       return unsubscribe;
-    }, [user])
+    }, [user]);
   
     useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, user => {
@@ -57,10 +57,10 @@ export const AuthProvider = ({ children }) => {
     );
   };
 
-const googelProvider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
 export const signInWithGoogle = () => {
-  signInWithPopup(auth, googelProvider)
+  signInWithPopup(auth, googleProvider)
       .then((result) => {
           // This gives you a Google Access Token. You can use it to access the Google API.
           const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -86,7 +86,7 @@ export const signInWithEmail = (email, password) => {
           // The signed-in user info.
           // TO-DO await, needs to add firstName and Lastname 
           const user = result.user;
-          const ref = doc(db, `/users/${user.uid}`); 
+          const ref = doc(db, `/Users/${user.uid}`); 
 
           await setDoc(ref, { email: user.email }, { merge: true });
 
@@ -103,11 +103,37 @@ export function reportErrorCode() {
   return errorCode;
 }
 
-export function createUserWithEmail(email, password) {
+// fxn to write user data to users collection
+// from sign up 
+// personal Data = [firstName, lastName]
+async function makeUser(user, emailVal, firstNameVal, lastNameVal, displayNameVal) {
+  try {
+      // Adds the email as a field in the Users collection
+      const dbUsersRef = doc(db, `Users/${user.uid}`);
+      await setDoc(dbUsersRef, {
+        Email: emailVal
+      });
+
+      // Adds firstName and lastName as fields in the Personal collection 
+      const dbUPDDataRef = doc(db, `Users/${dbUsersRef.id}/PersonalData/Data`)
+      await setDoc(dbUPDDataRef, {
+        FirstName: firstNameVal,
+        LastName: lastNameVal,
+        DisplayName: displayNameVal
+      });
+  } catch (error) {
+      console.error("Error while adding document", error);
+  }
+}
+
+export function createUserWithEmail(email, password, firstName, lastName) {
   createUserWithEmailAndPassword(auth, email, password)
   .then((result) => {
     // The signed-in user info.
-    const user = result.user;
+    const user = result.user; 
+    const displayName = firstName.charAt(0) + lastName.charAt(0);
+    makeUser(user, email, firstName, lastName, displayName);
+    AuthProvider.setUserData({})
   })
   .catch((error) => {
     errorCode = error.code;
@@ -132,14 +158,19 @@ export const logOut = () => {
 
 export const updateUser = async (payload, user) => {
   
-  const ref = doc(db, `/users/${user.uid}`); 
+  const ref = doc(db, `/Users/${user.uid}`); 
   await setDoc(ref, payload, { merge: true } );
 }
 
+// Adds firstName and lastName as fields in the Personal collection 
+//   const dbUPersonalRef = await addDoc(collection(db, `Users/${dbUsersRef.id}/PersonalData`), 
+
 
 export const getUserInfo =  async (user) => {
-  const docRef = doc(db, `/users/${user.uid}/Answers/ID`);
-  const docSnap = await getDoc(docRef);
+  const dbUWDDataRef = doc(db, `/Users/${user.uid}/WorkoutData/Data`);
+
+  // const docRef = doc(db, `/Users/${user.uid}/Answers/ID`);
+  const docSnap = await getDoc(dbUWDDataRef);
   return docSnap.data();
 }
 
@@ -156,3 +187,21 @@ export const getWorkout =  async (body, difficulty, equipment) => {
 const getWorkout = (user) => {
   firebsase.get(wokrouts.{difficulty}.{equipemtn}(());
 }*/
+
+export async function setUserWorkoutData(user, feet, inches, weight, days, intensity, equipment) {
+  try {
+    // Adds firstName and lastName as fields in the Personal collection 
+    const dbUWDDataRef = doc(db, `Users/${user.uid}/WorkoutData/Data`)
+    await setDoc(dbUWDDataRef, {
+      HeightFT: feet,
+      HeightIN: inches,
+      Weight: weight,
+      Days: days, 
+      Intensity: intensity,
+      Equipment: equipment
+    });
+
+  } catch (error) {
+    console.error("Error while adding document", error);
+  }
+} 

@@ -1,8 +1,8 @@
-import React, { useRef, useState, useContext, useEffect } from "react";
+import React, { useRef, useState, useContext } from "react";
 import { Button, Form, Card, Container } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-import { createUserWithEmail, logOut, AuthContext, signInWithGoogle, reportErrorCode } from './config/firebase';
-
+import { createUserWithEmail, AuthContext, signInWithGoogle } from './config/firebase';
+// reportErrorCode
 // string vars
 const signInBtnText = "Already have an account? Sign in...";
 const continueGuestBtnText = "Continue as Guest...";
@@ -24,14 +24,15 @@ export default function SignUp() {
     const [lastName, setLastName] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
-    const [userName, setUserName] = useState("Gabe");
+    // const [userName, setUserName] = useState("Gabe");
     const [confirmPassWord, setConfirmPassword] = useState("");
 
 
     const { user } = useContext(AuthContext); 
     
-    const handleSubmit = (event, password, confirmPassWord, userName) => {
-        event.preventDefault();
+    // confirmPassWord
+    const handleSubmit = () => {
+        // event.preventDefault();
     
         /*if(!isPasswordConfirmed(password, confirmPassWord)){
             // password is not matching, you can show error to your user
@@ -39,27 +40,28 @@ export default function SignUp() {
         }*/
     
     
-        createUserWithEmail(email, password, userName);
+        createUserWithEmail(email, password, firstName, lastName);
+        navigate("/");
         // ... rest of the codes
     }
 
     // Error Catching
-    const [errorCode, setErrorCode ] = useState(() => "");
+    // const [errorCode, setErrorCode ] = useState(() => "");
 
-    function userSignUpFullActions() {
-        // await, needs to add firstName and Lastname 
-        createUserWithEmail(email, password);
+    // function userSignUpFullActions() {
+    //     // await, needs to add firstName and Lastname 
+    //     createUserWithEmail(email, password);
 
-        // await 
-        setErrorCode(reportErrorCode());
-        console.log("log error" + reportErrorCode());
-    }
+    //     // await 
+    //     setErrorCode(reportErrorCode());
+    //     console.log("log error" + reportErrorCode());
+    // }
 
     return (
       // empty fragment
       <>
       <h3 style={{color: 'green' }}>{`${user ? 'Success! Welcome ' + user.email : ''}`}</h3>
-      <h3 style={{color: 'green' }}>{ errorCode }</h3>
+      {/* <h3 style={{color: 'green' }}>{ errorCode }</h3> */}
         {/* d-inline-flex makes the div elements inline */}
         <div className="d-inline-flex align-items-center w-50 align-self-baseline" style={{}}>
             {/* Users with accoutn or dont want to make an account */}
@@ -151,12 +153,12 @@ export default function SignUp() {
                         </Form>
                         
                         <div>
-                            <Button onClick={() => userSignUpFullActions()}>Sign Up</Button>
+                            {/* <Button onClick={() => userSignUpFullActions()}>Sign Up</Button> */}
+                            <Button onClick={() => handleSubmit()}>Sign Up</Button>
                         </div>
                         <br></br>
                         <div>
                             <Button onClick={signInWithGoogle}>Sign in with Google</Button>
-                            <Button onClick={() => handleSubmit(email, password, userName)}>Sign Up</Button>
 
                         </div>
                     </Card.Body>
