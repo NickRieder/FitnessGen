@@ -137,7 +137,8 @@ export const getUserInfo =  async (user) => {
 }
 
 export const getWorkout =  async (body, difficulty, equipment) => {
-  const docRef = doc(db, `/Workouts/${body}/${difficulty}/${equipment}`);
+    //const docRef = doc(db, `/Workouts/${body}/${difficulty}/${equipment}`);
+    const docRef = doc(db, `/Workouts/${body}/${difficulty}/${equipment}`);
   const docSnap = await getDoc(docRef);
   return docSnap.data();
 }
