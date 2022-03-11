@@ -8,7 +8,7 @@ let generated = false;
 const WorkoutGenerator = () => {
     const { user } = useContext(AuthContext); 
     const [days, setDays] = useState("");
-    const [difficulty, setDifficulty] = useState("");
+    const [intensity, setIntensity] = useState("");
     const [equipment, setEquipment] = useState("");
     const [leg, setLegs] = useState([]);
     const [chest, setChest] = useState([]);
@@ -46,7 +46,7 @@ const WorkoutGenerator = () => {
     //Console.log("Days = " + days);
     if (days == 3 && !generated) {
         for (let i = 0; i < body.length; i++) {
-            getWorkout(body[i], difficulty, equipment)
+            getWorkout(body[i], intensity, equipment)
                 .then((event) => {
                     console.log('Read succeeded!');
                     console.log(event[(Math.floor(Math.random() * Object.keys(event).length))]);
@@ -83,7 +83,7 @@ const WorkoutGenerator = () => {
         setGenerated(true);
     } else if (days == 5 && !generated) {
         for (let i = 0; i < lowerBody.length; i++) {
-            getWorkout(lowerBody[i], difficulty, equipment)
+            getWorkout(lowerBody[i], intensity, equipment)
                 .then((event) => {
                     console.log('Read succeeded!');
                     console.log(event[(Math.floor(Math.random() * Object.keys(event).length))]);
@@ -91,7 +91,7 @@ const WorkoutGenerator = () => {
                 })
         }
         for (let i = 0; i < upperBody.length; i++) {
-            getWorkout(upperBody[i], difficulty, equipment)
+            getWorkout(upperBody[i], intensity, equipment)
                 .then((event) => {
                     console.log('Read succeeded!');
                     console.log(event[(Math.floor(Math.random() * Object.keys(event).length))]);
@@ -143,18 +143,18 @@ const WorkoutGenerator = () => {
                         console.log('Read succeeded!');
                         console.log(event);
                         setEquipment(event.Equipment);
-                        setDifficulty(event.Difficulty);
+                        setIntensity(event.Intensity);
                         setDays(event.Days);
                         })}>Fetch</button>
         
-        <h2>Equipment: {equipment}</h2>
+        <h2>Equipment: {equipment.Barbells}</h2>
         <h2>Days: {days}</h2>
-            <h2>Difficulty: {difficulty}</h2>
+            <h2>Intensity: {intensity}</h2>
 
 
             <button onClick={() => {
                 for (let i = 0; i < body.length; i++) {
-                    getWorkout(body[i], difficulty, equipment)
+                    getWorkout(body[i], intensity, equipment)
                         .then((event) => {
                             console.log('Read succeeded!');
                             console.log(event[(Math.floor(Math.random() * Object.keys(event).length))]);
@@ -191,21 +191,21 @@ const WorkoutGenerator = () => {
             }}>Get full body Workout</button>
 
 
-        <button onClick={() => getWorkout(body[1], difficulty, equipment)
+        <button onClick={() => getWorkout(body[1], intensity, equipment)
                         .then((event) => {
                         console.log('Back succeeded!');
                         console.log(event[(Math.floor(Math.random() *  Object.keys(event).length))]);
                         setBack(event[(Math.floor(Math.random() *  Object.keys(event).length))])
                         })}>Get Back</button>
 
-            <button onClick={() => getWorkout(body[2], difficulty, equipment)
+            <button onClick={() => getWorkout(body[2], intensity, equipment)
                 .then((event) => {
                     console.log('Chest succeeded 2!');
                     console.log(event[(Math.floor(Math.random() * Object.keys(event).length))]);
                     setChest(event[(Math.floor(Math.random() * Object.keys(event).length))])
                 })}>Get Chest</button>
 
-        <button onClick={() => getWorkout(body[3], difficulty, equipment)
+        <button onClick={() => getWorkout(body[3], intensity, equipment)
                         .then((event) => {
                         console.log('Core succeeded!');
                         console.log(event[(Math.floor(Math.random() *  Object.keys(event).length))]);
