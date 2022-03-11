@@ -74,7 +74,7 @@ const WorkoutGenerator = () => {
                             console.log('Arms succeeded! ' + arms);
                             break;
                         default:
-                            Console.log("Default activated somehow")
+                            console.log("Default activated somehow")
                             break;
                     }
                     //setLegs(event[(Math.floor(Math.random() * Object.keys(event).length))]);
@@ -114,7 +114,7 @@ const WorkoutGenerator = () => {
                             console.log('Arms succeeded! ' + arms);
                             break;
                         default:
-                            Console.log("Default activated somehow")
+                            console.log("Default activated somehow")
                             break;
                     }
                 })
@@ -182,7 +182,7 @@ const WorkoutGenerator = () => {
                                     console.log('Arms succeeded! ' + arms);
                                     break;
                                 default:
-                                    Console.log("Default activated somehow")
+                                    console.log("Default activated somehow")
                                     break;
                             }
                             //setLegs(event[(Math.floor(Math.random() * Object.keys(event).length))]);
