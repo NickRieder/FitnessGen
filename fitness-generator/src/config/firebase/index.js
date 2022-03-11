@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
-import { collection, addDoc, getFirestore } from "firebase/firestore"
+import { collection, addDoc, getDoc, getFirestore, doc, onSnapshot, setDoc } from "firebase/firestore"
 import { createContext, useEffect, useState } from 'react';
 
 const firebaseConfig = {
@@ -25,15 +25,24 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [userData, setUserData] = useState(null);
-  
+    const [userData, setUserData] = useState();
+
     useEffect(() => {
       if (!user) {
         setUserData(null)
         return;
       }
+
+      const ref = doc(db, `/Users/${user.uid}`); 
+      const unsubscribe = onSnapshot(ref, doc => {
+          setUserData(doc.data())
+      })
+      // = await.getDoc(ref, doc => {
+
+   //   }
   
-    }, [user])
+      return unsubscribe;
+    }, [user]);
   
     useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, user => {
@@ -48,10 +57,10 @@ export const AuthProvider = ({ children }) => {
     );
   };
 
-const googelProvider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
 export const signInWithGoogle = () => {
-  signInWithPopup(auth, googelProvider)
+  signInWithPopup(auth, googleProvider)
       .then((result) => {
           // This gives you a Google Access Token. You can use it to access the Google API.
           const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -73,9 +82,14 @@ export const signInWithGoogle = () => {
 
 export const signInWithEmail = (email, password) => {
   signInWithEmailAndPassword(auth, email, password)
-      .then((result) => {
+      .then( async (result) => {
           // The signed-in user info.
+          // TO-DO await, needs to add firstName and Lastname 
           const user = result.user;
+          const ref = doc(db, `/Users/${user.uid}`); 
+
+          await setDoc(ref, { email: user.email }, { merge: true });
+
           console.log( user );
       })
       .catch((error) => {
@@ -89,11 +103,37 @@ export function reportErrorCode() {
   return errorCode;
 }
 
-export function createUserWithEmail(email, password) {
+// fxn to write user data to users collection
+// from sign up 
+// personal Data = [firstName, lastName]
+async function makeUser(user, emailVal, firstNameVal, lastNameVal, displayNameVal) {
+  try {
+      // Adds the email as a field in the Users collection
+      const dbUsersRef = doc(db, `Users/${user.uid}`);
+      await setDoc(dbUsersRef, {
+        Email: emailVal
+      });
+
+      // Adds firstName and lastName as fields in the Personal collection 
+      const dbUPDDataRef = doc(db, `Users/${dbUsersRef.id}/PersonalData/Data`)
+      await setDoc(dbUPDDataRef, {
+        FirstName: firstNameVal,
+        LastName: lastNameVal,
+        DisplayName: displayNameVal
+      });
+  } catch (error) {
+      console.error("Error while adding document", error);
+  }
+}
+
+export function createUserWithEmail(email, password, firstName, lastName) {
   createUserWithEmailAndPassword(auth, email, password)
   .then((result) => {
     // The signed-in user info.
-    const user = result.user;
+    const user = result.user; 
+    const displayName = firstName.charAt(0) + lastName.charAt(0);
+    makeUser(user, email, firstName, lastName, displayName);
+    // AuthProvider.setUserData({})
   })
   .catch((error) => {
     errorCode = error.code;
@@ -101,7 +141,6 @@ export function createUserWithEmail(email, password) {
     console.log(error);
     console.log(errorCode);
     console.log(errorMessage);
-    // ..
   });
 };
 
@@ -116,3 +155,54 @@ export const logOut = () => {
     // An error happened.
   })
 }
+
+export const updateUser = async (payload, user) => {
+  
+  const ref = doc(db, `/Users/${user.uid}`); 
+  await setDoc(ref, payload, { merge: true } );
+}
+
+// Adds firstName and lastName as fields in the Personal collection 
+//   const dbUPersonalRef = await addDoc(collection(db, `Users/${dbUsersRef.id}/PersonalData`), 
+
+
+export const getUserInfo =  async (user) => {
+  const dbUWDDataRef = doc(db, `/Users/${user.uid}/WorkoutData/Data`);
+
+  // const docRef = doc(db, `/Users/${user.uid}/Answers/ID`);
+  const docSnap = await getDoc(dbUWDDataRef);
+  return docSnap.data();
+}
+
+export const getWorkout =  async (body, difficulty, equipment) => {
+    //const docRef = doc(db, `/Workouts/${body}/${difficulty}/${equipment}`);
+    const docRef = doc(db, `/Workouts/${body}/${difficulty}/${equipment}`);
+  const docSnap = await getDoc(docRef);
+  return docSnap.data();
+}
+
+/*const getUserData = (user) => {
+  setDifficulty(FirebaseError.doc.get().collection(users[user].get(difficulty)))
+}
+
+const getWorkout = (user) => {
+  firebsase.get(wokrouts.{difficulty}.{equipemtn}(());
+}*/
+
+export async function setUserWorkoutData(user, feet, inches, weight, days, intensity, equipment) {
+  try {
+    // Adds firstName and lastName as fields in the Personal collection 
+    const dbUWDDataRef = doc(db, `Users/${user.uid}/WorkoutData/Data`)
+    await setDoc(dbUWDDataRef, {
+      HeightFT: feet,
+      HeightIN: inches,
+      Weight: weight,
+      Days: days, 
+      Intensity: intensity,
+      Equipment: equipment
+    });
+
+  } catch (error) {
+    console.error("Error while adding document", error);
+  }
+} 
