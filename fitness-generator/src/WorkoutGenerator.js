@@ -3,6 +3,8 @@ import React, {useState, useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import { getUserInfo, AuthContext, getWorkout } from './config/firebase';
 
+let generated = false;
+
 const WorkoutGenerator = () => {
     const { user } = useContext(AuthContext); 
     const [days, setDays] = useState("");
@@ -13,15 +15,115 @@ const WorkoutGenerator = () => {
     const [back, setBack] = useState([]);
     const [core, setCore] = useState([]);
     const [arms, setArms] = useState([]);
+    let [generated, setGenerated] = useState(false);
     const body = [
         'Legs',
         'Back',
         'Chest',
         'Core',
         'Arms'
+    ];
+    const upperBody = [
+        'Chest',
+        'Arms',
+        'Arms',
+        'Arms',
+        'Back',
+        'Core'
+    ];
+
+    const lowerBody = [
+        'Legs',
+        'Legs',
+        'Legs',
+        'Legs',
+        'Core'
     ]
     const num = [ "A", "B", "C", "D"];
     const navigate = useNavigate();
+
+    
+    //Console.log("Days = " + days);
+    if (days == 3 && !generated) {
+        for (let i = 0; i < body.length; i++) {
+            getWorkout(body[i], difficulty, equipment)
+                .then((event) => {
+                    console.log('Read succeeded!');
+                    console.log(event[(Math.floor(Math.random() * Object.keys(event).length))]);
+                    switch (body[i]) {
+                        case 'Legs':
+                            setLegs(event[(Math.floor(Math.random() * Object.keys(event).length))]);
+                            console.log('Legs succeeded! ' + leg);
+                            break;
+                        case 'Back':
+                            setBack(event[(Math.floor(Math.random() * Object.keys(event).length))]);
+                            console.log('Back succeeded! ' + back);
+                            break;
+                        case 'Chest':
+                            setChest(event[(Math.floor(Math.random() * Object.keys(event).length))]);
+                            console.log("Chest event" + event);
+                            console.log("chest: " + event[(Math.floor(Math.random() * Object.keys(event).length))] + '.');
+                            console.log('Chest succeeded! ' + chest);
+                            break;
+                        case 'Core':
+                            setCore(event[(Math.floor(Math.random() * Object.keys(event).length))]);
+                            console.log('Core succeeded! ' + core);
+                            break;
+                        case 'Arms':
+                            setArms(event[(Math.floor(Math.random() * Object.keys(event).length))]);
+                            console.log('Arms succeeded! ' + arms);
+                            break;
+                        default:
+                            Console.log("Default activated somehow")
+                            break;
+                    }
+                    //setLegs(event[(Math.floor(Math.random() * Object.keys(event).length))]);
+                })
+        }
+        setGenerated(true);
+    } else if (days == 5 && !generated) {
+        for (let i = 0; i < lowerBody.length; i++) {
+            getWorkout(lowerBody[i], difficulty, equipment)
+                .then((event) => {
+                    console.log('Read succeeded!');
+                    console.log(event[(Math.floor(Math.random() * Object.keys(event).length))]);
+                    setLegs(arr => [...arr, event[(Math.floor(Math.random() * Object.keys(event).length))]]);
+                })
+        }
+        for (let i = 0; i < upperBody.length; i++) {
+            getWorkout(upperBody[i], difficulty, equipment)
+                .then((event) => {
+                    console.log('Read succeeded!');
+                    console.log(event[(Math.floor(Math.random() * Object.keys(event).length))]);
+                    switch (upperBody[i]) {
+                        case 'Back':
+                            setBack(arr => [...arr, event[(Math.floor(Math.random() * Object.keys(event).length))]]);
+                            console.log('Back succeeded! ' + back);
+                            break;
+                        case 'Chest':
+                            setChest(arr => [...arr, event[(Math.floor(Math.random() * Object.keys(event).length))]]);
+                            console.log("chest: " + event[(Math.floor(Math.random() * Object.keys(event).length))] + '.');
+                            console.log('Chest succeeded! ' + chest);
+                            break;
+                        case 'Core':
+                            setCore(arr => [...arr, event[(Math.floor(Math.random() * Object.keys(event).length))]]);
+                            console.log('Core succeeded! ' + core);
+                            break;
+                        case 'Arms':
+                            setArms(arr => [...arr, event[(Math.floor(Math.random() * Object.keys(event).length))]]);
+                            console.log('Arms succeeded! ' + arms);
+                            break;
+                        default:
+                            Console.log("Default activated somehow")
+                            break;
+                    }
+                })
+        }
+        setGenerated(true);
+    }
+    
+
+    //function workoutGetter()
     
     return (
         <>
@@ -47,14 +149,46 @@ const WorkoutGenerator = () => {
         
         <h2>Equipment: {equipment}</h2>
         <h2>Days: {days}</h2>
-        <h2>Difficulty: {difficulty}</h2>
+            <h2>Difficulty: {difficulty}</h2>
 
-        <button onClick={() => getWorkout(body[0], difficulty, equipment)
+
+            <button onClick={() => {
+                for (let i = 0; i < body.length; i++) {
+                    getWorkout(body[i], difficulty, equipment)
                         .then((event) => {
-                        console.log('Read succeeded!');
-                        console.log(event[(Math.floor(Math.random() *  Object.keys(event).length))]);
-                        setLegs(event[(Math.floor(Math.random() *  Object.keys(event).length))])
-                        })}>Get Legs</button>
+                            console.log('Read succeeded!');
+                            console.log(event[(Math.floor(Math.random() * Object.keys(event).length))]);
+                            switch (body[i]) {
+                                case 'Legs':
+                                    setLegs(event[(Math.floor(Math.random() * Object.keys(event).length))]);
+                                    console.log('Legs succeeded! ' + leg);
+                                    break;
+                                case 'Back':
+                                    setBack(event[(Math.floor(Math.random() * Object.keys(event).length))]);
+                                    console.log('Back succeeded! ' + back);
+                                    break;
+                                case 'Chest':
+                                    setChest(event[(Math.floor(Math.random() * Object.keys(event).length))]);
+                                    console.log("Chest event" + event);
+                                    console.log("chest: " + event[(Math.floor(Math.random() * Object.keys(event).length))] + '.');
+                                    console.log('Chest succeeded! ' + chest);
+                                    break;
+                                case 'Core':
+                                    setCore(event[(Math.floor(Math.random() * Object.keys(event).length))]);
+                                    console.log('Core succeeded! ' + core);
+                                    break;
+                                case 'Arms':
+                                    setArms(event[(Math.floor(Math.random() * Object.keys(event).length))]);
+                                    console.log('Arms succeeded! ' + arms);
+                                    break;
+                                default:
+                                    Console.log("Default activated somehow")
+                                    break;
+                            }
+                            //setLegs(event[(Math.floor(Math.random() * Object.keys(event).length))]);
+                        })
+                }
+            }}>Get full body Workout</button>
 
 
         <button onClick={() => getWorkout(body[1], difficulty, equipment)
@@ -64,6 +198,13 @@ const WorkoutGenerator = () => {
                         setBack(event[(Math.floor(Math.random() *  Object.keys(event).length))])
                         })}>Get Back</button>
 
+            <button onClick={() => getWorkout(body[2], difficulty, equipment)
+                .then((event) => {
+                    console.log('Chest succeeded 2!');
+                    console.log(event[(Math.floor(Math.random() * Object.keys(event).length))]);
+                    setChest(event[(Math.floor(Math.random() * Object.keys(event).length))])
+                })}>Get Chest</button>
+
         <button onClick={() => getWorkout(body[3], difficulty, equipment)
                         .then((event) => {
                         console.log('Core succeeded!');
@@ -72,7 +213,9 @@ const WorkoutGenerator = () => {
                         })}>Get Core</button>
 
         <h2>Legs: {leg}</h2>
-        <h2>Back: {back}</h2>
+            <h2>Back: {back}</h2>
+            <h2>Chest: {chest}</h2>
+            <h2>Arms: {arms}</h2>
         <h2>Core: {core}</h2>
 
                     
