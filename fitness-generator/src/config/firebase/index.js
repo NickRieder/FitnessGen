@@ -133,7 +133,7 @@ export function createUserWithEmail(email, password, firstName, lastName) {
     const user = result.user; 
     const displayName = firstName.charAt(0) + lastName.charAt(0);
     makeUser(user, email, firstName, lastName, displayName);
-    AuthProvider.setUserData({})
+    // AuthProvider.setUserData({})
   })
   .catch((error) => {
     errorCode = error.code;

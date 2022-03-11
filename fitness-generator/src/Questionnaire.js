@@ -90,16 +90,16 @@ export default function Questionnaire() {
   const equipmentOpts = {
     "Dumbbell": "DB",
     "Barbells": "BB",
-    "Resistance Band": "Band",
+    "ResistanceBand": "Band",
     "Machine": "MC",
     "Kettlebell": "KB"
   };
   const [equipment, setEquipment] = useState({
-    "Dumbbell": null,
-    "Barbells": null,
-    "Resistance Band": null,
-    "Machine": null,
-    "Kettlebell": null
+    "Dumbbell": false,
+    "Barbells": false,
+    "ResistanceBand": false,
+    "Machine": false,
+    "Kettlebell": false
   });
   // function CheckboxQ7(label) {
   //   return (<Form.Check inline type='checkbox' label={label} value={equipment[label]} className='' style={{ minWidth: '300px', minHeight: '40px' }} 
@@ -124,7 +124,20 @@ export default function Questionnaire() {
     console.log(equipment);
 
     setUserWorkoutData(user, heightFT, heightIN, weight, workoutDayNum, intensityVal, equipment);
-    // navigate('/assessment');
+    navigate('/assessment');
+  }
+
+  // function to handle when user select and disselect equipment
+  function handleUserEquipment(currEquipment) {
+    const newBoolEVal = !(equipment[currEquipment])
+    // console.log(currEquipment);
+    // console.log(equipment[currEquipment]); 
+    // console.log(newBoolEVal);
+    // console.log(equipment);
+    setEquipment(prevState => ({
+        ...prevState,
+        [currEquipment]: newBoolEVal})
+    );   
   }
 
   return (   
@@ -231,7 +244,7 @@ export default function Questionnaire() {
                       value={currIntensity.value}
                       checked={intensityVal === currIntensity.value}
                       onClick={(e) => setIntensityVal(e.currentTarget.value)}
-                      // onChange={(e) => setIntensityVal(e.currentTarget.name)}
+                      onChange={(e) => setIntensityVal(e.currentTarget.name)}
                     > {currIntensity.name} </option>
                   ))}
                 </Form.Select>
@@ -261,7 +274,7 @@ export default function Questionnaire() {
                       label={currRadio.name} 
                       value={currRadio.value}
                       checked={radioVal == currRadio.value}
-                      onClick={(e) => setRadioVal(e.currentTarget.value)}
+                      // onClick={(e) => setRadioVal(e.currentTarget.value)}
                       onChange={(e) => setRadioVal(e.currentTarget.value)}
                     />
                   ))}
@@ -275,19 +288,12 @@ export default function Questionnaire() {
                 {FormLabel("Equipment Available")}
 
                 <Form.Group className='justify-content-start' style={{ maxWidth: '300px', minHeight: '40px', textAlign: 'left' }}>
-                  {/* {CheckboxQ7("Dumbbell")}
-                  {CheckboxQ7("Barbells")}
-                  {CheckboxQ7("Resistance Band")}
-                  {CheckboxQ7("Machine")}
-                  {CheckboxQ7("Kettlebell")} */}
-
-                  {/* console.log(equipmentOpts[currElem]) */}
                   {Object.keys(equipmentOpts).map((currEquipment, index) =>
 
                     <Form.Check inline type='checkbox' label={currEquipment} value={equipment[currEquipment]} className='' style={{ minWidth: '300px', minHeight: '40px' }} 
                       key={index}
-                      checked={equipmentOpts[currEquipment] === equipment[currEquipment]} 
-                      // onClick={setEquipment(equipment[currEquipment] = equipmentOpts[currEquipment])}
+                      checked={equipment[currEquipment]} 
+                      onChange={() => handleUserEquipment(currEquipment)}
                     />)}
                 </Form.Group>
               </Form.Group>
@@ -297,6 +303,7 @@ export default function Questionnaire() {
         
         <div className='d-flex justify-content-end me-2 mt-4'>
           <Button onClick={() => submitDBandNavAssessment()}>Submit</Button>
+          {/* <Button onClick={() => console.log(equipment)}>equ</Button> */}
         </div>
     
       </div>
