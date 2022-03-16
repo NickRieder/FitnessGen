@@ -165,6 +165,12 @@ export const updateUser = async (payload, user) => {
 // Adds firstName and lastName as fields in the Personal collection 
 //   const dbUPersonalRef = await addDoc(collection(db, `Users/${dbUsersRef.id}/PersonalData`), 
 
+export async function getUserName(user) {
+  const dbUPDDataRef = doc(db, `/Users/${user.uid}/PersonalData/Data`);
+
+  const userPDDSnap = await getDoc(dbUPDDataRef);
+  return userPDDSnap.data();
+}
 
 export const getUserInfo =  async (user) => {
   const dbUWDDataRef = doc(db, `/Users/${user.uid}/WorkoutData/Data`);

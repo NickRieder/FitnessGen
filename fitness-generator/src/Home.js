@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 // import Image from 'react-bootstrap/Image';
 // import Carousel from "react-bootstrap/Carousel";
 import { useNavigate } from "react-router-dom";
 import background from "./images/fitness-rdl.jpg";
-import { AuthContext } from './config/firebase'
+import { AuthContext, getUserName } from './config/firebase'
 // db,
 // import { collection, addDoc } from 'firebase/firestore'
 
@@ -13,7 +13,22 @@ import { AuthContext } from './config/firebase'
 const Home = () => {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext); 
+    const [firstName, setFirstName] = useState(() => "");
+    const [lastName, setLastName] = useState(() => ""); 
+    const [displayName, setDisplayName] = useState(() => "");
+
+    const getUserNameData = () => {
+        getUserName(user).then(result => {
+            console.log(result.FirstName);
+            console.log(result.LastName);
+            console.log(result.DisplayName);
     
+            setFirstName(result.FirstName);
+            setLastName(result.LastName);
+            setDisplayName(result.DisplayName);
+        });
+    }
+
     const GuestHome = () => {
         return (
             <div className="mb-4" style={{height: '100vh', background: `url(${background})`, }}>
@@ -33,13 +48,15 @@ const Home = () => {
             </div>)
     }
 
-    const UserHome = () => {
+    const UserHome = () => { 
+        getUserNameData();
+
         return (
             <div className="mb-4" style={{height: '100vh', background: `url(${background})`, }}>
                 {/*<Image fluid src='./fitness-rdl.jpg'></Image>*/}
                 <div className="pt-5">
                     <Container className="p-5 mb-4 bg-dark rounded-3">
-                    <h1 style={{color:'white'}}>Welcome to the User Name </h1>
+                    <h1 style={{color:'white'}}>Welcome {`${firstName} ${lastName}`}</h1>
                     <Button onClick={() => navigate('/questionnaire')}>Start Questionnaire</Button>
                     </Container>
                     <Container className="p-5 mb-4 bg-light rounded-3">

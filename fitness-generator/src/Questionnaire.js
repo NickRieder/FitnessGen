@@ -41,7 +41,7 @@ export default function Questionnaire() {
   ]
 
   // QUESTION 2
-  const [weight, setWeight] = useState(0);
+  const [weight, setWeight] = useState("120-130");
   const weightOpts = [
     {label:"weight120", value: "120-130"},
     {label:"weight130", value: "130-140"},
@@ -89,30 +89,19 @@ export default function Questionnaire() {
   // QUESTION 7
   const equipmentOpts = {
     "Dumbbell": "DB",
-    "Barbells": "BB",
-    "ResistanceBand": "Band",
-    "Machine": "MC",
-    "Kettlebell": "KB"
+    "Barbell": "Barbell",
+    "Resistance Band": "Band",
+    "Machine": "Machine",
+    // "Kettlebell": "KB"
   };
   const [equipment, setEquipment] = useState({
-    "Dumbbell": false,
-    "Barbells": false,
-    "ResistanceBand": false,
+    "DB": false,
+    "Barbell": false,
+    "Band": false,
     "Machine": false,
+    "BodyWeight": true,
     "Kettlebell": false
   });
-  // function CheckboxQ7(label) {
-  //   return (<Form.Check inline type='checkbox' label={label} value={equipment[label]} className='' style={{ minWidth: '300px', minHeight: '40px' }} 
-  //   checked={equipmentOpts[label] === equipment[label]} 
-  //   onClick={equipment[label] ? 
-  //     setEquipment(prevState => ({
-  //     ...prevState,
-  //     [label]: equipmentOpts[label]})) 
-  //     : setEquipment(prevState => ({
-  //       ...prevState,
-  //       [label]: null }))}
-  //   />);
-  // }
 
   // FINAL SUBMIT
   function submitDBandNavAssessment() {
@@ -121,9 +110,18 @@ export default function Questionnaire() {
     console.log(weight);
     console.log(workoutDayNum);
     console.log(intensityVal);
-    console.log(equipment);
 
-    setUserWorkoutData(user, heightFT, heightIN, weight, workoutDayNum, intensityVal, equipment);
+    const equipmentArray = [];
+    console.log(Object.keys(equipment).reduce((p, k) => {
+      if (equipment[k]) {
+        p.push(k);
+      }
+      return p;
+    }, equipmentArray));
+
+
+
+    setUserWorkoutData(user, heightFT, heightIN, weight, workoutDayNum, intensityVal, equipmentArray);
     navigate('/assessment');
   }
 
@@ -292,8 +290,8 @@ export default function Questionnaire() {
 
                     <Form.Check inline type='checkbox' label={currEquipment} value={equipment[currEquipment]} className='' style={{ minWidth: '300px', minHeight: '40px' }} 
                       key={index}
-                      checked={equipment[currEquipment]} 
-                      onChange={() => handleUserEquipment(currEquipment)}
+                      checked={equipment[equipmentOpts[currEquipment]]} 
+                      onChange={() => handleUserEquipment(equipmentOpts[currEquipment])}
                     />)}
                 </Form.Group>
               </Form.Group>

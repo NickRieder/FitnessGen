@@ -9,7 +9,8 @@ const WorkoutGenerator = () => {
     const { user } = useContext(AuthContext); 
     const [days, setDays] = useState("");
     const [intensity, setIntensity] = useState("");
-    const [equipment, setEquipment] = useState("");
+    const [difficulty, setDifficulty] = useState("");
+    const [equipment, setEquipment] = useState([]);
     const [leg, setLegs] = useState([]);
     const [chest, setChest] = useState([]);
     const [back, setBack] = useState([]);
@@ -46,8 +47,9 @@ const WorkoutGenerator = () => {
     //Console.log("Days = " + days);
     if (days == 3 && !generated) {
         for (let i = 0; i < body.length; i++) {
-            getWorkout(body[i], intensity, equipment)
+            getWorkout(body[i], intensity, equipment[0])
                 .then((event) => {
+                    console.log(event);
                     console.log('Read succeeded!');
                     console.log(event[(Math.floor(Math.random() * Object.keys(event).length))]);
                     switch (body[i]) {
@@ -147,7 +149,9 @@ const WorkoutGenerator = () => {
                         setDays(event.Days);
                         })}>Fetch</button>
         
-        <h2>Equipment: {equipment.Barbells}</h2>
+        <h2>Equipment: {equipment.reduce((p,k) => {
+           return p + " " + k; 
+        }, "")}</h2>
         <h2>Days: {days}</h2>
             <h2>Intensity: {intensity}</h2>
 
