@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 // import Image from 'react-bootstrap/Image';
@@ -16,9 +16,28 @@ const Home = () => {
     const [firstName, setFirstName] = useState(() => "");
     const [lastName, setLastName] = useState(() => ""); 
     const [displayName, setDisplayName] = useState(() => "");
+    const [loading, setLoading] = useState(() => true);
 
-    const getUserNameData = () => {
+    // const getUserNameData = () => {
+    //     setLoading(true);
+    //     getUserName(user).then(result => {
+    //         setLoading(false);
+            
+    //         console.log(result.FirstName);
+    //         console.log(result.LastName);
+    //         console.log(result.DisplayName);
+    
+    //         setFirstName(result.FirstName);
+    //         setLastName(result.LastName);
+    //         setDisplayName(result.DisplayName);
+    //     });
+    // }
+
+    useEffect(() => {
+        setLoading(true);
         getUserName(user).then(result => {
+            setLoading(false);
+            
             console.log(result.FirstName);
             console.log(result.LastName);
             console.log(result.DisplayName);
@@ -27,7 +46,7 @@ const Home = () => {
             setLastName(result.LastName);
             setDisplayName(result.DisplayName);
         });
-    }
+    }, [user])
 
     const GuestHome = () => {
         return (
@@ -49,7 +68,7 @@ const Home = () => {
     }
 
     const UserHome = () => { 
-        getUserNameData();
+        // getUserNameData();
 
         return (
             <div className="mb-4" style={{height: '100vh', background: `url(${background})`, }}>
@@ -62,11 +81,13 @@ const Home = () => {
                     <Container className="p-5 mb-4 bg-light rounded-3">
                     <h1>Who we are.</h1>
                     <p>This is the vision of the creator, Dan Bagin, a personal trainer with a goal of finding the ideal workout for all perspective clients to improve their fitness.</p>
-                    <Button onClick={() => console.log(user)}>Assessment</Button>
+                    {/* <Button onClick={() => console.log(user)}>Assessment</Button> */}
                     </Container>
                 </div>
             </div>)
     }
+
+    if (loading && user) return "Loading..." 
 
     return ( 
     <>

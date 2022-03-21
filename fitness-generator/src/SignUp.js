@@ -1,5 +1,5 @@
 import React, { useRef, useState, useContext } from "react";
-import { Button, Form, Card, Container } from 'react-bootstrap';
+import { Button, Form, Card, Container, Alert } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmail, AuthContext, signInWithGoogle } from './config/firebase';
 // reportErrorCode
@@ -30,38 +30,38 @@ export default function SignUp() {
 
     const { user } = useContext(AuthContext); 
     
+    // Error Catching
+    const [errorCode, setErrorCode] = useState(() => "");
+
+
     // confirmPassWord
-    const handleSubmit = () => {
-        // event.preventDefault();
+    function handleSubmit(event) {
+        event.preventDefault();
     
-        /*if(!isPasswordConfirmed(password, confirmPassWord)){
+        if (password !== confirmPassWord) {
             // password is not matching, you can show error to your user
-            return;
-        }*/
+            return setErrorCode("Passwords Do Not Match!");
+        }
     
-    
-        createUserWithEmail(email, password, firstName, lastName);
-        navigate("/");
+        createUserWithEmail(email, password, firstName, lastName).catch((e) => {
+            if (e.code === 'auth/invalid-email') {
+                setErrorCode('Invalid E-mail')
+            };
+        })
+
+        
+        if (user !== null) {
+            
+            navigate("/");
+        }
+        
         // ... rest of the codes
     }
 
-    // Error Catching
-    // const [errorCode, setErrorCode ] = useState(() => "");
-
-    // function userSignUpFullActions() {
-    //     // await, needs to add firstName and Lastname 
-    //     createUserWithEmail(email, password);
-
-    //     // await 
-    //     setErrorCode(reportErrorCode());
-    //     console.log("log error" + reportErrorCode());
-    // }
 
     return (
       // empty fragment
       <>
-      <h3 style={{color: 'green' }}>{`${user ? 'Success! Welcome ' + user.email : ''}`}</h3>
-      {/* <h3 style={{color: 'green' }}>{ errorCode }</h3> */}
         {/* d-inline-flex makes the div elements inline */}
         <div className="d-inline-flex align-items-center w-50 align-self-baseline" style={{}}>
             {/* Users with accoutn or dont want to make an account */}
@@ -86,6 +86,7 @@ export default function SignUp() {
             <Container className="">
             <Card>
                 <Card.Body>
+                        {errorCode && <Alert variant="danger">{errorCode}</Alert>}
                         <h2 className="fst-italic d-flex justify-content-start mb-4"> Sign Up</h2>
                         <Form>
                         {/* First Name Form*/}
@@ -121,7 +122,7 @@ export default function SignUp() {
                                     onChange={event => setEmail(event.target.value)}
                                     type="email" 
                                     ref={emailRef} 
-                                    placeholder="Enter email" 
+                                    placeholder="Enter Email" 
                                     required/>
                             </Form.Group>
 
@@ -134,7 +135,7 @@ export default function SignUp() {
                                     onChange={event => setPassword(event.target.value)}
                                     type="password" 
                                     ref={passwordRef} 
-                                    placeholder="Enter password" 
+                                    placeholder="Enter Password" 
                                     required/>
                             </Form.Group>
 
@@ -147,14 +148,15 @@ export default function SignUp() {
                                     onChange={event => setConfirmPassword(event.target.value)} 
                                     type="password" 
                                     ref={passwordConfRef} 
-                                    placeholder="Confirm password" 
+                                    placeholder="Confirm Password" 
                                     required/>
                             </Form.Group>
                         </Form>
                         
                         <div>
                             {/* <Button onClick={() => userSignUpFullActions()}>Sign Up</Button> */}
-                            <Button onClick={() => handleSubmit()}>Sign Up</Button>
+                            {/* disabled={true} */}
+                            <Button onClick={handleSubmit}>Sign Up</Button>
                         </div>
                         <br></br>
                         <div>

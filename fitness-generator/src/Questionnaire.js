@@ -205,6 +205,7 @@ export default function Questionnaire() {
                 {FormLabel("Past Injuries")}
 
                 <Form.Select className='ps-1' style={{ maxWidth: '300px', minHeight: '40px' }}> 
+                  <option value="injuryNone">None</option>
                   <option value="injuryPF">Plantar fasciitis</option>
                   <option value="injuryTE">Tennis elbow</option>
                   <option value="injurySS">Shin splints</option>

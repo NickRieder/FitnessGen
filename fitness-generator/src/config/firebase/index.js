@@ -94,14 +94,9 @@ export const signInWithEmail = (email, password) => {
       })
       .catch((error) => {
           // Handle Errors here.
-          console.log(error)
+          // console.log(error)
       });
 };
-let errorCode;
-
-export function reportErrorCode() {
-  return errorCode;
-}
 
 // fxn to write user data to users collection
 // from sign up 
@@ -127,22 +122,19 @@ async function makeUser(user, emailVal, firstNameVal, lastNameVal, displayNameVa
 }
 
 export function createUserWithEmail(email, password, firstName, lastName) {
-  createUserWithEmailAndPassword(auth, email, password)
-  .then((result) => {
+  return createUserWithEmailAndPassword(auth, email, password)
+  .then(async (result) => {
     // The signed-in user info.
     const user = result.user; 
     const displayName = firstName.charAt(0) + lastName.charAt(0);
-    makeUser(user, email, firstName, lastName, displayName);
+    await makeUser(user, email, firstName, lastName, displayName);
     // AuthProvider.setUserData({})
-  })
-  .catch((error) => {
-    errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(error);
-    console.log(errorCode);
-    console.log(errorMessage);
-  });
-};
+  }).catch(
+    // console.log(error);
+    // console.log(errorCode);
+    // console.log(errorMessage);
+  );
+}
 
 
 export const logOut = () => {

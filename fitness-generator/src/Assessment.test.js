@@ -1,10 +1,12 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import React from 'react';
+import React, { useContext } from 'react';
 import SignUp, { signInBtnText, continueGuestBtnText } from './SignUp'
 import SignIn, { signUpBtnText } from './SignIn'
 import Questionnaire from './Questionnaire'
 import Home from './Home'
+import Assessment from './Assessment/Assessment'
+import IntensityInfo from './IntensityInfo'
 import { AuthProvider } from "./config/firebase";
 
 // Mock Sign-up page component with BrowserRouter component to 
@@ -46,28 +48,29 @@ const MockQuestionnaire = () => {
         </AuthProvider>)
 }
 
+const MockAssessment = () => {
+    return (
+        <AuthProvider>
+            <BrowserRouter>
+                <Assessment/>
+            </BrowserRouter>
+        </AuthProvider>)
+}
+
+const MockInfoIntensity = () => {
+    return (
+        <AuthProvider>
+            <BrowserRouter>
+                <IntensityInfo/>
+            </BrowserRouter>
+        </AuthProvider>)
+}
+
 // NAVIGATION
-test('Get Started button navigates to questionnaire', () => { 
-    render(<MockHome/>)
-    const getStartedBtn = screen.getByRole('button', {name: "Get Started"});
-    fireEvent.click(getStartedBtn);
-    render(<MockSignUp/>)
-    expect(screen.getByRole('heading', {name: "Sign Up"})).toBeInTheDocument();
-});
-
-test('Sign Up button navigates to sign up page', () => { 
-    render(<MockHome/>)
-    const signUpBtn = screen.getByRole('button', {name: "Sign Up"});
-    fireEvent.click(signUpBtn);
-    render(<MockSignUp/>)
-    expect(screen.getByRole('heading', {name: "Sign Up"})).toBeInTheDocument();
-});
-
-// USER PERSPECTIVE
-test('User’s full name is displayed on Home Page', () => { 
-    render(<MockHome/>)
-    const signUpBtn = screen.getByRole('button', {name: "Sign Up"});
-    fireEvent.click(signUpBtn);
-    render(<MockSignUp/>)
-    expect(screen.getByRole('heading', {name: "Sign Up"})).toBeInTheDocument();
+test('Submit button navigates to WorkoutGenerator page', () => { 
+    render(<MockQuestionnaire/>)
+    const submitBtn = screen.getByRole('button', {name: "Submit"});
+    fireEvent.click(submitBtn);
+    render(<MockAssessment/>)
+    expect(screen.getByRole('heading', {name: "Assessment"})).toBeInTheDocument();
 });
