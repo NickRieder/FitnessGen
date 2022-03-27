@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Card, Container, Form } from 'react-bootstrap'
 import background from "./images/fitness-rdl.jpg";
@@ -105,11 +105,11 @@ export default function Questionnaire() {
 
   // FINAL SUBMIT
   function submitDBandNavAssessment() {
-    console.log(heightFT);
-    console.log(heightIN);
-    console.log(weight);
-    console.log(workoutDayNum);
-    console.log(intensityVal);
+    // console.log(heightFT);
+    // console.log(heightIN);
+    // console.log(weight);
+    // console.log(workoutDayNum);
+    // console.log(intensityVal);
 
     const equipmentArray = [];
     console.log(Object.keys(equipment).reduce((p, k) => {
@@ -150,160 +150,161 @@ export default function Questionnaire() {
             
             <Card.Body className='justify-content-center'>  
               
-              {/* QUESTION 1 */}
-              {/* style={{ maxWidth: '400px' }} */}
-              {/* d-flex puts question inline with answer box */}
-              <Form.Group id='question1' className='d-flex w-100 mb-3'>
+              <Form onSubmit={submitDBandNavAssessment}>
 
-                {/* QUESTION 1 TITLE */}
-                {/* justify-content-start shift question to left */}
-                {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Height </Form.Label> */}
-                {FormLabel("Height")}
-                
-                {/* FEET OPTIONS */}
-                <Form.Select  className='ps-1' style={{ maxWidth: '150px', minHeight: '40px' }}> 
-                  { heightFTOpts.map((currHeight, index) => 
-                    <option 
-                      key={index} 
-                      value={currHeight.value} 
-                      onClick={(e) => setHeightFT(e.currentTarget.value)}> {currHeight.value} FT </option>
-                  )}
-                </Form.Select>
-                
-                {/* INCHES OPTIONS */}
-                {/* <Form.Control type='select' className='ps-1' style={{ maxWidth: '300px' }}/>  */} 
-                <Form.Select className='ps-1' style={{ maxWidth: '150px' }}> 
-                  {heightINOpts.map((currHeight, index) => 
-                    <option 
-                      key={index} 
-                      value={currHeight.value} 
-                      onClick={(e) => setHeightIN(e.currentTarget.value)}> {currHeight.value} in </option>
-                  )}
-                </Form.Select>
-              </Form.Group>
-          
-              {/* WEIGHT OPTIONS */}
-              <Form.Group id='question2' className='d-flex w-100 mb-3'>
-                {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Weight </Form.Label> */}
-                {/* <Form.Control className='ps-1' style={{ maxWidth: '300px' }}/>  */}
-                {FormLabel("Weight")}
+                {/* QUESTION 1 */}
+                {/* style={{ maxWidth: '400px' }} */}
+                {/* d-flex puts question inline with answer box */}
+                <Form.Group id='question1' className='d-flex w-100 mb-3'>
 
-                <Form.Select className='ps-1' style={{ maxWidth: '300px', minHeight: '40px' }}> 
-                  {weightOpts.map((currWeight, index) => 
-                    <option 
-                      key={index} 
-                      value={currWeight.value} 
-                      onClick={(e) => setWeight(e.currentTarget.value)}> {currWeight.value} lbs </option>
-                  )}
-                </Form.Select>
-              </Form.Group>
-
-              {/* INJURIES OPTIONS */}
-              <Form.Group id='question3' className='d-flex w-100 mb-3'>
-                {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Past Injuries </Form.Label> */}
-                {/* <Form.Control className='ps-1' style={{ maxWidth: '300px' }}/>  */}
-                {FormLabel("Past Injuries")}
-
-                <Form.Select className='ps-1' style={{ maxWidth: '300px', minHeight: '40px' }}> 
-                  <option value="injuryNone">None</option>
-                  <option value="injuryPF">Plantar fasciitis</option>
-                  <option value="injuryTE">Tennis elbow</option>
-                  <option value="injurySS">Shin splints</option>
-                  <option value="injuryRCT">Rotator cuff tendonitis</option>
-             </Form.Select>
-              </Form.Group>
-
-              {/* WORKOUT DAYS OPTION */}
-              <Form.Group id='question4' className='d-flex w-100 mb-3'>
-                {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px', maxWidth: '175px', textAlign: 'initial' }}> Number of Workout Days </Form.Label> */}
-                {/* <Form.Control className='ps-1' style={{ maxWidth: '300px', maxHeight: '40px' }}/>  */}
-                {FormLabel("Number of Workout Days")}
-
-                <Form.Select className='ps-1' style={{ maxWidth: '300px', maxHeight: '40px' }}>
+                  {/* QUESTION 1 TITLE */}
+                  {/* justify-content-start shift question to left */}
+                  {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Height </Form.Label> */}
+                  {FormLabel("Height")}
                   
-                  {workoutDayNumOpts.map((currWorkoutDayNum, index) => 
-                    <option 
-                      key={index} 
-                      value={currWorkoutDayNum.value} 
-                      onClick={(e) => setWorkoutDayNum(e.currentTarget.value)}> {currWorkoutDayNum.value} </option>
-                  )}
-                </Form.Select>
-              </Form.Group>
-
-              {/* WORKOUT INTENSITY OPTION*/}
-              <Form.Group id='question5' className='d-flex w-100 mb-3'>
-                {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Workout Intensity </Form.Label> */}
-                {/* <Form.Control className='ps-1' style={{ maxWidth: '300px', minHeight: '40px' }}/>  */}
-                {FormLabel("Workout Intensity")}
-
-                <Form.Select className='ps-1' style={{ maxWidth: '300px', maxHeight: '40px' }}>
-                  {intensityOpts.map((currIntensity, index) => (
-                    <option  
-                      key={index}
-                      value={currIntensity.value}
-                      checked={intensityVal === currIntensity.value}
-                      onClick={(e) => setIntensityVal(e.currentTarget.value)}
-                      onChange={(e) => setIntensityVal(e.currentTarget.name)}
-                    > {currIntensity.name} </option>
-                  ))}
-                </Form.Select>
-
-                {/* Information icon button */}
-                <Button className="ms-2" style={{ minHeight: '40px' }} onClick={() => navigate('/intensityinfo', {state: {intensityVal: intensityVal}}) }>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" fill="currentColor" className="bi bi-info-circle" viewBox="0 0 16 16">
-                      d<path d={iconPath1}></path>
-                      <path d={iconPath2}></path>
-                    </svg>
-                </Button>
-              </Form.Group>
-
-              {/* CARDIO OPTION */}
-              <Form.Group id='question6' className='d-flex w-100 mb-3'>
-                {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Include Cardio? </Form.Label> */}
-                {FormLabel("Include Cardio?")}
-
-                <Form.Group className='d-inline-flex' style={{ maxWidth: '300px', minHeight: '40px', textAlign: 'left' }}>
-                  {/* <Form.Check inline type='radio' label='Yes' value='' className='' style={{ minWidth: '150px', minHeight: '40px' }} />
-                  <Form.Check inline type='radio' label='No' className='' style={{ minWidth: '150px', minHeight: '40px' }} /> */}
-
-                  {radioOpts.map((currRadio, index) => (
-                    <Form.Check inline className='' style={{ minWidth: '150px', minHeight: '40px' }} 
-                      key={index}
-                      type='radio' 
-                      label={currRadio.name} 
-                      value={currRadio.value}
-                      checked={radioVal == currRadio.value}
-                      // onClick={(e) => setRadioVal(e.currentTarget.value)}
-                      onChange={(e) => setRadioVal(e.currentTarget.value)}
-                    />
-                  ))}
+                  {/* FEET OPTIONS */}
+                  <Form.Select className='ps-1' style={{ maxWidth: '150px', minHeight: '40px' }} onChange={(e) => setHeightFT(e.currentTarget.value)}> 
+                    { heightFTOpts.map((currHeight, index) => 
+                      <option 
+                        key={index} 
+                        value={currHeight.value}> {currHeight.value} FT </option>
+                    )}
+                  </Form.Select>
+                  
+                  {/* INCHES OPTIONS */}
+                  {/* <Form.Control type='select' className='ps-1' style={{ maxWidth: '300px' }}/>  */} 
+                  <Form.Select className='ps-1' style={{ maxWidth: '150px' }} onChange={(e) => setHeightIN(e.currentTarget.value)}> 
+                    {heightINOpts.map((currHeight, index) => 
+                      <option 
+                        key={index} 
+                        value={currHeight.value}> {currHeight.value} in </option>
+                    )}
+                  </Form.Select>
                 </Form.Group>
-              </Form.Group>
+            
+                {/* WEIGHT OPTIONS */}
+                <Form.Group id='question2' className='d-flex w-100 mb-3'>
+                  {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Weight </Form.Label> */}
+                  {/* <Form.Control className='ps-1' style={{ maxWidth: '300px' }}/>  */}
+                  {FormLabel("Weight")}
 
-              {/* EQUIPMENT OPTION */}
-              <Form.Group id='question7' className='d-flex w-100 mb-3'>
-                {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Equipment Available </Form.Label> */}
-                {/* <Form.Control className='ps-1' style={{ maxWidth: '300px', minHeight: '40px' }}/>  */}
-                {FormLabel("Equipment Available")}
-
-                <Form.Group className='justify-content-start' style={{ maxWidth: '300px', minHeight: '40px', textAlign: 'left' }}>
-                  {Object.keys(equipmentOpts).map((currEquipment, index) =>
-
-                    <Form.Check inline type='checkbox' label={currEquipment} value={equipment[currEquipment]} className='' style={{ minWidth: '300px', minHeight: '40px' }} 
-                      key={index}
-                      checked={equipment[equipmentOpts[currEquipment]]} 
-                      onChange={() => handleUserEquipment(equipmentOpts[currEquipment])}
-                    />)}
+                  <Form.Select className='ps-1' style={{ maxWidth: '300px', minHeight: '40px' }} onChange={(e) => setWeight(e.currentTarget.value)}> 
+                    {weightOpts.map((currWeight, index) => 
+                      <option 
+                        key={index} 
+                        value={currWeight.value}> {currWeight.value} lbs </option>
+                    )}
+                  </Form.Select>
                 </Form.Group>
-              </Form.Group>
+
+                {/* INJURIES OPTIONS */}
+                <Form.Group id='question3' className='d-flex w-100 mb-3'>
+                  {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Past Injuries </Form.Label> */}
+                  {/* <Form.Control className='ps-1' style={{ maxWidth: '300px' }}/>  */}
+                  {FormLabel("Past Injuries")}
+
+                  <Form.Select className='ps-1' style={{ maxWidth: '300px', minHeight: '40px' }}> 
+                    <option value="injuryNone">None</option>
+                    <option value="injuryPF">Plantar fasciitis</option>
+                    <option value="injuryTE">Tennis elbow</option>
+                    <option value="injurySS">Shin splints</option>
+                    <option value="injuryRCT">Rotator cuff tendonitis</option>
+                  </Form.Select>
+                </Form.Group>
+
+                {/* WORKOUT DAYS OPTION */}
+                <Form.Group id='question4' className='d-flex w-100 mb-3'>
+                  {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px', maxWidth: '175px', textAlign: 'initial' }}> Number of Workout Days </Form.Label> */}
+                  {/* <Form.Control className='ps-1' style={{ maxWidth: '300px', maxHeight: '40px' }}/>  */}
+                  {FormLabel("Number of Workout Days")}
+
+                  <Form.Select className='ps-1' style={{ maxWidth: '300px', maxHeight: '40px' }} onChange={(e) => setWorkoutDayNum(e.currentTarget.value)}>
+                    
+                    {workoutDayNumOpts.map((currWorkoutDayNum, index) => 
+                      <option 
+                        key={index} 
+                        value={currWorkoutDayNum.value}> {currWorkoutDayNum.value} </option>
+                    )}
+                  </Form.Select>
+                </Form.Group>
+
+                {/* WORKOUT INTENSITY OPTION*/}
+                <Form.Group id='question5' className='d-flex w-100 mb-3'>
+                  {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Workout Intensity </Form.Label> */}
+                  {/* <Form.Control className='ps-1' style={{ maxWidth: '300px', minHeight: '40px' }}/>  */}
+                  {FormLabel("Workout Intensity")}
+
+                  <Form.Select className='ps-1' style={{ maxWidth: '300px', maxHeight: '40px' }} onChange={(e) => setIntensityVal(e.currentTarget.value)}>
+                    {intensityOpts.map((currIntensity, index) => (
+                      <option  
+                        key={index}
+                        value={currIntensity.value}
+                        checked={intensityVal === currIntensity.value}> {currIntensity.name} </option>
+                    ))}
+                  </Form.Select>
+
+                  {/* Information icon button */}
+                  <Button className="ms-2" style={{ minHeight: '40px' }} onClick={() => navigate('/intensityinfo', {state: {intensityVal: intensityVal}}) }>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" fill="currentColor" className="bi bi-info-circle" viewBox="0 0 16 16">
+                        d<path d={iconPath1}></path>
+                        <path d={iconPath2}></path>
+                      </svg>
+                  </Button>
+                </Form.Group>
+
+                {/* CARDIO OPTION */}
+                <Form.Group id='question6' className='d-flex w-100 mb-3'>
+                  {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Include Cardio? </Form.Label> */}
+                  {FormLabel("Include Cardio?")}
+
+                  <Form.Group className='d-inline-flex' style={{ maxWidth: '300px', minHeight: '40px', textAlign: 'left' }}>
+                    {/* <Form.Check inline type='radio' label='Yes' value='' className='' style={{ minWidth: '150px', minHeight: '40px' }} />
+                    <Form.Check inline type='radio' label='No' className='' style={{ minWidth: '150px', minHeight: '40px' }} /> */}
+
+                    {radioOpts.map((currRadio, index) => (
+                      <Form.Check inline className='' style={{ minWidth: '150px', minHeight: '40px' }} 
+                        key={index}
+                        type='radio' 
+                        label={currRadio.name} 
+                        value={currRadio.value}
+                        checked={radioVal == currRadio.value}
+                        onChange={(e) => setRadioVal(e.currentTarget.value)}
+                      />
+                    ))}
+                  </Form.Group>
+                </Form.Group>
+
+                {/* EQUIPMENT OPTION */}
+                <Form.Group id='question7' className='d-flex w-100 mb-3'>
+                  {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Equipment Available </Form.Label> */}
+                  {/* <Form.Control className='ps-1' style={{ maxWidth: '300px', minHeight: '40px' }}/>  */}
+                  {FormLabel("Equipment Available")}
+
+                  <Form.Group className='justify-content-start' style={{ maxWidth: '300px', minHeight: '40px', textAlign: 'left' }}>
+                    {Object.keys(equipmentOpts).map((currEquipment, index) =>
+
+                      <Form.Check inline type='checkbox' label={currEquipment} value={equipment[currEquipment]} className='' style={{ minWidth: '300px', minHeight: '40px' }} 
+                        key={index}
+                        checked={equipment[equipmentOpts[currEquipment]]} 
+                        onChange={() => handleUserEquipment(equipmentOpts[currEquipment])}
+                      />)}
+                  </Form.Group>
+                </Form.Group>
+                <div className='d-flex justify-content-end me-2 mt-4'>
+
+                  <Button type='submit'>Submit</Button>
+
+                </div>
+              </Form>
+
             </Card.Body>
           </Card>
         </Container>
         
-        <div className='d-flex justify-content-end me-2 mt-4'>
-          <Button onClick={() => submitDBandNavAssessment()}>Submit</Button>
+        {/* <div className='d-flex justify-content-end me-2 mt-4'> */}
+          {/* <Button onClick={() => submitDBandNavAssessment()}>Submit</Button> */}
           {/* <Button onClick={() => console.log(equipment)}>equ</Button> */}
-        </div>
+        {/* </div> */}
     
       </div>
     </div>
