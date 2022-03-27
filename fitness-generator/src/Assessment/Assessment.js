@@ -3,10 +3,11 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
-import background from '../images/fitness-rdl.jpg';
+// import background from '../images/fitness-rdl.jpg';
 
 const Assessment = () => {
     const navigate = useNavigate();
+
     return (
         <div>
             <Container>
@@ -39,7 +40,7 @@ const Assessment = () => {
                     Just click generate plan and we will find your ideal workout plan
                     </Form.Text>
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button onClick = {(() => navigate('/workout'))}variant="primary" type="submit">
                     Generate Plan
                 </Button>
             </Form>

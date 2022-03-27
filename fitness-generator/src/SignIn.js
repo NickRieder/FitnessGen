@@ -1,6 +1,13 @@
-import React, {useRef} from 'react'
+import React, { useRef, useState, useContext } from 'react'
 import { useNavigate } from "react-router-dom";
 import { Button, Form, Card, Container } from 'react-bootstrap';
+import { signInWithEmail, logOut, AuthContext, signInWithGoogle } from './config/firebase';
+import { continueGuestBtnText } from './SignUp';
+
+const signUpBtnText = "Don't have an account? Sign up...";
+
+export { signUpBtnText };
+
 
 export default function SignIn() {
     // useNavigate hook
@@ -10,21 +17,28 @@ export default function SignIn() {
     const emailRef = useRef(); 
     const passwordRef = useRef();
 
+    const [loginPassword, setPassword] = useState("");
+    const [loginEmail, setEmail] = useState("");
+
+    const { user } = useContext(AuthContext); 
+    
     return (
       // empty fragment
       <>
+      <h3 style={{color: 'green' }}>{`${user ? 'Welcome ' + user.email : ''}`}</h3>
         {/* d-inline-flex makes the div elements inline */}
         <div className="d-inline-flex align-items-center w-50" style={{ minHeight: '100vh'}}>
             {/* Users with accoutn or dont want to make an account */}
             <Container style={{ minHeight: '400px', maxWidth: '500px' }}>
                     <div className="text-center pt-4">
-                        <Button onClick={() => navigate('/sign-up')}>Don't have an account? Sign up...</Button>
+                        <Button style={{ minWidth: '275px' }} onClick={signInWithGoogle}>Sign In with Google</Button>
                     </div>
                     
                     <h3 className="mt-4 mb-4 text-center"> OR </h3>
 
                     <div className="text-center">
-                        <Button onClick={() => navigate('/questionnaire')}>OR Continue as Guest...</Button>
+                        <Button style={{ minWidth: '275px' }} onClick={() => navigate('/sign-up')}>{signUpBtnText}</Button>
+                        {/* <Button onClick={() => navigate('/questionnaire')}>{continueGuestBtnText}</Button> */}
                     </div>    
             </Container>
         </div>
@@ -42,13 +56,26 @@ export default function SignIn() {
                         {/* Email Address Form*/}
                             <Form.Group id="email">
                                 <Form.Label className="d-flex justify-content-start">E-mail</Form.Label>
-                                <Form.Control type="email" ref={emailRef} placeholder="Enter email" required/>
+                                <Form.Control 
+                                    value={loginEmail || ""}
+                                    onChange={event => setEmail(event.target.value)} 
+                                    type="email" 
+                                    ref={emailRef} 
+                                    placeholder="Enter email" 
+                                    required 
+                                />
                             </Form.Group>
 
                         {/* Password Form*/}
                             <Form.Group id="password">
                                 <Form.Label className="d-flex justify-content-start">Password</Form.Label>
-                                <Form.Control type="email" ref={passwordRef} placeholder="Enter password" required/>
+                                <Form.Control 
+                                    value={loginPassword || ""}
+                                    onChange={event => setPassword(event.target.value)}
+                                    type="password" 
+                                    ref={passwordRef} 
+                                    placeholder="Enter password" 
+                                    required/>
                             </Form.Group>
                         </Form>
 
@@ -57,7 +84,7 @@ export default function SignIn() {
                         </div>
 
                         <div>
-                            <Button onClick={() => navigate('/questionnaire')}>Sign In</Button>
+                            <Button onClick={() => signInWithEmail(loginEmail, loginPassword)}>Sign In</Button>
                         </div>
                     </Card.Body>
                 </Card>
