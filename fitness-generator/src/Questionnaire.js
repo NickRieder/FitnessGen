@@ -122,8 +122,8 @@ export default function Questionnaire() {
 
 
     setUserWorkoutData(user, heightFT, heightIN, weight, workoutDayNum, intensityVal, equipmentArray);
-    navigate('/assessment');
-  }
+      navigate('/assessment');
+    }
 
   // function to handle when user select and disselect equipment
   function handleUserEquipment(currEquipment) {
@@ -138,10 +138,14 @@ export default function Questionnaire() {
     );   
   }
 
+  const handleHeightChange = (e) => {
+      setHeightFT(e)
+      console.log(heightFT)
+    }
+
   return (   
     <div className='d-flex justify-content-center' style={{ background: `url(${background})` }}>
       <div id="Questionnaire" className="d-flex flex-column justify-content-center w-100" style={{ minHeight: '100vh', maxWidth: '600px'}}>
-
 
         <Container className='mt-5'>
           <Card style={ {maxWidth: '600px'} }>
@@ -161,18 +165,21 @@ export default function Questionnaire() {
                 {FormLabel("Height")}
                 
                 {/* FEET OPTIONS */}
-                <Form.Select  className='ps-1' style={{ maxWidth: '150px', minHeight: '40px' }}> 
+                <Form.Select  className='ps-1' style={{ maxWidth: '150px', minHeight: '40px' }} 
+                   onChange={event => handleHeightChange(event.target.value)}> 
                   { heightFTOpts.map((currHeight, index) => 
                     <option 
                       key={index} 
                       value={currHeight.value} 
+                     // onChange={event => setHeightFT(event.target.value)}>{currHeight.value} FT Test
                       onClick={(e) => setHeightFT(e.currentTarget.value)}> {currHeight.value} FT </option>
                   )}
                 </Form.Select>
                 
                 {/* INCHES OPTIONS */}
                 {/* <Form.Control type='select' className='ps-1' style={{ maxWidth: '300px' }}/>  */} 
-                <Form.Select className='ps-1' style={{ maxWidth: '150px' }}> 
+                <Form.Select className='ps-1' style={{ maxWidth: '150px' }}
+                  onChange={event => setHeightIN(event.target.value)} > 
                   {heightINOpts.map((currHeight, index) => 
                     <option 
                       key={index} 
@@ -188,7 +195,8 @@ export default function Questionnaire() {
                 {/* <Form.Control className='ps-1' style={{ maxWidth: '300px' }}/>  */}
                 {FormLabel("Weight")}
 
-                <Form.Select className='ps-1' style={{ maxWidth: '300px', minHeight: '40px' }}> 
+                <Form.Select className='ps-1' style={{ maxWidth: '300px', minHeight: '40px' }}
+                  onChange={event => setWeight(event.target.value)}> 
                   {weightOpts.map((currWeight, index) => 
                     <option 
                       key={index} 
@@ -218,7 +226,8 @@ export default function Questionnaire() {
                 {/* <Form.Control className='ps-1' style={{ maxWidth: '300px', maxHeight: '40px' }}/>  */}
                 {FormLabel("Number of Workout Days")}
 
-                <Form.Select className='ps-1' style={{ maxWidth: '300px', maxHeight: '40px' }}>
+                <Form.Select className='ps-1' style={{ maxWidth: '300px', maxHeight: '40px' }}
+                  onChange={event => setWorkoutDayNum(event.target.value)}>
                   
                   {workoutDayNumOpts.map((currWorkoutDayNum, index) => 
                     <option 
@@ -235,7 +244,8 @@ export default function Questionnaire() {
                 {/* <Form.Control className='ps-1' style={{ maxWidth: '300px', minHeight: '40px' }}/>  */}
                 {FormLabel("Workout Intensity")}
 
-                <Form.Select className='ps-1' style={{ maxWidth: '300px', maxHeight: '40px' }}>
+                <Form.Select className='ps-1' style={{ maxWidth: '300px', maxHeight: '40px' }}
+                  onChange={event => setIntensityVal(event.target.value)}>
                   {intensityOpts.map((currIntensity, index) => (
                     <option  
                       key={index}
