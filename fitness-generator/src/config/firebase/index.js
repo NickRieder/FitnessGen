@@ -211,4 +211,25 @@ export async function setUserWorkoutData(user, feet, inches, weight, days, inten
   } catch (error) {
     console.error("Error while adding document", error);
   }
-} 
+}
+
+export async function setUserAssessmentData(user, wallSit, maxBench, maxSquat, pushUps, crunches, upper, lower, core, total) {
+    try {
+        // Adds firstName and lastName as fields in the Personal collection 
+        const dbUWDDataRef = doc(db, `Users/${user.uid}/WorkoutData/AssessmentData`)
+        await setDoc(dbUWDDataRef, {
+            WallSit: wallSit,
+            MaxBench: maxBench,
+            MaxSquat: maxSquat,
+            PushUps: pushUps,
+            Crunches: crunches,
+            UpperBodyStrength: upper,
+            LowerBodyStrength: lower,
+            CoreStrength: core,
+            TotalStrength: total
+        });
+
+    } catch (error) {
+        console.error("Error while adding document", error);
+    }
+}
