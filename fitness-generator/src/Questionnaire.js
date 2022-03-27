@@ -122,8 +122,8 @@ export default function Questionnaire() {
 
 
     setUserWorkoutData(user, heightFT, heightIN, weight, workoutDayNum, intensityVal, equipmentArray);
-    navigate('/assessment');
-  }
+      navigate('/assessment');
+    }
 
   // function to handle when user select and disselect equipment
   function handleUserEquipment(currEquipment) {
@@ -138,10 +138,14 @@ export default function Questionnaire() {
     );   
   }
 
+  const handleHeightChange = (e) => {
+      setHeightFT(e)
+      console.log(heightFT)
+    }
+
   return (   
     <div className='d-flex justify-content-center' style={{ background: `url(${background})` }}>
       <div id="Questionnaire" className="d-flex flex-column justify-content-center w-100" style={{ minHeight: '100vh', maxWidth: '600px'}}>
-
 
         <Container className='mt-5'>
           <Card style={ {maxWidth: '600px'} }>
@@ -149,9 +153,8 @@ export default function Questionnaire() {
             <div> <h2 className='d-flex justify-content-start ms-3 mb-5'> ABOUT YOURSELF </h2></div>
             
             <Card.Body className='justify-content-center'>  
-              
               <Form onSubmit={submitDBandNavAssessment}>
-
+                
                 {/* QUESTION 1 */}
                 {/* style={{ maxWidth: '400px' }} */}
                 {/* d-flex puts question inline with answer box */}
