@@ -6,47 +6,27 @@ import Container from 'react-bootstrap/Container';
 import { useNavigate } from "react-router-dom";
 import background from "./images/fitness-rdl.jpg";
 import { AuthContext, getUserName } from './config/firebase'
+import { useCookies } from "react-cookie";
 // db,
 // import { collection, addDoc } from 'firebase/firestore'
 
 
 const Home = () => {
     const navigate = useNavigate();
+
+    const [cookies] = useCookies(['user'])
+
     const { user } = useContext(AuthContext); 
-    const [firstName, setFirstName] = useState(() => "");
-    const [lastName, setLastName] = useState(() => ""); 
-    const [displayName, setDisplayName] = useState(() => "");
-    const [loading, setLoading] = useState(() => true);
+    // const [userData, setUserData] = userdata;
+    const [firstName, setFirstName] = useState(() => cookies.firstName);
+    const [lastName, setLastName] = useState(() => cookies.lastName); 
+    const [displayName, setDisplayName] = useState(() => cookies.firstName + cookies.lastName);
+    // const [loading, setLoading] = useState(() => (user!=null));
 
-    // const getUserNameData = () => {
-    //     setLoading(true);
-    //     getUserName(user).then(result => {
-    //         setLoading(false);
-            
-    //         console.log(result.FirstName);
-    //         console.log(result.LastName);
-    //         console.log(result.DisplayName);
-    
-    //         setFirstName(result.FirstName);
-    //         setLastName(result.LastName);
-    //         setDisplayName(result.DisplayName);
-    //     });
-    // }
-
-    useEffect(() => {
-        setLoading(true);
-        getUserName(user).then(result => {
-            setLoading(false);
-            
-            console.log(result.FirstName);
-            console.log(result.LastName);
-            console.log(result.DisplayName);
-    
-            setFirstName(result.FirstName);
-            setLastName(result.LastName);
-            setDisplayName(result.DisplayName);
-        });
-    }, [user])
+    // console.log(userData)
+    // useEffect(() => {
+    //     setLoading(false);
+    // }, [user])
 
     const GuestHome = () => {
         return (
@@ -87,11 +67,20 @@ const Home = () => {
             </div>)
     }
 
-    if (loading && user) return "Loading..." 
+    
+    const HomePage = () => {
+        if (user) {
+            return <UserHome/>
+        } else {
+            return <GuestHome />
+        }
+    }
 
+    console.log(user);
     return ( 
     <>
-        {user ? <UserHome /> : <GuestHome />}
+        <HomePage/>
+        
     </>
 
     )

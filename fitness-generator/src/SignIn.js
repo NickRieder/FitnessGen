@@ -1,8 +1,9 @@
-import React, { useRef, useState, useContext } from 'react'
+import React, { useRef, useState, useContext, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import { Button, Form, Card, Container } from 'react-bootstrap';
 import { signInWithEmail, logOut, AuthContext, signInWithGoogle } from './config/firebase';
 import { continueGuestBtnText } from './SignUp';
+import { useCookies } from 'react-cookie';
 
 const signUpBtnText = "Don't have an account? Sign up...";
 
@@ -20,8 +21,46 @@ export default function SignIn() {
     const [loginPassword, setPassword] = useState("");
     const [loginEmail, setEmail] = useState("");
 
-    const { user } = useContext(AuthContext); 
+    const { user, setUser } = useContext(AuthContext); 
+
+    //set cookies
+    const [cookies, setCookies] = useCookies(['user']);
+
+    let userData = null;
+
+    //signin function
+    async function handleSignIn(e) {
+        try {
+            userData = await signInWithEmail(loginEmail, loginPassword)
+            // console.log(userData.firstName, userData.lastName, userData.displayName)
+
+            console.log(userData.firstName===undefined)
+            if (userData.firstName!==undefined) {
+                //set cookies here for firstName LastName
+                setCookies('firstName', userData.firstName, {path: '/', sameSite: 'none', secure: true})
+                setCookies('lastName', userData.lastName, {path: '/', sameSite: 'none', secure: true})
+                setCookies('displayName', userData.displayName, {path: '/', sameSite: 'none', secure: true})             
+                setCookies('email', loginEmail, {path: '/', sameSite: 'none', secure: true})
+                navigate("/");
+            }
+        } catch(e) {
+            console.log(e)
+        }
+    }
     
+    // useEffect(() => {
+    //     // console.log(user)
+    //     console.log(user)
+    //     if (user !== null) {
+    //         //set cookies here for firstName LastName
+    //         setCookies('firstName', userData.firstName, {path: '/', sameSite: 'none', secure: true})
+    //         setCookies('lastName', userData.lastName, {path: '/', sameSite: 'none', secure: true})
+    //         setCookies('displayName', userData.displayName, {path: '/', sameSite: 'none', secure: true})             
+    //         navigate("/");
+    //     }
+    //     // setUser(user)
+    // }, [userData]);
+
     return (
       // empty fragment
       <>
@@ -84,7 +123,7 @@ export default function SignIn() {
                         </div>
 
                         <div>
-                            <Button onClick={() => signInWithEmail(loginEmail, loginPassword)}>Sign In</Button>
+                            <Button onClick={() => handleSignIn()}>Sign In</Button>
                         </div>
                     </Card.Body>
                 </Card>

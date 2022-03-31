@@ -2,8 +2,8 @@ import React, { useRef, useState, useContext } from "react";
 import { Button, Form, Card, Container, Alert } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmail, AuthContext, signInWithGoogle } from './config/firebase';
-// reportErrorCode
-// string vars
+import { useCookies } from 'react-cookie'
+
 const signInBtnText = "Already have an account? Sign in...";
 const continueGuestBtnText = "Continue as Guest...";
 
@@ -19,20 +19,23 @@ export default function SignUp() {
     const passwordRef = useRef();
     const passwordConfRef = useRef();
 
-
+    //user data useState hook
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
-    // const [userName, setUserName] = useState("Gabe");
     const [confirmPassWord, setConfirmPassword] = useState("");
 
 
-    const { user } = useContext(AuthContext); 
+    //user Context
+    const { user }= useContext(AuthContext); 
     
     // Error Catching
     const [errorCode, setErrorCode] = useState(() => "");
 
+    // Cookies
+    const [cookies, setCookies] = useCookies(['user']);
+    
 
     // confirmPassWord
     function handleSubmit(event) {
@@ -51,7 +54,12 @@ export default function SignUp() {
 
         
         if (user !== null) {
-            
+            //set cookies here for firstName LastName
+            setCookies('firstName', firstName, {path: '/', sameSite: 'none', secure: true})
+            setCookies('lastName', lastName, {path: '/', sameSite: 'none', secure: true})   
+            const displayName = firstName + lastName;
+            setCookies('displayName', displayName, {path: '/', sameSite: 'none', secure: true})             
+
             navigate("/");
         }
         

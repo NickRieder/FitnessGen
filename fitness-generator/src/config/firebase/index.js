@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
   
     return (
-      <AuthContext.Provider value={{ user, userData }}>{children}</AuthContext.Provider>
+      <AuthContext.Provider value={{ user, setUser, userData }}>{children}</AuthContext.Provider>
     );
   };
 
@@ -80,8 +80,12 @@ export const signInWithGoogle = () => {
       });
 };
 
-export const signInWithEmail = (email, password) => {
-  signInWithEmailAndPassword(auth, email, password)
+export async function signInWithEmail(email, password) {
+  let firstName;
+  let lastName;
+  let displayName;
+
+  await signInWithEmailAndPassword(auth, email, password)
       .then( async (result) => {
           // The signed-in user info.
           // TO-DO await, needs to add firstName and Lastname 
@@ -90,12 +94,24 @@ export const signInWithEmail = (email, password) => {
 
           await setDoc(ref, { email: user.email }, { merge: true });
 
-          console.log( user );
-      })
-      .catch((error) => {
+          const dbUWDDataRef = doc(db, `/Users/${user.uid}/PersonalData/Data`);
+          const userUWDDataSnap = await getDoc(dbUWDDataRef);
+
+          if (userUWDDataSnap.exists()) {
+            firstName = userUWDDataSnap.data().FirstName;
+            lastName = userUWDDataSnap.data().LastName;
+            displayName = userUWDDataSnap.data().DisplayName;
+          } else {
+            console.log("Document does not exist")
+          }
+          // console.log({firstName, lastName, displayName})
+          // console.log([firstName, lastName, displayName]);
+        })
+        .catch((error) => {
           // Handle Errors here.
           // console.log(error)
-      });
+        })
+  return {'firstName': firstName, 'lastName': lastName, 'displayName': displayName}
 };
 
 // fxn to write user data to users collection
@@ -136,6 +152,27 @@ export function createUserWithEmail(email, password, firstName, lastName) {
   );
 }
 
+
+//update user personal data
+export async function updateUserData(user, email, firstName, lastName, displayName) {
+  try {
+    // Adds the email as a field in the Users collection
+    const dbUsersRef = doc(db, `Users/${user.uid}`);
+    await setDoc(dbUsersRef, {
+      Email: email
+    });
+
+    // Adds firstName and lastName as fields in the Personal collection 
+    const dbUPDDataRef = doc(db, `Users/${dbUsersRef.id}/PersonalData/Data`)
+    await setDoc(dbUPDDataRef, {
+      FirstName: firstName,
+      LastName: lastName,
+      DisplayName: displayName
+    });
+} catch (error) {
+    console.error("Error while adding document", error);
+}
+}
 
 export const logOut = () => {
   signOut(auth)
