@@ -3,9 +3,11 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import { db, AuthContext, updateUserData } from '../config/firebase'
+import Alert from 'react-bootstrap/Alert';
+import { db, AuthContext, updateUserData, auth } from '../config/firebase'
 import { collection, addDoc } from 'firebase/firestore'
 import { useCookies } from 'react-cookie';
+import { AuthCredential, reauthenticateWithCredential, updatePassword } from 'firebase/auth';
 
 export default function Settings() {
 
@@ -14,7 +16,7 @@ export default function Settings() {
 	const { user } = useContext(AuthContext); 
 	// const [userData, setUserData] = userdata; 
 
-	//cookies and data
+	//cookies and data AccountForm
 	const [cookies, setCookies] = useCookies(['user'])
 	const [firstName, setFirstName] = useState(() => cookies.firstName);
 	const [lastName, setLastName] = useState(() => cookies.lastName); 
@@ -31,18 +33,22 @@ export default function Settings() {
 	const lastNameRef = useRef(null)
 	const displayNameRef = useRef(null)
 
+    //PasswordForm
+    const [oldPassword, setOldPassword] = useState(() => "");
+    const [newPassword, setNewPassword] = useState(() => "");
+    const [renewPassword, setRenewPassword] = useState(() => "");
 
 
-	
-	
+    const [errorCode, setErrorCode] = useState(() => "");
+
 	const AccountForm = useCallback(() => {
 		
 		//undo button function to reset form
-		function disableUndoChangesBtn() {
+		function disableUndoChangesBtn(e) {
 			// console.log(email)
 			// console.log(emailRef.current.value)
 			// setEmail(cookies.email)
-			setEmail(emailRef.current.value)
+			setEmail(prevVal => prevVal)
 			setDisableChangesBtn(true)
 			// consoupdateUserDatale.log(email)
 		}
@@ -75,8 +81,10 @@ export default function Settings() {
 					<Form.Control 
 					ref={emailRef}
 					name="email"
-					defaultValue={email || ""}
-					onChange={event => setDisableChangesBtn(false)}
+                    value={email} 
+					onChange={event => {
+                        setEmail(event.target.value)
+                        setDisableChangesBtn(false)}}
 					type="text" 
 					placeholder="Enter E-mail"/>
 				</Form.Group>
@@ -87,8 +95,10 @@ export default function Settings() {
 			  		<Form.Control 
 						name="displayName"
 						ref={displayNameRef}
-						defaultValue={displayName || ""}
-						onChange={event => setDisableChangesBtn(false)}
+						value={displayName || ""}
+						onChange={event => {
+                            setDisplayName(event.target.value)
+                            setDisableChangesBtn(false)}}
 						type="text" 
 						placeholder="Enter Display Name" 
 						/>
@@ -100,8 +110,10 @@ export default function Settings() {
 			  		<Form.Control 
 						name="firstname"
 						ref={firstNameRef}
-						defaultValue={firstName || ""}
-						onChange={event => setDisableChangesBtn(false)}
+						value={firstName || ""}
+						onChange={event => {
+                            setFirstName(event.target.value)
+                            setDisableChangesBtn(false)}}
 						type="text" 
 						placeholder="Enter First Name" 
 						/>
@@ -113,8 +125,10 @@ export default function Settings() {
 				<Form.Control 
 						name="lastname"
 						ref={lastNameRef}
-						defaultValue={lastName || ""}
-						onChange={event => setDisableChangesBtn(false)}
+						value={lastName || ""}
+						onChange={event => {
+                            setLastName(event.target.value)
+                            setDisableChangesBtn(false)}}
 						type="text" 
 						placeholder="Enter Last Name" 
 						/>
@@ -125,7 +139,7 @@ export default function Settings() {
 				<Form.Label className="d-flex justify-content-start">Age</Form.Label>
 				<Form.Control 
 						name="age"
-						defaultValue={""}
+						value={""}
 						onChange={event => setDisableChangesBtn(false)}
 						type="text" 
 						placeholder="Enter Age" 
@@ -145,7 +159,7 @@ export default function Settings() {
 			</Form.Group>
 
          	<Form.Group >
-				<Button className='mt-5' disabled={true} onClick={disableUndoChangesBtn}>Undo Changes</Button>
+				<Button className='mt-5' disabled={disableChangesBtn} onClick={disableUndoChangesBtn}>Undo Changes</Button>
 				<Button className='ms-5 mt-5' disabled={disableChangesBtn} onClick={disableApplyChangesBtn}>Apply Changes</Button>
 			</Form.Group>
       </Form>)
@@ -180,28 +194,55 @@ export default function Settings() {
 //       </>)
 //   	}
 
+
 	const PasswordForm = useCallback(() => {
-    	return (                      
+        const reauthenticate = (currentPassword) => {
+            var cred = auth.EmailProvider.credential(user.email, currentPassword)
+            return reauthenticateWithCredential(user, cred);
+            // return user.reauthenticateWithCredential(cred);
+          }
+    	
+        function handleChangePassword(e) {
+
+            if (newPassword === renewPassword) {
+                console.log("here")
+                updatePassword(user, newPassword)
+                reauthenticate(oldPassword).then(() => {
+                    user.updatePassword(newPassword).then(() => {
+                    console.log("Password updated!");
+                    }).catch((error) => { 
+                        console.log(error)
+                        setErrorCode("Unacceptable Password") });
+                }).catch((error) => { 
+                    console.log(error)
+                    setErrorCode("Wrong Password") });
+                console.log("here now")
+            } else {
+                setErrorCode("Passwords Do Not Match")
+            }
+        }
+        
+        return (                      
       		<Form>
       		{/* Email Address Form*/}
           		<Form.Group id="oldpassword">
               		<Form.Label className="d-flex justify-content-start">Enter Old Password</Form.Label>
 			  		<Form.Control 
 						name="oldpassword"
-						value={""}
-						onChange={event => setDisableChangesBtn(true)}
+						value={oldPassword}
+						onChange={event => {setOldPassword(event.target.value)}}
 						type="password" 
-						placeholder="Enter Old Password" 
-						required/>
+						placeholder="Enter Old Password"
+                        required/>
           		</Form.Group>
 
 			{/* Email Address Form*/}
-			<Form.Group id="newPassword">
+			<Form.Group id="newpassword">
               		<Form.Label className="d-flex justify-content-start">Enter New Password</Form.Label>
 			  		<Form.Control 
-						name="newPassword"
-						value={""}
-						onChange={event => setDisableChangesBtn(true)}
+						name="newpassword"
+						value={newPassword}
+						onChange={event => {setNewPassword(event.target.value)}}
 						type="password" 
 						placeholder="Enter New Password" 
 						required/>
@@ -212,19 +253,20 @@ export default function Settings() {
               		<Form.Label className="d-flex justify-content-start">Re-enter Old Password</Form.Label>
 			  		<Form.Control 
 						name="newPassword2"
-						value={""}
-						onChange={event => setDisableChangesBtn(true)}
+						value={renewPassword}
+						onChange={event => {setRenewPassword(event.target.value)}}
 						type="password" 
 						placeholder="Re-enter Old Password" 
 						required/>
-          		</Form.Group>
+            </Form.Group>
 
-				<Form.Group>
-					<Button className='mt-5' type='submit' disabled='false'>Undo Changes</Button>
-              		<Button className='ms-5 mt-5' type='submit' disabled={disableChangesBtn}>Apply Changes</Button>  
-          		</Form.Group>
+            <Form.Group>
+                <Button className='ms-5 mt-5' disabled={false} onClick={handleChangePassword}>Apply Changes</Button>  
+            </Form.Group>
+
+            {errorCode && <Alert variant="danger">{errorCode}</Alert>}
       </Form>)
-	}, [disableChangesBtn])
+	}, [oldPassword, newPassword, renewPassword, errorCode, user])
 
   const [settingsTag, setSettingTag] = useState(() => "Account");
   const [SettingsForm, setSettingForm] = useState(() => AccountForm);
@@ -234,7 +276,7 @@ export default function Settings() {
     if (settingsTag === "Account") {
       setSettingForm(AccountForm);
     } else if (settingsTag === "Password") {
-		setSettingForm(PasswordForm);
+		  setSettingForm(PasswordForm);
 	} 
   }, [settingsTag, AccountForm, PasswordForm, firstName]);
 

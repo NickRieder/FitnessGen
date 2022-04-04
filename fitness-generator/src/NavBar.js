@@ -50,8 +50,8 @@ const NavBar = () => {
                             <NavDropdown.Item href='settings' >Settings</NavDropdown.Item>
                             <NavDropdown.Item onClick={handleLogOut} >Logout</NavDropdown.Item>
                         </>:<>
-                            <NavDropdown.Item href="login">Sign In</NavDropdown.Item>
                             <NavDropdown.Item href="sign-up">Sign Up</NavDropdown.Item>
+                            <NavDropdown.Item href="login">Sign In</NavDropdown.Item>
                         </>}
                     </NavDropdown>
                     {/* {user ? 

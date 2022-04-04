@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, reauthenticateWithCredential } from "firebase/auth";
 import { collection, addDoc, getDoc, getFirestore, doc, onSnapshot, setDoc } from "firebase/firestore"
 import { createContext, useEffect, useState } from 'react';
 
@@ -241,3 +241,9 @@ export async function setUserWorkoutData(user, feet, inches, weight, days, inten
     console.error("Error while adding document", error);
   }
 } 
+
+//settings
+
+// function updatePassword(user) {
+//   reauthenticateWithCredential
+// }
