@@ -63,6 +63,7 @@ const Home = () => {
                     <h1>Who we are.</h1>
                     <p>This is the vision of the creator, Dan Bagin, a personal trainer with a goal of finding the ideal workout for all perspective clients to improve their fitness.</p>
                     <Button onClick={() => console.log(user)}>Assessment</Button>
+                    <Button onClick={() => navigate('/workout-view')}>See Workouts</Button>
                     </Container>
                 </div>
             </div>)

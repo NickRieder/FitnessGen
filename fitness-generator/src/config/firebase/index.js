@@ -183,9 +183,28 @@ export const getUserInfo =  async (user) => {
 export const getWorkout =  async (body, difficulty, equipment) => {
     //const docRef = doc(db, `/Workouts/${body}/${difficulty}/${equipment}`);
     const docRef = doc(db, `/Workouts/${body}/${difficulty}/${equipment}`);
-  const docSnap = await getDoc(docRef);
-  return docSnap.data();
+    const docSnap = await getDoc(docRef);
+    return docSnap.data();
 }
+
+/*export const getDailyWorkout = async (body, difficulty, equipment) => {
+  const legsRef = await getDoc(doc(db, `/Workouts/Legs/${difficulty}/${equipment}`));
+  const backRef = await getDoc(doc(db, `/Workouts/Back/${difficulty}/${equipment}`));
+  const chestRef = await getDoc(doc(db, `/Workouts/Chest/${difficulty}/${equipment}`));
+  const armsRef = await getDoc(doc(db, `/Workouts/Arms/${difficulty}/${equipment}`));
+  const coreRef = await getDoc(doc(db, `/Workouts/Core/${difficulty}/${equipment}`));
+  console.log(legsRef.data());
+
+  const workoutsObject = [{
+    leg: legsRef.data(),
+    back: backRef.data(),
+    chest: chestRef.data(),
+    arms: armsRef.data(),
+    core: coreRef.data() 
+  }];
+  console.log(workoutsObject)
+  return workoutsObject;
+}*/
 
 /*const getUserData = (user) => {
   setDifficulty(FirebaseError.doc.get().collection(users[user].get(difficulty)))
@@ -206,6 +225,25 @@ export async function setUserWorkoutData(user, feet, inches, weight, days, inten
       Days: days, 
       Intensity: intensity,
       Equipment: equipment
+    });
+
+  } catch (error) {
+    console.error("Error while adding document", error);
+  }
+} 
+
+export async function sendWorkoutDay(user, dailyWorkout) {
+  console.log("Daily Workout")
+  console.log(dailyWorkout)
+  dailyWorkout.map((event, index) => {
+      console.log(event)
+  })
+  
+  try {
+    // Adds firstName and lastName as fields in the Personal collection 
+    const dbUWDDataRef = doc(db, `Users/${user.uid}/WorkoutData/Day1`)
+    await setDoc(dbUWDDataRef, {
+      Legs: "legs Test",
     });
 
   } catch (error) {

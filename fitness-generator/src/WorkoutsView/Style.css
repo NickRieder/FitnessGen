@@ -1,0 +1,32 @@
+.workout_view {
+    height: 100vh;
+    background-color: lightblue;
+}
+
+.navigate {
+    font-size: 1.5rem;
+    background-color: white;
+    padding: 2em;
+}
+
+.navigate:hover {
+    background-color: #395a80;
+}
+
+#btn  {
+    background-color: #395a80;
+}
+
+#btn:focus {     
+    background-color:white;    
+
+}
+
+@media only screen and (min-width: 1224px) {
+    #btn  {
+        border-top-left-radius: 25px;
+        border-bottom-left-radius: 25px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+  }

@@ -14,6 +14,7 @@ import IntensityInfo from './IntensityInfo';
 import Assessment from './Assessment/Assessment';
 import Settings from './Settings/Settings';
 import WorkoutGenerator from './WorkoutGenerator';
+import WorkoutsView from './WorkoutsView/WorkoutsView'
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="assessment" element={ <Assessment/> } />
             <Route path="settings" element={ <Settings/> } />
             <Route path="workout" element={ <WorkoutGenerator/> } />
+            <Route path="workout-view" element={ <WorkoutsView /> } />
         </Routes>
       </Router>
     </div>
