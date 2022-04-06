@@ -233,3 +233,25 @@ export async function setUserAssessmentData(user, wallSit, maxBench, maxSquat, p
         console.error("Error while adding document", error);
     }
 }
+
+    export async function setUserMobilityData(user, posture, overheadSquat, squat, hip, ankle, windmill, lumbarSpine, wall, shoulder, scapula) {
+        try {
+            // Adds firstName and lastName as fields in the Personal collection 
+            const dbUWDDataRef = doc(db, `Users/${user.uid}/WorkoutData/MobilityData`)
+            await setDoc(dbUWDDataRef, {
+                Posture: posture,
+                OverheadSquat: overheadSquat,
+                Squat: squat,
+                Hip: hip,
+                Ankle: ankle,
+                Windmill: windmill,
+                LumbarSpine: lumbarSpine,
+                Wall: wall,
+                Shoulder: shoulder,
+                Scapula: scapula
+            });
+
+        } catch (error) {
+            console.error("Error while adding document", error);
+        }
+    }

@@ -4,9 +4,10 @@
     "\\fitness-generator",
     "\\fitness-generator\\public",
     "\\fitness-generator\\src",
+    "\\fitness-generator\\src\\Assessment",
     "\\fitness-generator\\src\\config",
     "\\fitness-generator\\src\\config\\firebase"
   ],
-  "SelectedNode": "\\fitness-generator\\src\\Questionnaire.js",
+  "SelectedNode": "\\fitness-generator\\src\\MobilityTest.js",
   "PreviewInSolutionExplorer": false
 }
