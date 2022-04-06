@@ -27,7 +27,7 @@ const NavBar = () => {
         <div style={{ marginBottom: '3.5rem' }}>
             <Navbar fixed="top" bg="light" expand="lg">
                 <Container>
-                <Navbar.Brand href="/">FitGen</Navbar.Brand>
+                <Navbar.Brand href="/">KaloRenics</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
