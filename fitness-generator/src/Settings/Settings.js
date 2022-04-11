@@ -4,10 +4,9 @@ import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
-import { db, AuthContext, updateUserData, auth } from '../config/firebase'
+import { db, AuthContext, updateUserData, auth, updatePasswordRequest } from '../config/firebase'
 import { collection, addDoc } from 'firebase/firestore'
 import { useCookies } from 'react-cookie';
-import { AuthCredential, reauthenticateWithCredential, updatePassword } from 'firebase/auth';
 
 export default function Settings() {
 
@@ -196,34 +195,23 @@ export default function Settings() {
 
 
 	const PasswordForm = useCallback(() => {
-        const reauthenticate = (currentPassword) => {
-            var cred = auth.EmailProvider.credential(user.email, currentPassword)
-            return reauthenticateWithCredential(user, cred);
-            // return user.reauthenticateWithCredential(cred);
-          }
     	
         function handleChangePassword(e) {
 
             if (newPassword === renewPassword) {
                 console.log("here")
-                updatePassword(user, newPassword)
-                reauthenticate(oldPassword).then(() => {
-                    user.updatePassword(newPassword).then(() => {
-                    console.log("Password updated!");
-                    }).catch((error) => { 
-                        console.log(error)
-                        setErrorCode("Unacceptable Password") });
-                }).catch((error) => { 
-                    console.log(error)
-                    setErrorCode("Wrong Password") });
-                console.log("here now")
+                updatePasswordRequest(user, oldPassword, newPassword).then(() => {
+					setErrorCode("Password was Updated")
+				})
+                
             } else {
                 setErrorCode("Passwords Do Not Match")
             }
         }
         
-        return (                      
-      		<Form>
+        return (  
+			<Form>
+				{errorCode && <Alert variant="danger">{errorCode}</Alert>}                    
       		{/* Email Address Form*/}
           		<Form.Group id="oldpassword">
               		<Form.Label className="d-flex justify-content-start">Enter Old Password</Form.Label>
@@ -263,8 +251,6 @@ export default function Settings() {
             <Form.Group>
                 <Button className='ms-5 mt-5' disabled={false} onClick={handleChangePassword}>Apply Changes</Button>  
             </Form.Group>
-
-            {errorCode && <Alert variant="danger">{errorCode}</Alert>}
       </Form>)
 	}, [oldPassword, newPassword, renewPassword, errorCode, user])
 

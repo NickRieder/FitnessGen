@@ -1,8 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, reauthenticateWithCredential } from "firebase/auth";
+import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, reauthenticateWithCredential, sendPasswordResetEmail, updatePassword, EmailAuthProvider } from "firebase/auth";
 import { collection, addDoc, getDoc, getFirestore, doc, onSnapshot, setDoc } from "firebase/firestore"
 import { createContext, useEffect, useState } from 'react';
+import "firebase/auth"
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -242,8 +243,20 @@ export async function setUserWorkoutData(user, feet, inches, weight, days, inten
   }
 } 
 
-//settings
+//Password Update
 
-// function updatePassword(user) {
-//   reauthenticateWithCredential
-// }
+export async function forgotPassword(email) {
+  return await sendPasswordResetEmail(auth, email) 
+}
+
+export async function updatePasswordRequest(user, currentPassword, newPassword) {
+  var cred = EmailAuthProvider.credential(user.email, currentPassword);
+  return await reauthenticateWithCredential(cred).then(() => {
+    updatePassword(newPassword).then(() => {
+      console.log("Password updated!");
+    }).catch((error) => { console.log("cant change pass"); });
+  }).catch((error) => { 
+    console.log(error);
+    console.log("cred bad")
+  });
+}

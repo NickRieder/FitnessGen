@@ -119,7 +119,7 @@ export default function SignIn() {
                         </Form>
 
                         <div className="mb-5">
-                            <a className="position-absolute end-0 pe-3" href="./" onClick={() => navigate('/questionnaire')}> Forgot Password</a>
+                            <a className="position-absolute end-0 pe-3" href='/forgotpassword'> Forgot Password</a>
                         </div>
 
                         <div>

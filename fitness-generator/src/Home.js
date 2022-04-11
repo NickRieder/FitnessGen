@@ -24,7 +24,7 @@ const Home = () => {
     const [firstName, setFirstName] = useState(() => cookies.firstName);
     const [lastName, setLastName] = useState(() => cookies.lastName); 
     const [displayName, setDisplayName] = useState(() => cookies.firstName + cookies.lastName);
-    // const [loading, setLoading] = useState(() => (user!=null));
+    const [loading, setLoading] = useState(() => (user==null));
 
     // console.log(userData)
     // useEffect(() => {
@@ -104,18 +104,22 @@ const Home = () => {
 
     
     const HomePage = () => {
-        if (user) {
-            return <UserHome/>
+        if (loading) {
+            setLoading(() => user!=null)
+            return (<div> Loading... </div>)
         } else {
-            return <GuestHome />
+            if(user) {
+                return <UserHome/>
+            } else {
+                return <GuestHome />
+            }
         }
     }
 
-    console.log(user);
+    console.log(1);
     return ( 
     <>
-        <HomePage/>
-        
+        <HomePage/> 
     </>
 
     )
