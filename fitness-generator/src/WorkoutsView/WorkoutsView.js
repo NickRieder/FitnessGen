@@ -75,7 +75,7 @@ const WorkoutsView = () => {
             if(days == 3){
                 setIsThreeDay(true);
             }
-    }, [generated, setGenerated])
+    }, [generated, setGenerated, user])
 
 
     
