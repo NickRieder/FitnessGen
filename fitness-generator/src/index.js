@@ -6,6 +6,7 @@ import { AuthProvider } from "./config/firebase";
 import reportWebVitals from './reportWebVitals';
 // Importing the Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { CookiesProvider } from 'react-cookie'
 
 ReactDOM.render(
     <React.StrictMode>
@@ -13,7 +14,9 @@ ReactDOM.render(
       {
         /* We add this Auth Provider to give the app context of the user */
       }
-        <App />
+        <CookiesProvider>
+          <App />
+        </CookiesProvider>
       </AuthProvider>
       
     </React.StrictMode>,

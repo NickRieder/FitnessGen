@@ -1,9 +1,9 @@
 import React, { useRef, useState, useContext } from "react";
-import { Button, Form, Card, Container } from 'react-bootstrap';
+import { Button, Form, Card, Container, Alert } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmail, AuthContext, signInWithGoogle } from './config/firebase';
-// reportErrorCode
-// string vars
+import { useCookies } from 'react-cookie'
+
 const signInBtnText = "Already have an account? Sign in...";
 const continueGuestBtnText = "Continue as Guest...";
 
@@ -19,73 +19,91 @@ export default function SignUp() {
     const passwordRef = useRef();
     const passwordConfRef = useRef();
 
-
+    //user data useState hook
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
-    // const [userName, setUserName] = useState("Gabe");
     const [confirmPassWord, setConfirmPassword] = useState("");
 
 
-    const { user } = useContext(AuthContext); 
+    //user Context
+    const { user }= useContext(AuthContext); 
     
+    // Error Catching
+    const [errorCode, setErrorCode] = useState(() => "");
+
+    // Cookies
+    const [cookies, setCookies] = useCookies(['user']);
+    
+
     // confirmPassWord
-    const handleSubmit = () => {
-        // event.preventDefault();
+    function handleSubmit(event) {
+        event.preventDefault();
     
-        /*if(!isPasswordConfirmed(password, confirmPassWord)){
+        if (password !== confirmPassWord) {
             // password is not matching, you can show error to your user
-            return;
-        }*/
+            return setErrorCode("Passwords Do Not Match!");
+        }
     
-    
-        createUserWithEmail(email, password, firstName, lastName);
+        createUserWithEmail(email, password, firstName, lastName).catch((e) => {
+            if (e.code === 'auth/invalid-email') {
+                setErrorCode('Invalid E-mail')
+            };
+        })
+
+        
+        //set cookies here for firstName LastName
+        setCookies('firstName', firstName, {path: '/', sameSite: 'none', secure: true})
+        setCookies('lastName', lastName, {path: '/', sameSite: 'none', secure: true})   
+        const displayName = firstName.charAt(0) + lastName.charAt(0);
+        setCookies('email', email, {path: '/', sameSite: 'none', secure: true})
+        setCookies('displayName', displayName, {path: '/', sameSite: 'none', secure: true})             
+
         navigate("/");
+        
+        
         // ... rest of the codes
     }
 
-    // Error Catching
-    // const [errorCode, setErrorCode ] = useState(() => "");
+    const buttonStyle = {
+        minWidth: '275px', 
+        backgroundColor:'#B7D1E2', 
+        borderColor:'#323334', 
+        color:'#323334', 
+        borderRadius:'24px'
+    }
 
-    // function userSignUpFullActions() {
-    //     // await, needs to add firstName and Lastname 
-    //     createUserWithEmail(email, password);
-
-    //     // await 
-    //     setErrorCode(reportErrorCode());
-    //     console.log("log error" + reportErrorCode());
-    // }
+    console.log(user);
 
     return (
       // empty fragment
-      <>
-      <h3 style={{color: 'green' }}>{`${user ? 'Success! Welcome ' + user.email : ''}`}</h3>
-      {/* <h3 style={{color: 'green' }}>{ errorCode }</h3> */}
+      <div className="d-inline-flex w-100" style={{position: 'relative', backgroundColor: '#F1F2F3', minHeight: '100vh'}}>
         {/* d-inline-flex makes the div elements inline */}
-        <div className="d-inline-flex align-items-center w-50 align-self-baseline" style={{}}>
+        <div className="w-50 mt-4" style={{height: '600px', position: ''}}>
             {/* Users with accoutn or dont want to make an account */}
-            <Container style={{ maxWidth: '500px' }}>
+            <div className="" style={{marginTop: '175px'}}>
                     <div className="text-center">
-                        <Button style={{ minWidth: '275px' }} onClick={() => navigate('/login')}>{signInBtnText}</Button>
+                        <Button style={buttonStyle} onClick={() => navigate('/login')}>{signInBtnText}</Button>
                     </div>
                     
                     <h3 className="mt-4 mb-4 text-center"> OR </h3>
 
                     <div className="text-center">
-                        <Button style={{ minWidth: '275px' }} onClick={() => navigate('/questionnaire')}>{continueGuestBtnText}</Button>
+                        <Button style={buttonStyle} onClick={() => navigate('/questionnaire')}>{continueGuestBtnText}</Button>
                     </div>    
-            </Container>
+            </div>
         </div>
 
-
-        <div className="d-inline-flex align-items-center w-50" style={{ minHeight: '100vh' }}>
+        {/* minHeight: '715px' */}
+        <div className="w-50 mt-4 me-5" style={{ minHeight: '600px' }}>
             {/* Sign up portion */}
             {/* d-flex makes container fit forms */}
             {/*  */}
             <Container className="">
             <Card>
                 <Card.Body>
+                        {errorCode && <Alert variant="danger">{errorCode}</Alert>}
                         <h2 className="fst-italic d-flex justify-content-start mb-4"> Sign Up</h2>
                         <Form>
                         {/* First Name Form*/}
@@ -121,7 +139,7 @@ export default function SignUp() {
                                     onChange={event => setEmail(event.target.value)}
                                     type="email" 
                                     ref={emailRef} 
-                                    placeholder="Enter email" 
+                                    placeholder="Enter Email" 
                                     required/>
                             </Form.Group>
 
@@ -134,7 +152,7 @@ export default function SignUp() {
                                     onChange={event => setPassword(event.target.value)}
                                     type="password" 
                                     ref={passwordRef} 
-                                    placeholder="Enter password" 
+                                    placeholder="Enter Password" 
                                     required/>
                             </Form.Group>
 
@@ -147,24 +165,25 @@ export default function SignUp() {
                                     onChange={event => setConfirmPassword(event.target.value)} 
                                     type="password" 
                                     ref={passwordConfRef} 
-                                    placeholder="Confirm password" 
+                                    placeholder="Confirm Password" 
                                     required/>
                             </Form.Group>
                         </Form>
                         
                         <div>
                             {/* <Button onClick={() => userSignUpFullActions()}>Sign Up</Button> */}
-                            <Button onClick={() => handleSubmit()}>Sign Up</Button>
+                            {/* disabled={true} */}
+                            <Button style={buttonStyle} onClick={handleSubmit}>Sign Up</Button>
                         </div>
                         <br></br>
                         <div>
-                            <Button onClick={signInWithGoogle}>Sign in with Google</Button>
+                            <Button style={buttonStyle} onClick={signInWithGoogle}>Sign Up with Google</Button>
 
                         </div>
                     </Card.Body>
                 </Card>
             </Container>
         </div>
-      </>
+      </div>
     )
 }

@@ -1,0 +1,27 @@
+.Container {
+    background-color: aliceblue;
+    border-radius: 15px;
+    
+}
+
+.Header {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-color: #395a80;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.Content {
+    font-size: 1.25rem;
+}
+
+.Row {
+    padding: 10px;
+}
+
+.Col {
+    border-bottom: 20px;
+    border-color: black;
+}

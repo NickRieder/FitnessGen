@@ -1,8 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, reauthenticateWithCredential, sendPasswordResetEmail, updatePassword, EmailAuthProvider } from "firebase/auth";
 import { collection, addDoc, getDoc, getFirestore, doc, onSnapshot, setDoc } from "firebase/firestore"
 import { createContext, useEffect, useState } from 'react';
+import "firebase/auth"
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -53,7 +54,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
   
     return (
-      <AuthContext.Provider value={{ user, userData }}>{children}</AuthContext.Provider>
+      <AuthContext.Provider value={{ user, setUser, userData }}>{children}</AuthContext.Provider>
     );
   };
 
@@ -80,8 +81,12 @@ export const signInWithGoogle = () => {
       });
 };
 
-export const signInWithEmail = (email, password) => {
-  signInWithEmailAndPassword(auth, email, password)
+export async function signInWithEmail(email, password) {
+  let firstName;
+  let lastName;
+  let displayName;
+
+  await signInWithEmailAndPassword(auth, email, password)
       .then( async (result) => {
           // The signed-in user info.
           // TO-DO await, needs to add firstName and Lastname 
@@ -90,18 +95,25 @@ export const signInWithEmail = (email, password) => {
 
           await setDoc(ref, { email: user.email }, { merge: true });
 
-          console.log( user );
-      })
-      .catch((error) => {
-          // Handle Errors here.
-          console.log(error)
-      });
-};
-let errorCode;
+          const dbUWDDataRef = doc(db, `/Users/${user.uid}/PersonalData/Data`);
+          const userUWDDataSnap = await getDoc(dbUWDDataRef);
 
-export function reportErrorCode() {
-  return errorCode;
-}
+          if (userUWDDataSnap.exists()) {
+            firstName = userUWDDataSnap.data().FirstName;
+            lastName = userUWDDataSnap.data().LastName;
+            displayName = userUWDDataSnap.data().DisplayName;
+          } else {
+            console.log("Document does not exist")
+          }
+          // console.log({firstName, lastName, displayName})
+          // console.log([firstName, lastName, displayName]);
+        })
+        .catch((error) => {
+          // Handle Errors here.
+          // console.log(error)
+        })
+  return {'firstName': firstName, 'lastName': lastName, 'displayName': displayName}
+};
 
 // fxn to write user data to users collection
 // from sign up 
@@ -127,23 +139,41 @@ async function makeUser(user, emailVal, firstNameVal, lastNameVal, displayNameVa
 }
 
 export function createUserWithEmail(email, password, firstName, lastName) {
-  createUserWithEmailAndPassword(auth, email, password)
-  .then((result) => {
+  return createUserWithEmailAndPassword(auth, email, password)
+  .then(async (result) => {
     // The signed-in user info.
     const user = result.user; 
     const displayName = firstName.charAt(0) + lastName.charAt(0);
-    makeUser(user, email, firstName, lastName, displayName);
+    await makeUser(user, email, firstName, lastName, displayName);
     // AuthProvider.setUserData({})
-  })
-  .catch((error) => {
-    errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(error);
-    console.log(errorCode);
-    console.log(errorMessage);
-  });
-};
+  }).catch(
+    // console.log(error);
+    // console.log(errorCode);
+    // console.log(errorMessage);
+  );
+}
 
+
+//update user personal data
+export async function updateUserData(user, email, firstName, lastName, displayName) {
+  try {
+    // Adds the email as a field in the Users collection
+    const dbUsersRef = doc(db, `Users/${user.uid}`);
+    await setDoc(dbUsersRef, {
+      Email: email
+    });
+
+    // Adds firstName and lastName as fields in the Personal collection 
+    const dbUPDDataRef = doc(db, `Users/${dbUsersRef.id}/PersonalData/Data`)
+    await setDoc(dbUPDDataRef, {
+      FirstName: firstName,
+      LastName: lastName,
+      DisplayName: displayName
+    });
+} catch (error) {
+    console.error("Error while adding document", error);
+}
+}
 
 export const logOut = () => {
   signOut(auth)
@@ -183,9 +213,28 @@ export const getUserInfo =  async (user) => {
 export const getWorkout =  async (body, difficulty, equipment) => {
     //const docRef = doc(db, `/Workouts/${body}/${difficulty}/${equipment}`);
     const docRef = doc(db, `/Workouts/${body}/${difficulty}/${equipment}`);
-  const docSnap = await getDoc(docRef);
-  return docSnap.data();
+    const docSnap = await getDoc(docRef);
+    return docSnap.data();
 }
+
+/*export const getDailyWorkout = async (body, difficulty, equipment) => {
+  const legsRef = await getDoc(doc(db, `/Workouts/Legs/${difficulty}/${equipment}`));
+  const backRef = await getDoc(doc(db, `/Workouts/Back/${difficulty}/${equipment}`));
+  const chestRef = await getDoc(doc(db, `/Workouts/Chest/${difficulty}/${equipment}`));
+  const armsRef = await getDoc(doc(db, `/Workouts/Arms/${difficulty}/${equipment}`));
+  const coreRef = await getDoc(doc(db, `/Workouts/Core/${difficulty}/${equipment}`));
+  console.log(legsRef.data());
+
+  const workoutsObject = [{
+    leg: legsRef.data(),
+    back: backRef.data(),
+    chest: chestRef.data(),
+    arms: armsRef.data(),
+    core: coreRef.data() 
+  }];
+  console.log(workoutsObject)
+  return workoutsObject;
+}*/
 
 /*const getUserData = (user) => {
   setDifficulty(FirebaseError.doc.get().collection(users[user].get(difficulty)))
@@ -206,6 +255,63 @@ export async function setUserWorkoutData(user, feet, inches, weight, days, inten
       Days: days, 
       Intensity: intensity,
       Equipment: equipment
+    });
+
+  } catch (error) {
+    console.error("Error while adding document", error);
+  }
+} 
+
+//Password Update
+
+export async function forgotPassword(email) {
+  return await sendPasswordResetEmail(auth, email) 
+}
+
+export async function updatePasswordRequest(user, currentPassword, newPassword) {
+  var cred = EmailAuthProvider.credential(user.email, currentPassword);
+  return await reauthenticateWithCredential(cred).then(() => {
+    updatePassword(newPassword).then(() => {
+      console.log("Password updated!");
+    }).catch((error) => { console.log("cant change pass"); });
+  }).catch((error) => { 
+    console.log(error);
+    console.log("cred bad")
+  });
+}
+
+export async function setUserAssessmentData(user, wallSit, maxBench, maxSquat, pushUps, crunches, upper, lower, core, total) {
+    try {
+        // Adds firstName and lastName as fields in the Personal collection 
+        const dbUWDDataRef = doc(db, `Users/${user.uid}/WorkoutData/AssessmentData`)
+        await setDoc(dbUWDDataRef, {
+            WallSit: wallSit,
+            MaxBench: maxBench,
+            MaxSquat: maxSquat,
+            PushUps: pushUps,
+            Crunches: crunches,
+            UpperBodyStrength: upper,
+            LowerBodyStrength: lower,
+            CoreStrength: core,
+            TotalStrength: total
+        });
+
+    } catch (error) {
+        console.error("Error while adding document", error);
+    }
+}
+export async function sendWorkoutDay(user, dailyWorkout) {
+  console.log("Daily Workout")
+  console.log(dailyWorkout)
+  dailyWorkout.map((event, index) => {
+      console.log(event)
+  })
+  
+  try {
+    // Adds firstName and lastName as fields in the Personal collection 
+    const dbUWDDataRef = doc(db, `Users/${user.uid}/WorkoutData/Day1`)
+    await setDoc(dbUWDDataRef, {
+      Legs: "legs Test",
     });
 
   } catch (error) {
