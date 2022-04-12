@@ -11,7 +11,7 @@ import { useCookies } from "react-cookie";
 //fonts
 import lemonMilkFont from './Res/Fonts/LEMONMILK-Regular.otf'
 // import { collection, addDoc } from 'firebase/firestore'
-import Footer from './Footer';
+import Footer from './Footer.js';
 
 
 const Home = () => {
