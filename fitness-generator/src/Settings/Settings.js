@@ -162,7 +162,7 @@ export default function Settings() {
 				<Button className='ms-5 mt-5' disabled={disableChangesBtn} onClick={disableApplyChangesBtn}>Apply Changes</Button>
 			</Form.Group>
       </Form>)
-  	}, [disableChangesBtn, email, firstName, lastName, displayName])
+  	}, [disableChangesBtn, email, firstName, lastName, displayName, user, setCookies])
 
 //   const PreferencesForm = () => {
 //     return (      

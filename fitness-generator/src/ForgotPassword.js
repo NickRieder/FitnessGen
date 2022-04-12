@@ -20,14 +20,18 @@ export default function ForgotPassword() {
         } else {
             forgotPassword(email).then(() => {
                 setResult("Password Renewal Email Was Sent")
+                setTimeout(() => {navigate('/login')}, 2000)
+                // setResult("Password Renewal Email Was Sent")
             }).catch((e) => {
                 const errorCode = e.code
                 console.log(errorCode)
     
                 if (errorCode === "auth/invalid-email") {
-                    setResult("Invalid E-mail")
+                    setResult("Invalid E-mail") 
+                    setEmail(() => "")
                 } else if (errorCode === "auth/user-not-found") {
                     setResult(`No user found with e-mail: ${email}`)
+                    setEmail(() => "")
                 }
             })    
             // navigate()
@@ -35,14 +39,14 @@ export default function ForgotPassword() {
     }
 
     return (
-        <>
+        <div style={{backgroundColor: '#F1F2F3', minHeight: '100vh'}}>
             <div className="d-inline-flex align-items-center w-50" style={{ minHeight: '100vh'}}>
             {/* Sign up portion */}
             {/* d-flex makes container fit forms */}
             {/*  */}
             <Container className="start-0">
             <Card>
-                <Card.Body>
+                <Card.Body style={{}}>
                         {result && <Alert className="" color="danger"> {result} <br/></Alert>}
                         <h2 className="fst-italic d-flex justify-content-start mb-4"> Forgot Password</h2>
                         <Form>
@@ -61,13 +65,13 @@ export default function ForgotPassword() {
                         </Form>
 
                         {/* onClick={() => handleSignIn()} */}
-                        <div className="text-end mb-5 mt-5">
+                        <div className="text-end mb-2 mt-5">
                             <Button className="pe-3" onClick={handleForgotPassword}> Sign In</Button>
                         </div>
                     </Card.Body>
                 </Card>
             </Container>
         </div>
-        </>
+        </div>
   )
 }

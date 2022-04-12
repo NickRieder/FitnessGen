@@ -53,41 +53,50 @@ export default function SignUp() {
         })
 
         
-        if (user !== null) {
-            //set cookies here for firstName LastName
-            setCookies('firstName', firstName, {path: '/', sameSite: 'none', secure: true})
-            setCookies('lastName', lastName, {path: '/', sameSite: 'none', secure: true})   
-            const displayName = firstName + lastName;
-            setCookies('displayName', displayName, {path: '/', sameSite: 'none', secure: true})             
+        //set cookies here for firstName LastName
+        setCookies('firstName', firstName, {path: '/', sameSite: 'none', secure: true})
+        setCookies('lastName', lastName, {path: '/', sameSite: 'none', secure: true})   
+        const displayName = firstName.charAt(0) + lastName.charAt(0);
+        setCookies('email', email, {path: '/', sameSite: 'none', secure: true})
+        setCookies('displayName', displayName, {path: '/', sameSite: 'none', secure: true})             
 
-            navigate("/");
-        }
+        navigate("/");
+        
         
         // ... rest of the codes
     }
 
+    const buttonStyle = {
+        minWidth: '275px', 
+        backgroundColor:'#B7D1E2', 
+        borderColor:'#323334', 
+        color:'#323334', 
+        borderRadius:'24px'
+    }
+
+    console.log(user);
 
     return (
       // empty fragment
-      <>
+      <div className="d-inline-flex w-100" style={{position: 'relative', backgroundColor: '#F1F2F3', minHeight: '100vh'}}>
         {/* d-inline-flex makes the div elements inline */}
-        <div className="d-inline-flex align-items-center w-50 align-self-baseline" style={{}}>
+        <div className="w-50 mt-4" style={{height: '600px', position: ''}}>
             {/* Users with accoutn or dont want to make an account */}
-            <Container style={{ maxWidth: '500px' }}>
+            <div className="" style={{marginTop: '175px'}}>
                     <div className="text-center">
-                        <Button style={{ minWidth: '275px' }} onClick={() => navigate('/login')}>{signInBtnText}</Button>
+                        <Button style={buttonStyle} onClick={() => navigate('/login')}>{signInBtnText}</Button>
                     </div>
                     
                     <h3 className="mt-4 mb-4 text-center"> OR </h3>
 
                     <div className="text-center">
-                        <Button style={{ minWidth: '275px' }} onClick={() => navigate('/questionnaire')}>{continueGuestBtnText}</Button>
+                        <Button style={buttonStyle} onClick={() => navigate('/questionnaire')}>{continueGuestBtnText}</Button>
                     </div>    
-            </Container>
+            </div>
         </div>
 
-
-        <div className="d-inline-flex align-items-center w-50" style={{ minHeight: '100vh' }}>
+        {/* minHeight: '715px' */}
+        <div className="w-50 mt-4 me-5" style={{ minHeight: '600px' }}>
             {/* Sign up portion */}
             {/* d-flex makes container fit forms */}
             {/*  */}
@@ -164,17 +173,17 @@ export default function SignUp() {
                         <div>
                             {/* <Button onClick={() => userSignUpFullActions()}>Sign Up</Button> */}
                             {/* disabled={true} */}
-                            <Button onClick={handleSubmit}>Sign Up</Button>
+                            <Button style={buttonStyle} onClick={handleSubmit}>Sign Up</Button>
                         </div>
                         <br></br>
                         <div>
-                            <Button onClick={signInWithGoogle}>Sign in with Google</Button>
+                            <Button style={buttonStyle} onClick={signInWithGoogle}>Sign Up with Google</Button>
 
                         </div>
                     </Card.Body>
                 </Card>
             </Container>
         </div>
-      </>
+      </div>
     )
 }
