@@ -10,6 +10,32 @@ const MobilityTest = () => {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
 
+    function decideMobility(posture, overheadSquat, squat, hip, ankle, windmill, lumbarSpine, wall, shoulder, scapula) {
+        var mobilityWorkouts = [];
+        if (posture == false) {
+            mobilityWorkouts.push("posture");
+        } if (overheadSquat == false) {
+            mobilityWorkouts.push("overheadSquat");
+        } if (squat == false) {
+            mobilityWorkouts.push("squat");
+        } if (hip == false) {
+            mobilityWorkouts.push("hip");
+        } if (ankle == false) {
+            mobilityWorkouts.push("ankle");
+        } if (windmill == false) {
+            mobilityWorkouts.push("windmill");
+        } if (lumbarSpine == false) {
+            mobilityWorkouts.push("lumbarSpine");
+        } if (wall == false) {
+            mobilityWorkouts.push("wall");
+        } if (shoulder == false) {
+            mobilityWorkouts.push("shoulder");
+        } if (scapula == false) {
+            mobilityWorkouts.push("scapula");
+        }
+        return mobilityWorkouts;
+    }
+
     function submitMobilityTest() {
 
         const posture = document.getElementById("posture1").checked;
@@ -23,11 +49,9 @@ const MobilityTest = () => {
         const shoulder = document.getElementById("shoulder1").checked;
         const scapula = document.getElementById("scapula1").checked;
 
-        const tests = [posture, overheadSquat, squat, hip, ankle, windmill, lumbarSpine, wall, shoulder, scapula];
-        console.log(tests);
+        const workouts = decideMobility(posture, overheadSquat, squat, hip, ankle, windmill, lumbarSpine, wall, shoulder, scapula);
 
-
-        setUserMobilityData(user, posture, overheadSquat, squat, hip, ankle, windmill, lumbarSpine, wall, shoulder, scapula);
+        setUserMobilityData(user, posture, overheadSquat, squat, hip, ankle, windmill, lumbarSpine, wall, shoulder, scapula, workouts);
         navigate('/');
     }
 
@@ -36,8 +60,8 @@ const MobilityTest = () => {
             <Container>
                 <h1>Mobility Test</h1>
                 <p>Perform these quick tasks for a baseline understanding of your current mobility level. Select pass if you meet all the requirements in the tutorial video.</p>
-                <form id="Posture">
-                    <b>Posture Test</b>
+                <form id="Posture" style={{ textAlign: 'left' }}>
+                    <a href="https://www.youtube.com/watch?v=dCsgXitfdls">Posture Test</a>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="posture" id="posture1"/>
                             <label class="form-check-label" for="posture1">
@@ -53,7 +77,7 @@ const MobilityTest = () => {
                     <br/>
                 </form>
 
-                <form id="Overhead Squat">
+                <form id="Overhead Squat" style={{ textAlign: 'left' }}>
                     <b>Overhead Squat Test</b>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="overheadSquat" id="overheadSquat1" />
@@ -70,7 +94,7 @@ const MobilityTest = () => {
                     <br />
                 </form>
 
-                <form id="Squat">
+                <form id="Squat" style={{ textAlign: 'left' }}>
                     <b>Squat Test</b>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="squat" id="squat1" />
@@ -87,7 +111,7 @@ const MobilityTest = () => {
                     <br/>
                 </form>
 
-                <form id="Hip">
+                <form id="Hip" style={{ textAlign: 'left' }}>
                     <b>Hip Test</b>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="hip" id="hip1" />
@@ -104,7 +128,7 @@ const MobilityTest = () => {
                     <br />
                 </form>
 
-                <form id="Ankle">
+                <form id="Ankle" style={{ textAlign: 'left' }}>
                     <b>Ankle Test</b>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="ankle" id="ankle1" />
@@ -121,7 +145,7 @@ const MobilityTest = () => {
                     <br />
                 </form>
 
-                <form id="Windmill">
+                <form id="Windmill" style={{ textAlign: 'left' }}>
                     <b>Windmill Test</b>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="windmill" id="windmill1" />
@@ -137,7 +161,7 @@ const MobilityTest = () => {
                     </div>
                     <br />
                 </form>
-                <form id="Lumbar Spine">
+                <form id="Lumbar Spine" style={{ textAlign: 'left' }}>
                     <b>Lumbar Spine Test</b>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="lumbarSpine" id="lumbarSpine1" />
@@ -154,7 +178,7 @@ const MobilityTest = () => {
                     <br />
                 </form>
 
-                <form id="Wall">
+                <form id="Wall" style={{ textAlign: 'left' }}>
                     <b>Wall Test</b>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="wall" id="wall1" />
@@ -171,7 +195,7 @@ const MobilityTest = () => {
                     <br />
                 </form>
 
-                <form id="Shoulder">
+                <form id="Shoulder" style={{ textAlign: 'left' }}>
                     <b>Shoulder Test</b>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="shoulder" id="shoulder1" />
@@ -188,7 +212,7 @@ const MobilityTest = () => {
                     <br />
                 </form>
 
-                <form id="Scapula">
+                <form id="Scapula" style={{ textAlign: 'left' }}>
                     <b>Scapula Test</b>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="scapula" id="scapula1" />

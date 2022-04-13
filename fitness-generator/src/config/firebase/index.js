@@ -215,7 +215,7 @@ export async function setUserWorkoutData(user, feet, inches, weight, days, inten
 
 export async function setUserAssessmentData(user, wallSit, maxBench, maxSquat, pushUps, crunches, upper, lower, core, total) {
     try {
-        // Adds firstName and lastName as fields in the Personal collection 
+        // Adds user's input assessment data to the database
         const dbUWDDataRef = doc(db, `Users/${user.uid}/WorkoutData/AssessmentData`)
         await setDoc(dbUWDDataRef, {
             WallSit: wallSit,
@@ -234,9 +234,9 @@ export async function setUserAssessmentData(user, wallSit, maxBench, maxSquat, p
     }
 }
 
-    export async function setUserMobilityData(user, posture, overheadSquat, squat, hip, ankle, windmill, lumbarSpine, wall, shoulder, scapula) {
+    export async function setUserMobilityData(user, posture, overheadSquat, squat, hip, ankle, windmill, lumbarSpine, wall, shoulder, scapula, workouts) {
         try {
-            // Adds firstName and lastName as fields in the Personal collection 
+            // Adds responses to mobility test to the user database 
             const dbUWDDataRef = doc(db, `Users/${user.uid}/WorkoutData/MobilityData`)
             await setDoc(dbUWDDataRef, {
                 Posture: posture,
@@ -248,7 +248,8 @@ export async function setUserAssessmentData(user, wallSit, maxBench, maxSquat, p
                 LumbarSpine: lumbarSpine,
                 Wall: wall,
                 Shoulder: shoulder,
-                Scapula: scapula
+                Scapula: scapula,
+                Workouts: workouts
             });
 
         } catch (error) {
