@@ -1,55 +1,69 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import React from 'react';
+import React, { useContext } from 'react';
 import SignUp, { signInBtnText, continueGuestBtnText } from './SignUp'
 import SignIn, { signUpBtnText } from './SignIn'
 import Questionnaire from './Questionnaire'
 import Home from './Home'
 import Assessment from './Assessment/Assessment'
 import IntensityInfo from './IntensityInfo'
+import { AuthProvider } from "./config/firebase";
 
 // Mock Sign-up page component with BrowserRouter component to 
 // use the useNavigate hook
 const MockHome = () => {
     return (
-        <BrowserRouter>
-            <Home/>
-        </BrowserRouter>)
+        <AuthProvider>
+            <BrowserRouter>
+                <Home/>
+            </BrowserRouter>
+        </AuthProvider>)
 }
 
 const MockSignUp = () => {
     return (
-        <BrowserRouter>
-            <SignUp/>
-        </BrowserRouter>)
+        <AuthProvider>
+            <BrowserRouter>
+                <SignUp/>
+            </BrowserRouter>
+        </AuthProvider>)
 }
 
 const MockSignIn = () => {
     return (
-        <BrowserRouter>
-            <SignIn/>
-        </BrowserRouter>)
+        <AuthProvider>
+            <BrowserRouter>
+                <SignIn/>
+            </BrowserRouter>
+        </AuthProvider>)
+        
 }
 
 const MockQuestionnaire = () => {
     return (
-        <BrowserRouter>
-            <Questionnaire/>      
-        </BrowserRouter>)
+        <AuthProvider>
+            <BrowserRouter>
+                <Questionnaire/>      
+            </BrowserRouter>
+        </AuthProvider>)
 }
 
 const MockAssessment = () => {
     return (
-        <BrowserRouter>
-            <Assessment/>      
-        </BrowserRouter>)
+        <AuthProvider>
+            <BrowserRouter>
+                <Assessment/>
+            </BrowserRouter>
+        </AuthProvider>)
 }
 
 const MockInfoIntensity = () => {
     return (
-        <BrowserRouter>
-            <IntensityInfo/>      
-        </BrowserRouter>)
+        <AuthProvider>
+            <BrowserRouter>
+                <IntensityInfo/>
+            </BrowserRouter>
+        </AuthProvider>)
 }
 
 // NAVIGATION
@@ -68,4 +82,12 @@ test('Svg button navigates to information intensity', () => {
     render(<MockInfoIntensity/>)
     expect(screen.getByRole('button', {name: "Go Back"})).toBeInTheDocument();
     // console.log(infoIntensityBtns);
+});
+
+test('Google Sign-in Method', () => { 
+    render(<MockSignIn/>)
+    const userSignInBtn = screen.getByRole('button', {name: "Sign In"});
+    fireEvent.click(userSignInBtn);
+    render(<MockHome/>)
+    expect(screen.getByRole('heading', {name: "Welcome to the fitness generator app."})).toBeInTheDocument();
 });

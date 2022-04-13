@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 import { AuthContext, setUserAssessmentData } from '.././config/firebase';
-import { upperBodyScore, lowerBodyScore, coreScore } from '../data';
+import { upperBodyScore, lowerBodyScore, coreScore } from '../data.js';
 // import background from '../images/fitness-rdl.jpg';
 
 const Assessment = () => {
