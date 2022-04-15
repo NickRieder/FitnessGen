@@ -53,6 +53,8 @@ const WorkoutsView = () => {
         'Core'
     ];
 
+    
+
     const fetchUserData = async () =>{
         
         const userInfoRef = doc(db, `/Users/${user.uid}/WorkoutData/Data`);
@@ -68,6 +70,7 @@ const WorkoutsView = () => {
 
     useEffect(() => {
             fetchUserData();
+
             console.log('I fire once');
             if(days == 5){
                 setIsFiveDay(true);

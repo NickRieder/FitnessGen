@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import DailyWorkout from "./DailyWorkout";
 import "./Style.css"
 
- const ThreeDay = ({leg, back, chest, arms, core}) => {
+ const ThreeDay = ({ leg, back, chest, arms, core }) => {
        
        useEffect(()=>{
         

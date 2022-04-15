@@ -187,6 +187,12 @@ export const getWorkout =  async (body, difficulty, equipment) => {
     return docSnap.data();
 }
 
+export const fetchVideos =  async () => {
+  const docRef = doc(db, `/Videos/VideoMap`);
+  const docSnap = await getDoc(docRef);
+  return docSnap.data();
+}
+
 /*export const getDailyWorkout = async (body, difficulty, equipment) => {
   const legsRef = await getDoc(doc(db, `/Workouts/Legs/${difficulty}/${equipment}`));
   const backRef = await getDoc(doc(db, `/Workouts/Back/${difficulty}/${equipment}`));

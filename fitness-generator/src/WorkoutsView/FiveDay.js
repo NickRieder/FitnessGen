@@ -3,7 +3,7 @@ import { Container, Form, Card, Button } from 'react-bootstrap';
 import UpperSplit from "./UpperSplit";
 import LowerSplit from "./LowerSplit";
 
-const FiveDay = ({leg, back, chest, core, shoulder, glutes, calves, biceps, tricep, hamstrings}) => { 
+const FiveDay = ({leg, back, chest, core, shoulder, glutes, calves, biceps, tricep, hamstrings }) => { 
         
     const [dayTag, setDayTag] = useState("Day 1");
     const [lowerSplit, setLowerSplit] = useState(false);

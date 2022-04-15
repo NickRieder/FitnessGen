@@ -6,7 +6,7 @@ import { Row, Col, Container } from 'react-bootstrap';
 import { getWorkout, getUserInfo, AuthContext } from './../config/firebase'
 import "./DailyWorkout.css"
 
-const LowerSplit = ({leg, hamstrings, calves, glutes, core}) => {
+const LowerSplit = ({leg, hamstrings, calves, glutes, core }) => {
 
   
     return (      
