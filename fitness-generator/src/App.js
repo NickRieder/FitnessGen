@@ -16,6 +16,7 @@ import Settings from './Settings/Settings';
 import WorkoutGenerator from './WorkoutGenerator';
 import ForgotPassword from './ForgotPassword';
 import WorkoutsView from './WorkoutsView/WorkoutsView'
+import AboutUs from './AboutUs';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path="workout" element={ <WorkoutGenerator/> } />
             <Route path="forgotpassword" element={<ForgotPassword />} />
             <Route path="workout-view" element={ <WorkoutsView /> } />
+            <Route path="aboutus" element={ <AboutUs /> } />
         </Routes>
       </Router>
     </div>

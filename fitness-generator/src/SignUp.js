@@ -46,21 +46,26 @@ export default function SignUp() {
             return setErrorCode("Passwords Do Not Match!");
         }
     
-        createUserWithEmail(email, password, firstName, lastName).catch((e) => {
+        createUserWithEmail(email, password, firstName, lastName).then(() => {
+            //set cookies here for firstName LastName
+            setCookies('firstName', firstName, {path: '/', sameSite: 'none', secure: true})
+            setCookies('lastName', lastName, {path: '/', sameSite: 'none', secure: true})   
+            const displayName = firstName.charAt(0) + lastName.charAt(0);
+            setCookies('email', email, {path: '/', sameSite: 'none', secure: true})
+            setCookies('displayName', displayName, {path: '/', sameSite: 'none', secure: true})             
+    
+            navigate("/");
+        }).catch((e) => {
             if (e.code === 'auth/invalid-email') {
                 setErrorCode('Invalid E-mail')
-            };
+            } else if (e.code === 'auth/email-already-in-use') {
+                setErrorCode('E-mail Already Has Account')
+            } else {
+                console.log('nah')
+            }
         })
 
         
-        //set cookies here for firstName LastName
-        setCookies('firstName', firstName, {path: '/', sameSite: 'none', secure: true})
-        setCookies('lastName', lastName, {path: '/', sameSite: 'none', secure: true})   
-        const displayName = firstName.charAt(0) + lastName.charAt(0);
-        setCookies('email', email, {path: '/', sameSite: 'none', secure: true})
-        setCookies('displayName', displayName, {path: '/', sameSite: 'none', secure: true})             
-
-        navigate("/");
         
         
         // ... rest of the codes

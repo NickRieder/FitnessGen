@@ -269,14 +269,15 @@ export async function forgotPassword(email) {
 }
 
 export async function updatePasswordRequest(user, currentPassword, newPassword) {
-  var cred = EmailAuthProvider.credential(user.email, currentPassword);
-  return await reauthenticateWithCredential(cred).then(() => {
-    updatePassword(newPassword).then(() => {
+  const cred = EmailAuthProvider.credential(user.email, currentPassword);
+  return await reauthenticateWithCredential(user, cred).then(() => {
+    updatePassword(user, newPassword).then(() => {
       console.log("Password updated!");
     }).catch((error) => { console.log("cant change pass"); });
   }).catch((error) => { 
     console.log(error);
     console.log("cred bad")
+    console.log(cred)    
   });
 }
 

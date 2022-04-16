@@ -31,13 +31,13 @@ const NavBar = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                    <Nav.Link href="/">About Us</Nav.Link>
+                    <Nav.Link href="aboutus">About Us</Nav.Link>
                     
                     { user ?
                         <NavDropdown title="Get Started" id="">
                             <NavDropdown.Item href='questionnaire' >Questionnaire</NavDropdown.Item>
                             <NavDropdown.Item href='assessment' >Assessment</NavDropdown.Item>
-                            <NavDropdown.Item href='workout' >Workout Plan</NavDropdown.Item>
+                            <NavDropdown.Item href='workout-view' >Workout Plan</NavDropdown.Item>
                         </NavDropdown>
                     : 
                         <Nav.Link href="sign-up">Get Started</Nav.Link> 

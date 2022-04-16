@@ -164,42 +164,11 @@ export default function Settings() {
       </Form>)
   	}, [disableChangesBtn, email, firstName, lastName, displayName, user, setCookies])
 
-//   const PreferencesForm = () => {
-//     return (      
-//       <>
-//         <h3 className='text-start mb-4'> Intensity </h3>
-//         <Form>
-//         {/* Email Address Form*/}
-//             <Form.Group id="Legs">
-//                 <Form.Label className="d-flex justify-content-start">Legs</Form.Label>
-//             </Form.Group>
-
-//         {/* Password Form*/}
-//             <Form.Group id="Chest">
-//                 <Form.Label className="d-flex justify-content-start">Chest</Form.Label>
-//             </Form.Group>
-
-//         {/* Password Confirmation Form */}
-//             <Form.Group className="mb-5" id="Core">
-//                 <Form.Label className="d-flex justify-content-start">Core</Form.Label>
-//             </Form.Group>
-
-//             <Form.Group>
-//                 <h1>Test</h1>
-//                 <p>This is the vision of the creator, Dan Bagin, a personal trainer with a goal of finding the ideal workout for all perspective clients to improve their fitness.</p>
-//                 {/* <Button onClick={() => f()}>Sign Up</Button>    */}
-//             </Form.Group>
-//         </Form>
-//       </>)
-//   	}
-
-
 	const PasswordForm = useCallback(() => {
     	
         function handleChangePassword(e) {
 
             if (newPassword === renewPassword) {
-                console.log("here")
                 updatePasswordRequest(user, oldPassword, newPassword).then(() => {
 					setErrorCode("Password was Updated")
 				})
