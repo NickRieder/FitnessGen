@@ -156,7 +156,7 @@ const strengthValues = [
 ]
 
 
-//value = number of pushups
+//value = number of pushups. Function determines upper body score based on averages for gender and age
 export function upperBodyScore(value, gender, age) {
     var score  = 0;
     if (gender == 'M') {
@@ -252,7 +252,7 @@ export function upperBodyScore(value, gender, age) {
     return score;
 }
 
-//value = time of wall sit (in seconds)
+//value = time of wall sit (in seconds). Function determines lower body score based on averages for gender and age
 export function lowerBodyScore(value, gender, age) {
     var score = 0;
     if (gender == 'M') {
@@ -303,7 +303,7 @@ export function lowerBodyScore(value, gender, age) {
     return score;
 }
 
-//value = time for plank (in seconds)
+//value = time for plank (in seconds). Function determines core score based on averages for gender and age
 export function coreScore(value, gender, age) {
     var score = 0;
     if (gender == 'M') {

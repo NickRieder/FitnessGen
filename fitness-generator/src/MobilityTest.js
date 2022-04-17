@@ -4,12 +4,15 @@ import Container from 'react-bootstrap/Container';
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 import { AuthContext, setUserMobilityData } from './config/firebase';
-// import background from '../images/fitness-rdl.jpg';
 
+/* 
+ * Mobility test for users that want to add mobility exercises to their daily workout.
+ */
 const MobilityTest = () => {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
 
+    //Adds the failed workouts to an array and returns that array 
     function decideMobility(posture, overheadSquat, squat, hip, ankle, windmill, lumbarSpine, wall, shoulder, scapula) {
         var mobilityWorkouts = [];
         if (posture == false) {
@@ -36,6 +39,7 @@ const MobilityTest = () => {
         return mobilityWorkouts;
     }
 
+    //determines the results input by the user then sends the workout list to the database
     function submitMobilityTest() {
 
         const posture = document.getElementById("posture1").checked;
@@ -55,6 +59,8 @@ const MobilityTest = () => {
         navigate('/');
     }
 
+
+    //Each different form represents a different test the users must take. The radio buttons are pass fail and default to fail if not performed.
     return (
         <div>
             <Container>
@@ -234,7 +240,6 @@ const MobilityTest = () => {
                 
                 <div className='d-flex justify-content-end me-2 mt-4'>
                     <Button onClick={() => submitMobilityTest()}>Complete</Button>
-                    {/* <Button onClick={() => console.log(equipment)}>equ</Button> */}
                 </div>
             </Container>
         </div>

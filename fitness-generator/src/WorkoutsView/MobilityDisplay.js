@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import { Row, Col, Container } from 'react-bootstrap';
 import "./DailyWorkout.css"
 
 const MobilityDisplay = ({ mobility }) => {
-
+    //maps each mobility workout to its own row with column data filled out.
     const mobilityList = mobility.map((exercise) =>
         <div className = "Row">
             <Row>
@@ -27,7 +27,7 @@ const MobilityDisplay = ({ mobility }) => {
                     <Col>Reps</Col>
                     <Col>Tutorial</Col>
                 </Row>
-                {/* Legs Workout */}
+                {/* List of mobility Workouts */}
                 <div className="Content">
                     {mobilityList}
                 </div>
