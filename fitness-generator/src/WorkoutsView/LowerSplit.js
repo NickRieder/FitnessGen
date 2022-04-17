@@ -6,7 +6,7 @@ import { Row, Col, Container } from 'react-bootstrap';
 import { getWorkout, getUserInfo, AuthContext } from './../config/firebase'
 import "./DailyWorkout.css"
 
-const LowerSplit = ({leg, hamstrings, calves, glutes, core}) => {
+const LowerSplit = ({leg, hamstrings, calves, glutes, core, mobility}) => {
 
   
     return (      
@@ -71,7 +71,16 @@ const LowerSplit = ({leg, hamstrings, calves, glutes, core}) => {
                         <Col>Video</Col>
                     </Row>
                 </div>
-            </div>
+                <div className="Row">
+                    <Row>
+                        <Col>Mobility Exercises</Col>
+                        <Col>{mobility}</Col>
+                        <Col>3</Col>
+                        <Col>10</Col>
+                        <Col>Video</Col>
+                    </Row>
+                </div>
+        </div>
             </Container>
         </div>
         )

@@ -6,8 +6,26 @@ import { Row, Col, Container } from 'react-bootstrap';
 import { getWorkout, getUserInfo, AuthContext } from './../config/firebase'
 import "./DailyWorkout.css"
 
-const DailyWorkout = ({leg, back, chest, arms, core}) => {
+const DailyWorkout = ({ leg, back, chest, arms, core, mobility }) => {
 
+    const [columnData, setColumnData] = useState([]);
+    const [dataFilled, setDataFilled] = useState(false);
+    useEffect(() => {
+        if (!dataFilled) {
+            var mobilityRows = [], i = 0;
+            if (mobility.length == 0) {
+                mobilityRows.push("None");
+            } else {
+                for (i; i < mobility.length; i++) {
+                    var row = mobility[i] + ' \n';
+                    mobilityRows.push(row);
+                }
+            }
+            setColumnData(mobilityRows);
+            setDataFilled(true);
+        }
+    });
+    
   
     return (      
         <div className="DailyWorkout" style={{color: "black"}}>
