@@ -283,7 +283,7 @@ export async function updatePasswordRequest(user, currentPassword, newPassword) 
 
 export async function setUserAssessmentData(user, wallSit, maxBench, maxSquat, pushUps, crunches, upper, lower, core, total) {
     try {
-        // Adds firstName and lastName as fields in the Personal collection 
+        // Adds user's input assessment data to the database
         const dbUWDDataRef = doc(db, `Users/${user.uid}/WorkoutData/AssessmentData`)
         await setDoc(dbUWDDataRef, {
             WallSit: wallSit,
@@ -319,3 +319,27 @@ export async function sendWorkoutDay(user, dailyWorkout) {
     console.error("Error while adding document", error);
   }
 } 
+
+
+    export async function setUserMobilityData(user, posture, overheadSquat, squat, hip, ankle, windmill, lumbarSpine, wall, shoulder, scapula, workouts) {
+        try {
+            // Adds responses to mobility test to the user database 
+            const dbUWDDataRef = doc(db, `Users/${user.uid}/WorkoutData/MobilityData`)
+            await setDoc(dbUWDDataRef, {
+                Posture: posture,
+                OverheadSquat: overheadSquat,
+                Squat: squat,
+                Hip: hip,
+                Ankle: ankle,
+                Windmill: windmill,
+                LumbarSpine: lumbarSpine,
+                Wall: wall,
+                Shoulder: shoulder,
+                Scapula: scapula,
+                Workouts: workouts
+            });
+
+        } catch (error) {
+            console.error("Error while adding document", error);
+        }
+    }

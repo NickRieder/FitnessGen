@@ -38,6 +38,7 @@ const NavBar = () => {
                             <NavDropdown.Item href='questionnaire' >Questionnaire</NavDropdown.Item>
                             <NavDropdown.Item href='assessment' >Assessment</NavDropdown.Item>
                             <NavDropdown.Item href='workout-view' >Workout Plan</NavDropdown.Item>
+                            <NavDropdown.Item href='mobilitytest'>Mobility Test</NavDropdown.Item>
                         </NavDropdown>
                     : 
                         <Nav.Link href="sign-up">Get Started</Nav.Link> 
