@@ -133,7 +133,7 @@ export default function Settings() {
 						/>
 			</Form.Group>
 
-     		{/* Age Form */}
+     		{/* Age Form
 			<Form.Group className="" id="Age">
 				<Form.Label className="d-flex justify-content-start">Age</Form.Label>
 				<Form.Control 
@@ -145,7 +145,7 @@ export default function Settings() {
 						/>
 			</Form.Group>
 
-			{/* Gender Form */}
+			{/* Gender Form
 			<Form.Group className="" id="Gender">
 				<Form.Label className="d-flex justify-content-start">Gender</Form.Label>
 				<Form.Control 
@@ -155,7 +155,7 @@ export default function Settings() {
 						type="text" 
 						placeholder="Enter Gender" 
 						/>
-			</Form.Group>
+			</Form.Group> */}
 
          	<Form.Group >
 				<Button className='mt-5' disabled={disableChangesBtn} onClick={disableUndoChangesBtn}>Undo Changes</Button>
