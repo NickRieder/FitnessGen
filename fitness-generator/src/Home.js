@@ -17,6 +17,8 @@ import Footer from './Footer';
 //animation
 import { useSpring, animated, config } from 'react-spring'
 
+
+
 const Home = () => {
     const navigate = useNavigate();
 
