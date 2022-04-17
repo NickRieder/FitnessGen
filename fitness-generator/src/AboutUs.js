@@ -9,7 +9,7 @@ export default function AboutUs() {
       <div className='text-center'>
         <div style={{padding: 30 }}>
           <h1 className="mb-5"> Who Are We</h1>
-          <Carousel className='m-auto' style={{maxWidth: '900px'}}>
+          <Carousel className='m-auto' style={{maxWidth: '900px'}} variant='dark'>
             <Carousel.Item interval={360000}>
               <div style={{height: '450px', width: '950px', backgroundColor: '#F1F2F3'}}></div>
               <Carousel.Caption className="h-100">
@@ -35,7 +35,7 @@ export default function AboutUs() {
       <div className='text-center'>
         <div style={{padding: 30 }}>
           <h1 className="mb-5">About The Workouts</h1>
-          <Carousel className='m-auto' style={{maxWidth: '900px'}}>
+          <Carousel className='m-auto' style={{maxWidth: '900px'}} indicators='false' controls='false'>
             <Carousel.Item interval={360000}>
               <div style={{height: '550px', width: '950px', backgroundColor: '#F1F2F3'}}></div>
               <Carousel.Caption className="h-100">
