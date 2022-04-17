@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import { Container, Form, Card, Button } from 'react-bootstrap';
 import UpperSplit from "./UpperSplit";
 import LowerSplit from "./LowerSplit";
+import MobilityDisplay from "./MobilityDisplay";
 
-const FiveDay = ({leg, back, chest, core, shoulder, glutes, calves, biceps, tricep, hamstrings}) => { 
+const FiveDay = ({leg, back, chest, core, shoulder, glutes, calves, biceps, tricep, hamstrings, mobility}) => { 
         
     const [dayTag, setDayTag] = useState("Day 1");
     const [lowerSplit, setLowerSplit] = useState(false);
-
+    var hasMobility = false;
+    if (mobility.length != 0) {
+        hasMobility = true;
+    }
             
     return (
         <>
@@ -45,7 +49,12 @@ const FiveDay = ({leg, back, chest, core, shoulder, glutes, calves, biceps, tric
 
                         <div>
                             <Button id="btn" className="navigate" style={{  border: "none", color: "black", borderColor:"gray", minWidth: "300px", outline: "none", boxShadow: "none"  }} onClick={() => { setLowerSplit(false) 
-                                setDayTag("Day 5")}}> Day 5 </Button>  
+                            setDayTag("Day 5")}}> Day 5 </Button>  
+                        </div>
+                        <div>
+                            {hasMobility ? <Button id="btn" className="navigate" style={{ border: "none", color: "black", borderColor: "gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => {
+                                setDayTag("Mobility")
+                            }}> Mobility </Button> : ""}
                         </div>
                         </Form>  
                     </Container>
@@ -58,7 +67,8 @@ const FiveDay = ({leg, back, chest, core, shoulder, glutes, calves, biceps, tric
                         <Card.Body>
                             <h2 className="fst-italic d-flex justify-content-start mb-4"> {dayTag} </h2>   
                             <div>
-                                {lowerSplit ?  <LowerSplit leg={leg} hamstrings={hamstrings} glutes={glutes} calves={calves} core={core}/> : <UpperSplit back={back} chest={chest} biceps={biceps} tricep={tricep} shoulder={shoulder} core={core} />}
+                                {lowerSplit ? <LowerSplit leg={leg} hamstrings={hamstrings} glutes={glutes} calves={calves} core={core} mobility={mobility} /> : <UpperSplit back={back} chest={chest} biceps={biceps} tricep={tricep} shoulder={shoulder} core={core} mobility={mobility} />}
+                                {hasMobility ? <MobilityDisplay mobility={mobility} />: ""}
                             </div>
                         </Card.Body>
                         </Card>

@@ -4,9 +4,10 @@ import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import DailyWorkout from "./DailyWorkout";
+import MobilityDisplay from "./MobilityDisplay";
 import "./Style.css"
 
- const ThreeDay = ({leg, back, chest, arms, core}) => {
+ const ThreeDay = ({leg, back, chest, arms, core, mobility}) => {
        
        useEffect(()=>{
         
@@ -14,6 +15,11 @@ import "./Style.css"
         
     }, []);
 
+     var hasMobility = false;
+     if (mobility.length != 0) {
+         hasMobility = true;
+     }
+     const [isMobility, setIsMobility] = useState(false);
         
         const [dayTag, setDayTag] = useState("Day 1");
 
@@ -32,15 +38,20 @@ import "./Style.css"
                         </div> 
 
                         <div>
-                            <Button id="btn" className="navigate" style={{ border: "none", color: "black", borderColor:"gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => setDayTag("Day 1")}> Day 1 </Button>  
+                            <Button id="btn" className="navigate" style={{ border: "none", color: "black", borderColor: "gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => { setDayTag("Day 1"); setIsMobility(false); } }> Day 1 </Button>
                         </div>
 
                         <div>
-                            <Button id="btn" className="navigate" style={{  border: "none", color: "black", borderColor:"gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => setDayTag("Day 2")}> Day 2 </Button>  
+                            <Button id="btn" className="navigate" style={{ border: "none", color: "black", borderColor: "gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => { setDayTag("Day 2"); setIsMobility(false); }}> Day 2 </Button>
                         </div>
 
                         <div>
-                            <Button id="btn" className="navigate" style={{  border: "none", color: "black", borderColor:"gray", minWidth: "300px", outline: "none", boxShadow: "none"  }} onClick={() => setDayTag("Day 3")}> Day 3 </Button>  
+                             <Button id="btn" className="navigate" style={{ border: "none", color: "black", borderColor: "gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => { setDayTag("Day 3"); setIsMobility(false); }}> Day 3 </Button>
+                        </div>
+                        <div>
+                            {hasMobility ? <Button id="btn" className="navigate" style={{ border: "none", color: "black", borderColor: "gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => {
+                                setDayTag("Mobility"); setIsMobility(true);
+                            }}> Mobility </Button> : ""}
                         </div>
                         </Form>  
                     </Container>
@@ -53,7 +64,8 @@ import "./Style.css"
                         <Card.Body>
                             <h2 className="fst-italic d-flex justify-content-start mb-4"> {dayTag} </h2>   
                             <div>
-                                <DailyWorkout leg={leg} back={back} chest={chest} arms={arms} core={core} />
+                                {isMobility ? <MobilityDisplay mobility={mobility} /> : <DailyWorkout leg={leg} back={back} chest={chest} arms={arms} core={core} mobility={mobility} />}
+                                {/* hasMobility ? <MobilityDisplay mobility={mobility} /> : ""*/}
                             </div>
                         </Card.Body>
                         </Card>

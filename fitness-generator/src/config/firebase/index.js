@@ -318,7 +318,7 @@ export async function sendWorkoutDay(user, dailyWorkout) {
     console.error("Error while adding document", error);
   }
 } 
-}
+
 
     export async function setUserMobilityData(user, posture, overheadSquat, squat, hip, ankle, windmill, lumbarSpine, wall, shoulder, scapula, workouts) {
         try {

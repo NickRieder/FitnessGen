@@ -26,6 +26,8 @@ const WorkoutsView = () => {
     const [calves, setCalves] = useState("");
     const [generated, setGenerated] = useState(false);
     const [generatedWorkout, setGeneratedWorkout] = useState(false);
+    const [mobilityWorkout, setMobilityWorkout] = useState("");
+    const [hasMobility, setHasMobility] = useState(false);
     
     
     const body = [
@@ -77,12 +79,35 @@ const WorkoutsView = () => {
             }
     }, [generated, setGenerated, user])
 
+    const fetchUserMobilityData = async () => {
 
+        const userInfoRef2 = doc(db, `/Users/${user.uid}/WorkoutData/MobilityData`);
+        const docSnap2 = await getDoc(userInfoRef2);
+
+        const result2 = docSnap2.data();
+        console.log("Mobility result" + result2.Workouts);
+        const mobilityResult = result2.Workouts;
+        console.log(mobilityResult);
+        setMobilityWorkout(mobilityResult);
+        setHasMobility(true);
+    }
+
+    useEffect(() => {
+        fetchUserMobilityData();
+        console.log('I fire once for mobility');
+        console.log("Mobility workouts: " + mobilityWorkout);
+        if (mobilityWorkout.length != 0 && hasMobility) {
+            console.log(mobilityWorkout);
+            setHasMobility(true);
+        }
+        console.log("Mobility: " + hasMobility);
+    }, [hasMobility, setHasMobility, user])
     
     useEffect (() => {
         console.log(equipment)
         console.log(intensity)
         console.log(days)
+        console.log("Mobility workouts below: " + mobilityWorkout);
         
         if(generated){
             if (days == 3 && !generatedWorkout) {
@@ -190,9 +215,9 @@ const WorkoutsView = () => {
 
     return ( 
     <>
-        <div className="workout_view">
-            { isThreeDay ? <ThreeDay leg={leg} back={back} chest={chest} arms={arms} core={core} /> : "" }
-            { isFiveDay ? <FiveDay leg={leg} hamstrings={hamstrings} glutes={glutes} calves={calves} back={back} chest={chest} biceps={biceps} tricep={tricep} shoulder={shoulder} core={core} /> : "" }
+            <div className="workout_view">
+                {isThreeDay ? <ThreeDay leg={leg} back={back} chest={chest} arms={arms} core={core} mobility={mobilityWorkout} /> : ""}
+                {isFiveDay ? <FiveDay leg={leg} hamstrings={hamstrings} glutes={glutes} calves={calves} back={back} chest={chest} biceps={biceps} tricep={tricep} shoulder={shoulder} core={core} mobility={mobilityWorkout} /> : ""}
         </div>
     </>
     )
