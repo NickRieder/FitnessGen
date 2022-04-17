@@ -25,7 +25,7 @@ export default function AboutUs() {
             <Carousel.Item interval={360000}>
               <div style={{height: '450px', width: '950px', backgroundColor: '#F1F2F3'}}></div>
               <Carousel.Caption className="h-100">
-                <h3 className="mt-5" style={{color:'black'}}>{aboutUsText3} <br/><br/><br/><br/> -Danil Bagin</h3>
+                <h3 className="mt-5" style={{color:'black'}}><br/><br/> {aboutUsText3} <br/><br/></h3>
               </Carousel.Caption>
             </Carousel.Item>
           </Carousel>

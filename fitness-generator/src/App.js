@@ -13,7 +13,6 @@ import Questionnaire from './Questionnaire';
 import IntensityInfo from './IntensityInfo';
 import Assessment from './Assessment/Assessment';
 import Settings from './Settings/Settings';
-import WorkoutGenerator from './WorkoutGenerator';
 import ForgotPassword from './ForgotPassword';
 import WorkoutsView from './WorkoutsView/WorkoutsView'
 import AboutUs from './AboutUs';
@@ -33,7 +32,6 @@ function App() {
             <Route path="intensityinfo" element={<IntensityInfo />} />
             <Route path="assessment" element={ <Assessment/> } />
             <Route path="settings" element={ <Settings/> } />
-            <Route path="workout" element={ <WorkoutGenerator/> } />
             <Route path="forgotpassword" element={<ForgotPassword />} />
             <Route path="workout-view" element={ <WorkoutsView /> } />
             <Route path="aboutus" element={ <AboutUs /> } />
