@@ -1,9 +1,9 @@
-import { FirebaseError } from "firebase/app";
+// import { FirebaseError } from "firebase/app";
 import React, {useState, useContext, useEffect} from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { getUserInfo, AuthContext, getWorkout, sendWorkoutDay } from './config/firebase';
 
-let generated = false;
+// let generated = false;
 
 const WorkoutGenerator = () => {
     const { user } = useContext(AuthContext); 
@@ -45,8 +45,8 @@ const WorkoutGenerator = () => {
 
    
 
-    const num = [ "A", "B", "C", "D"];
-    const navigate = useNavigate();
+    // const num = [ "A", "B", "C", "D"];
+    // const navigate = useNavigate();
 
     useEffect(() => {
             getUserInfo(user).then((event) => {
@@ -55,7 +55,7 @@ const WorkoutGenerator = () => {
                 setDays(event.Days);
                 console.log(equipment)
         })
-    }, [equipment, setEquipment]);
+    }, [equipment, setEquipment, user]);
 
     const getUserInfoAndWorkout = () => {
             generateWorkouts()
@@ -64,7 +64,7 @@ const WorkoutGenerator = () => {
 
     //Console.log("Days = " + days);
     function generateWorkouts() {
-    if (days == 3 && !generated) {
+    if (days === 3 && !generated) {
         for (let j = 0; j < 1; j++) {
             for (let i = 0; i < body.length; i++) {
                 getWorkout(body[i], difficulty, equipment[(Math.floor(Math.random() * Object.keys(equipment).length))])
@@ -119,7 +119,7 @@ const WorkoutGenerator = () => {
             }
         } 
         setGenerated(true)
-    } else if (days == 5 && !generated) {
+    } else if (days === 5 && !generated) {
         for (let i = 0; i < lowerBody.length; i++) {
             getWorkout(lowerBody[i], intensity, equipment)
                 .then((event) => {

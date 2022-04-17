@@ -1,5 +1,5 @@
 import React from 'react'
-import {aboutUsText1, aboutUsText2, aboutUsText3, missionStatementText, workoutText} from './HomeText.js'
+import {aboutUsText1, aboutUsText2, aboutUsText3, workoutText} from './HomeText.js'
 import Carousel from 'react-bootstrap/Carousel';
 import Footer from './Footer';
 

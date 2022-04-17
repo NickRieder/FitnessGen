@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Form, Card, Container, Alert } from 'react-bootstrap';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { forgotPassword } from './config/firebase';
 
 
@@ -11,8 +11,6 @@ export default function ForgotPassword() {
 
     const [result, setResult] = useState(() => "")
     
-    const firebase = require("./config/firebase");
-
     function handleForgotPassword() {
 
         if (email === "") {

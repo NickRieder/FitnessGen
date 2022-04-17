@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -14,7 +14,7 @@ const NavBar = () => {
     const [cookies] = useCookies(['user'])
 
     // const [userData, setUserData] = userdata;
-    const [displayName, setDisplayName] = useState(() => cookies.firstName + cookies.lastName);
+    // const [displayName, setDisplayName] = useState(() => cookies.firstName + cookies.lastName);
     
     const navigate = useNavigate();
 

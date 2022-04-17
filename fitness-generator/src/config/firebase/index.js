@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, reauthenticateWithCredential, sendPasswordResetEmail, updatePassword, EmailAuthProvider } from "firebase/auth";
-import { collection, addDoc, getDoc, getFirestore, doc, onSnapshot, setDoc } from "firebase/firestore"
+import { getDoc, getFirestore, doc, onSnapshot, setDoc } from "firebase/firestore"
 import { createContext, useEffect, useState } from 'react';
 import "firebase/auth"
 
@@ -64,10 +64,10 @@ export const signInWithGoogle = () => {
   signInWithPopup(auth, googleProvider)
       .then((result) => {
           // This gives you a Google Access Token. You can use it to access the Google API.
-          const credential = GoogleAuthProvider.credentialFromResult(result);
-          const token = credential?.accessToken;
+          // const credential = GoogleAuthProvider.credentialFromResult(result);
+          // const token = credential?.accessToken;
           // The signed-in user info.
-          const user = result.user;
+          // const user = result.user;
       })
       .catch((error) => {
           // Handle Errors here.

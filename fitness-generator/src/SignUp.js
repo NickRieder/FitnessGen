@@ -34,7 +34,7 @@ export default function SignUp() {
     const [errorCode, setErrorCode] = useState(() => "");
 
     // Cookies
-    const [cookies, setCookies] = useCookies(['user']);
+    const [setCookies] = useCookies(['user']);
     
 
     // confirmPassWord

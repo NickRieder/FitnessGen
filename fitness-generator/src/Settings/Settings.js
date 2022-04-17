@@ -4,8 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
-import { db, AuthContext, updateUserData, auth, updatePasswordRequest } from '../config/firebase'
-import { collection, addDoc } from 'firebase/firestore'
+import { AuthContext, updateUserData, updatePasswordRequest } from '../config/firebase'
 import { useCookies } from 'react-cookie';
 
 export default function Settings() {
