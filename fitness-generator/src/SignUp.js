@@ -58,14 +58,24 @@ export default function SignUp() {
     
             navigate("/");
         }).catch((e) => {
-            setEmail(() => '')
+            
             if (e.code === 'auth/invalid-email') {
+                setEmail(() => '')
                 setErrorCode('Invalid E-mail')
             } else if (e.code === 'auth/email-already-in-use') {
+                setEmail(() => '')
                 setErrorCode('E-mail Already Has Account')
+            } else if (e.code === 'auth/weak-password') {
+                setPassword(() => '')
+                setConfirmPassword(() => '')
+                setErrorCode('Password should be at least 6 characters ')
             } else {
                 console.log(e)
-            }
+                setEmail(() => '')
+                setPassword(() => '')
+                setConfirmPassword(() => '')
+                setErrorCode('E-mail Invalid or Password Too Short')
+            } 
         })
 
         
