@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
-import { AuthContext, updateUserData, updatePasswordRequest } from '../config/firebase'
+import { AuthContext, updateUserData, updatePasswordRequest, updateWorkoutData } from '../config/firebase'
 import { useCookies } from 'react-cookie';
 
 export default function Settings() {
@@ -36,8 +36,14 @@ export default function Settings() {
     const [newPassword, setNewPassword] = useState(() => "");
     const [renewPassword, setRenewPassword] = useState(() => "");
 
-
     const [errorCode, setErrorCode] = useState(() => "");
+
+	//workoutForm
+	const [height, setHeight] = useState(() => cookies.height);
+	const [weight, setWeight] = useState(() => cookies.weight); 
+	const [days, setDays] = useState(() => cookies.days);
+	const [intensity, setIntensity] = useState(() => cookies.intensity);
+	const [equipment, setEquipment] = useState(() => cookies.equipment);
 
 	const AccountForm = useCallback(() => {
 		
@@ -157,7 +163,7 @@ export default function Settings() {
 			</Form.Group> */}
 
          	<Form.Group >
-				<Button className='mt-5' disabled={disableChangesBtn} onClick={disableUndoChangesBtn}>Undo Changes</Button>
+				{/* <Button className='mt-5' disabled={disableChangesBtn} onClick={disableUndoChangesBtn}>Undo Changes</Button> */}
 				<Button className='ms-5 mt-5' disabled={disableChangesBtn} onClick={disableApplyChangesBtn}>Apply Changes</Button>
 			</Form.Group>
       </Form>)
@@ -222,17 +228,145 @@ export default function Settings() {
       </Form>)
 	}, [oldPassword, newPassword, renewPassword, errorCode, user])
 
+	const WorkoutForm = useCallback(() => {
+		
+		// //undo button function to reset form
+		// function disableUndoChangesBtn(e) {
+		// 	// console.log(email)
+		// 	// console.log(emailRef.current.value)
+		// 	// setEmail(cookies.email)
+		// 	setEmail(prevVal => prevVal)
+		// 	setDisableChangesBtn(true)
+		// 	// consoupdateUserDatale.log(email)
+		// }updateWorkoutData
+
+		//apply changes button to send new info to DB
+		function disableApplyChangesBtn() {
+			updateWorkoutData(user, height, weight, days, intensity, equipment)
+		// 	try {
+		// 		if (user!==null) {
+		// 			
+		// 			setCookies('height', , {path: '/', sameSite: 'none', secure: true})
+		// 			setCookies('weight', , {path: '/', sameSite: 'none', secure: true})
+		// 			setCookies('days', , {path: '/', sameSite: 'none', secure: true})
+		// 			setCookies('intensity', , {path: '/', sameSite: 'none', secure: true});
+		// 			setCookies('equipment', , {path: '/', sameSite: 'none', secure: true});
+		// 		} else {
+		// 			console.log('user is null')
+		// 		}
+		// 	} catch(e) {
+		// 		console.log(e)
+		// 	}
+	
+		// 	setDisableChangesBtn(true)
+		} 
+
+    	return (                      
+      		<Form>
+				{/* height, weight, days, intensity, equipment */}
+      		{/* Email Address Form*/}
+          		<Form.Group id="email">
+              		<Form.Label className="d-flex justify-content-start">Height</Form.Label>
+					<Form.Control 
+					name="height"
+                    value={height} 
+					onChange={event => {
+                        setHeight(event.target.value)}
+                        // setDisableChangesBtn(false)}
+					}
+					type="text" 
+					placeholder="Enter Height (FT)"/>
+				</Form.Group>
+				{/* <p>{email}</p> */}
+			{/* Display Name Form*/}
+				<Form.Group id="displayName">
+              		<Form.Label className="d-flex justify-content-start">Display Name</Form.Label>
+			  		<Form.Control 
+						name="displayName"
+						ref={displayNameRef}
+						value={displayName || ""}
+						onChange={event => {
+                            setDisplayName(event.target.value)
+                            setDisableChangesBtn(false)}}
+						type="text" 
+						placeholder="Enter Display Name" 
+						/>
+          		</Form.Group>
+
+      		{/* Firstname Form*/}
+          		<Form.Group id="firstName">
+              		<Form.Label className="d-flex justify-content-start">First Name</Form.Label>
+			  		<Form.Control 
+						name="firstname"
+						ref={firstNameRef}
+						value={firstName || ""}
+						onChange={event => {
+                            setFirstName(event.target.value)
+                            setDisableChangesBtn(false)}}
+						type="text" 
+						placeholder="Enter First Name" 
+						/>
+          		</Form.Group>
+
+      		{/* Lastname Form*/}
+          	<Form.Group id="lastName">
+				<Form.Label className="d-flex justify-content-start">Last Name</Form.Label>
+				<Form.Control 
+						name="lastname"
+						ref={lastNameRef}
+						value={lastName || ""}
+						onChange={event => {
+                            setLastName(event.target.value)
+                            setDisableChangesBtn(false)}}
+						type="text" 
+						placeholder="Enter Last Name" 
+						/>
+			</Form.Group>
+
+     		{/* Age Form
+			<Form.Group className="" id="Age">
+				<Form.Label className="d-flex justify-content-start">Age</Form.Label>
+				<Form.Control 
+						name="age"
+						value={""}
+						onChange={event => setDisableChangesBtn(false)}
+						type="text" 
+						placeholder="Enter Age" 
+						/>
+			</Form.Group>
+
+			{/* Gender Form
+			<Form.Group className="" id="Gender">
+				<Form.Label className="d-flex justify-content-start">Gender</Form.Label>
+				<Form.Control 
+						name="gender"
+						value={""}
+						onChange={event => setDisableChangesBtn(false)}
+						type="text" 
+						placeholder="Enter Gender" 
+						/>
+			</Form.Group> */}
+
+         	<Form.Group >
+				{/* <Button className='mt-5' disabled={disableChangesBtn} onClick={disableUndoChangesBtn}>Undo Changes</Button> */}
+				<Button className='ms-5 mt-5' disabled={disableChangesBtn} onClick={disableApplyChangesBtn}>Apply Changes</Button>
+			</Form.Group>
+      </Form>)
+  	}, [disableChangesBtn, email, firstName, lastName, displayName, user, setCookies])
+
   const [settingsTag, setSettingTag] = useState(() => "Account");
   const [SettingsForm, setSettingForm] = useState(() => AccountForm);
 
 
   useEffect(() => {
     if (settingsTag === "Account") {
-      setSettingForm(AccountForm);
+      	setSettingForm(AccountForm);
     } else if (settingsTag === "Password") {
-		  setSettingForm(PasswordForm);
-	} 
-  }, [settingsTag, AccountForm, PasswordForm, firstName]);
+		setSettingForm(PasswordForm);
+	} else if (settingsTag === "Workout") {
+		setSettingForm(WorkoutForm);
+	}
+  }, [settingsTag, AccountForm, PasswordForm, WorkoutForm, firstName]);
 
   return (
     <>
@@ -254,7 +388,7 @@ export default function Settings() {
                   </div>
 
                   {/* <div>
-                    <Button style={{ backgroundColor:"gray", borderColor:"gray", borderRadius: "0em", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => setSettingTag("Preferences")}> Preferences </Button>  
+                    <Button style={{ backgroundColor:"gray", borderColor:"gray", borderRadius: "0em", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => setSettingTag("Workout")}> Workout </Button>  
                   </div> */}
 
 				  <div>
