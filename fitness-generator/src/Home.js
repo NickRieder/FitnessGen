@@ -36,25 +36,25 @@ const Home = () => {
     // }, [user])
 
     const [flip, set] = useState(false)
-    const props1 = useSpring({ 
-        to: { opacity: 0.5, color:'white', textSize:'50px' }, 
-        from: { opacity: 1, color:'white', textSize:'50px' }, 
-        reset: true,
-        // reverse: flip,
-        delay: 500,
-        config: {duration: 15000},
-        onRest: () => set(!flip),
-    })
+    // const props1 = useSpring({ 
+    //     to: { opacity: 0.5, color:'white', textSize:'50px' }, 
+    //     from: { opacity: 1, color:'white', textSize:'50px' }, 
+    //     reset: true,
+    //     // reverse: flip,
+    //     delay: 500,
+    //     config: {duration: 15000},
+    //     onRest: () => set(!flip),
+    // })
 
-    const props2 = useSpring({ 
-        to: { opacity: 0.5, color:'white', textSize:'50px' }, 
-        from: { opacity: 1, color:'white', textSize:'50px' }, 
-        reset: true,
-        // reverse: flip,
-        delay: 500,
-        config: {duration: 15000},
-        onRest: () => set(!flip),
-    })
+    // const props2 = useSpring({ 
+    //     to: { opacity: 0.5, color:'white', textSize:'50px' }, 
+    //     from: { opacity: 1, color:'white', textSize:'50px' }, 
+    //     reset: true,
+    //     // reverse: flip,
+    //     delay: 500,
+    //     config: {duration: 15000},
+    //     onRest: () => set(!flip),
+    // })
 
 
     const GuestHome = () => {
@@ -68,10 +68,11 @@ const Home = () => {
                         {/* Want to know what it feels like to have your own free personal trainer?  */}
                         {/* <h4  style={{color:'white'}}><br/>We use your past workout history and current metrics <br/><br/> to develop the ideal workout plan for you!</h4> */}
                         <div>
-                            {flip ? <animated.h4 style={props1}><br/>Want to know what it feels like <br/><br/> to have your own free personal trainer?</animated.h4>
+                            {/* {flip ? <animated.h4 style={props1}><br/>Want to know what it feels like <br/><br/> to have your own free personal trainer?</animated.h4>
                             : 
                             <animated.h4 style={props2}><br/>We use your past workout history and current metrics <br/><br/> to develop the ideal workout plan for you!</animated.h4>
-                            } 
+                            }  */}
+                            <h4 style={{color: 'white'}}><br/>Want to know what it feels like <br/><br/> to have your own free personal trainer?</h4>
                         </div>
                         <Button className="mt-4" size="lg" style={{backgroundColor:'#B7D1E2', borderColor:'#323334', color:'#323334', borderRadius:'24px'}} onClick={() => navigate('/sign-up')}>Get Started</Button>
                     
@@ -139,10 +140,11 @@ const Home = () => {
                         {/* Want to know what it feels like to have your own free personal trainer?  */}
                         {/* <h4  style={{color:'white'}}><br/>We use your past workout history and current metrics <br/><br/> to develop the ideal workout plan for you!</h4> */}
                         <div>
-                            {flip ? <animated.h4 style={props1}><br/>Want to know what it feels like <br/><br/> to have your own free personal trainer?</animated.h4>
+                            {/* {flip ? <animated.h4 style={props1}><br/>Want to know what it feels like <br/><br/> to have your own free personal trainer?</animated.h4>
                             : 
                             <animated.h4 style={props2}><br/>We use your past workout history and current metrics <br/><br/> to develop the ideal workout plan for you!</animated.h4>
-                            } 
+                            }  */}
+                            <h4 style={{color: 'white'}}><br/>Want to know what it feels like <br/><br/> to have your own free personal trainer?</h4>
                         </div>
                         <Button className="mt-4" size="lg" style={{backgroundColor:'#B7D1E2', borderColor:'#323334', color:'#323334', borderRadius:'24px'}} onClick={() => navigate('/sign-up')}>Get Started</Button>
                     
