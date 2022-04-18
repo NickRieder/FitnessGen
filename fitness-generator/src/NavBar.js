@@ -32,7 +32,7 @@ const NavBar = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                     <Nav.Link href="aboutus">About Us</Nav.Link>
-                    
+                    <Nav.Link href="tutorials">Tutorials</Nav.Link>
                     { user ?
                         <NavDropdown title="Get Started" id="">
                             <NavDropdown.Item href='questionnaire' >Questionnaire</NavDropdown.Item>
