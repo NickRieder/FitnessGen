@@ -8,10 +8,12 @@ const FiveDay = ({leg, back, chest, core, shoulder, glutes, calves, biceps, tric
         
     const [dayTag, setDayTag] = useState("Day 1");
     const [lowerSplit, setLowerSplit] = useState(false);
+    const [upperSplit, setUpperSplit] = useState(true);
     var hasMobility = false;
     if (mobility.length != 0) {
         hasMobility = true;
     }
+    const [isMobility, setIsMobility] = useState(false);
             
     return (
         <>
@@ -28,32 +30,36 @@ const FiveDay = ({leg, back, chest, core, shoulder, glutes, calves, biceps, tric
                         </div> 
 
                         <div>
-                            <Button id="btn" className="navigate" style={{ border: "none", color: "black", borderColor:"gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => { setLowerSplit(false)
-                                setDayTag("Day 1")}}> Day 1 </Button>  
+                                <Button id="btn" className="navigate" style={{ border: "none", color: "black", borderColor: "gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => {
+                                    setLowerSplit(false)
+                                    setDayTag("Day 1"); setIsMobility(false); setUpperSplit(true);
+                                }}> Day 1 </Button>
                         </div>
 
                         <div>
-                            <Button id="btn" className="navigate" style={{  border: "none", color: "black", borderColor:"gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => { setLowerSplit(true) 
-                                setDayTag("Day 2")}}> Day 2 </Button>  
+                                        <Button id="btn" className="navigate" style={{ border: "none", color: "black", borderColor: "gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => {
+                                            setLowerSplit(true)
+                                            setDayTag("Day 2"); setIsMobility(false); setUpperSplit(false);
+                                        }}> Day 2 </Button>
                         </div>
 
                         <div>
                             <Button id="btn" className="navigate" style={{  border: "none", color: "black", borderColor:"gray", minWidth: "300px", outline: "none", boxShadow: "none"  }} onClick={() => { setLowerSplit(false) 
-                                setDayTag("Day 3")}}> Day 3 </Button>  
+                                            setDayTag("Day 3"); setIsMobility(false); setUpperSplit(true)}}> Day 3 </Button>
                         </div>
 
                         <div>
                             <Button id="btn" className="navigate" style={{  border: "none", color: "black", borderColor:"gray", minWidth: "300px", outline: "none", boxShadow: "none"  }} onClick={() => { setLowerSplit(true) 
-                                setDayTag("Day 4")}}> Day 4 </Button>  
+                                            setDayTag("Day 4"); setIsMobility(false); setUpperSplit(false)}}> Day 4 </Button>
                         </div>
 
                         <div>
                             <Button id="btn" className="navigate" style={{  border: "none", color: "black", borderColor:"gray", minWidth: "300px", outline: "none", boxShadow: "none"  }} onClick={() => { setLowerSplit(false) 
-                            setDayTag("Day 5")}}> Day 5 </Button>  
+                                            setDayTag("Day 5"); setIsMobility(false); setUpperSplit(true)}}> Day 5 </Button>
                         </div>
                         <div>
                             {hasMobility ? <Button id="btn" className="navigate" style={{ border: "none", color: "black", borderColor: "gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => {
-                                setDayTag("Mobility")
+                                            setDayTag("Mobility"); setIsMobility(true); setUpperSplit(false); setLowerSplit(false);
                             }}> Mobility </Button> : ""}
                         </div>
                         </Form>  
@@ -67,8 +73,9 @@ const FiveDay = ({leg, back, chest, core, shoulder, glutes, calves, biceps, tric
                         <Card.Body>
                             <h2 className="fst-italic d-flex justify-content-start mb-4"> {dayTag} </h2>   
                             <div>
-                                {lowerSplit ? <LowerSplit leg={leg} hamstrings={hamstrings} glutes={glutes} calves={calves} core={core} mobility={mobility} /> : <UpperSplit back={back} chest={chest} biceps={biceps} tricep={tricep} shoulder={shoulder} core={core} mobility={mobility} />}
-                                {hasMobility ? <MobilityDisplay mobility={mobility} />: ""}
+                                {lowerSplit ? <LowerSplit leg={leg} hamstrings={hamstrings} glutes={glutes} calves={calves} core={core} /> : ""}
+                                {upperSplit ?    <UpperSplit back={back} chest={chest} biceps={biceps} tricep={tricep} shoulder={shoulder} core={core} /> : ""}
+                                {isMobility ? <MobilityDisplay mobility={mobility} />: ""}
                             </div>
                         </Card.Body>
                         </Card>
