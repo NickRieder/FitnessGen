@@ -99,7 +99,7 @@ export default function SignUp() {
     }
 
     const buttonStyle = {
-        maxWidth: '275px', 
+        minWidth: '275px', 
         backgroundColor:'#B7D1E2', 
         borderColor:'#323334', 
         color:'#323334', 
