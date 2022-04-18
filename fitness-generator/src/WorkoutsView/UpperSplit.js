@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Row, Col, Container } from 'react-bootstrap';
 import "./DailyWorkout.css"
 
-const UpperSplit = ({ back, chest, biceps, tricep, shoulder, core, mobility }) => {
+const UpperSplit = ({ back, chest, biceps, tricep, shoulder, core }) => {
 
   
     return (      
@@ -71,15 +71,6 @@ const UpperSplit = ({ back, chest, biceps, tricep, shoulder, core, mobility }) =
                     <Row>
                         <Col>Core</Col>
                         <Col>{core[(Math.floor(Math.random() * Object.keys(core).length))]}</Col>
-                        <Col>3</Col>
-                        <Col>10</Col>
-                        <Col>Video</Col>
-                    </Row>
-                </div>
-                <div className="Row">
-                    <Row>
-                        <Col>Mobility Exercises</Col>
-                        <Col>{mobility}</Col>
                         <Col>3</Col>
                         <Col>10</Col>
                         <Col>Video</Col>
