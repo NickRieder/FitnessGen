@@ -146,7 +146,7 @@ const Home = () => {
                             }  */}
                             <h4 style={{color: 'white'}}><br/>Want to know what it feels like <br/><br/> to have your own free personal trainer?</h4>
                         </div>
-                        <Button className="mt-4" size="lg" style={{backgroundColor:'#B7D1E2', borderColor:'#323334', color:'#323334', borderRadius:'24px'}} onClick={() => navigate('/sign-up')}>Get Started</Button>
+                        <Button className="mt-4" size="lg" style={{backgroundColor:'#B7D1E2', borderColor:'#323334', color:'#323334', borderRadius:'24px'}} onClick={() => navigate('/questionnaire')}>Get Started</Button>
                     
                     
                     {/* <h1>Who we are.</h1>

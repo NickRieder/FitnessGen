@@ -247,12 +247,12 @@ export default function Questionnaire() {
                   </Form.Select>
 
                   {/* Information icon button */}
-                  <Button className="ms-2" style={{ minHeight: '40px' }} onClick={() => navigate('/intensityinfo', {state: {intensityVal: intensityVal}}) }>
+                  {/* <Button className="ms-2" style={{ minHeight: '40px' }} onClick={() => navigate('/intensityinfo', {state: {intensityVal: intensityVal}}) }>
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" fill="currentColor" className="bi bi-info-circle" viewBox="0 0 16 16">
                         d<path d={iconPath1}></path>
                         <path d={iconPath2}></path>
                       </svg>
-                  </Button>
+                  </Button> */}
                 </Form.Group>
 
                 {/* CARDIO OPTION */}
