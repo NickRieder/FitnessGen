@@ -17,6 +17,7 @@ import ForgotPassword from './ForgotPassword';
 import WorkoutsView from './WorkoutsView/WorkoutsView'
 import AboutUs from './AboutUs';
 import MobilityTest from './MobilityTest';
+import Tutorials from './Tutorial';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
             <Route path="aboutus" element={ <AboutUs /> } />
             <Route path="workout-view" element={<WorkoutsView />} />
             <Route path="mobilitytest" element={<MobilityTest />} />
+            <Route path="tutorials" element={<Tutorials />} />
         </Routes>
       </Router>
     </div>
