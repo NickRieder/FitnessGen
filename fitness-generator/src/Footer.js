@@ -3,7 +3,7 @@ import {Container, Row, Col} from 'react-bootstrap';
 
 const Footer = () => {
 return (
-	<div className='mt-5 border w-100' style={{backgroundColor:'#F8F9FA'}}>
+	<div className='border w-100' style={{backgroundColor:'#F8F9FA'}}>
         <Container className='mt-2 w-100 px-0'>
             <Row className="mb-3">
         
@@ -12,7 +12,7 @@ return (
                 <div className="w-100">
                     <i className="">
                         <span style={{ marginLeft: "10px" }}>
-                        About Us
+                        <a href='aboutus' style={{textDecoration: 'none', color:'black'}}>About Us </a>
                         </span>
                     </i>
                 </div>

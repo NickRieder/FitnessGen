@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from 'react'
+import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Card, Container, Form } from 'react-bootstrap'
 import background from "./images/fitness-rdl.jpg";
@@ -138,10 +138,10 @@ export default function Questionnaire() {
     );   
   }
 
-  const handleHeightChange = (e) => {
-      setHeightFT(e)
-      console.log(heightFT)
-    }
+  // const handleHeightChange = (e) => {
+  //     setHeightFT(e)
+  //     console.log(heightFT)
+  //   }
 
   return (   
     <div className='d-flex justify-content-center' style={{ background: `url(${background})` }}>
@@ -270,6 +270,7 @@ export default function Questionnaire() {
                         type='radio' 
                         label={currRadio.name} 
                         value={currRadio.value}
+                        // eslint-disable-next-line eqeqeq
                         checked={radioVal == currRadio.value}
                         onChange={(e) => setRadioVal(e.currentTarget.value)}
                       />
