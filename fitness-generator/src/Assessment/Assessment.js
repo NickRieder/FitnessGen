@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from "react-bootstrap/Form";
@@ -32,7 +32,7 @@ const Assessment = () => {
 
 
         setUserAssessmentData(user, wallSit, maxBench, maxSquat, pushUps, crunches, upper, lower, core, total);
-        navigate('/workout');
+        navigate('/workout-view');
     }
 
     return (

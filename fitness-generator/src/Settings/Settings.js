@@ -4,8 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
-import { db, AuthContext, updateUserData, auth, updatePasswordRequest } from '../config/firebase'
-import { collection, addDoc } from 'firebase/firestore'
+import { AuthContext, updateUserData, updatePasswordRequest } from '../config/firebase'
 import { useCookies } from 'react-cookie';
 
 export default function Settings() {
@@ -133,7 +132,7 @@ export default function Settings() {
 						/>
 			</Form.Group>
 
-     		{/* Age Form */}
+     		{/* Age Form
 			<Form.Group className="" id="Age">
 				<Form.Label className="d-flex justify-content-start">Age</Form.Label>
 				<Form.Control 
@@ -145,7 +144,7 @@ export default function Settings() {
 						/>
 			</Form.Group>
 
-			{/* Gender Form */}
+			{/* Gender Form
 			<Form.Group className="" id="Gender">
 				<Form.Label className="d-flex justify-content-start">Gender</Form.Label>
 				<Form.Control 
@@ -155,7 +154,7 @@ export default function Settings() {
 						type="text" 
 						placeholder="Enter Gender" 
 						/>
-			</Form.Group>
+			</Form.Group> */}
 
          	<Form.Group >
 				<Button className='mt-5' disabled={disableChangesBtn} onClick={disableUndoChangesBtn}>Undo Changes</Button>
@@ -164,42 +163,11 @@ export default function Settings() {
       </Form>)
   	}, [disableChangesBtn, email, firstName, lastName, displayName, user, setCookies])
 
-//   const PreferencesForm = () => {
-//     return (      
-//       <>
-//         <h3 className='text-start mb-4'> Intensity </h3>
-//         <Form>
-//         {/* Email Address Form*/}
-//             <Form.Group id="Legs">
-//                 <Form.Label className="d-flex justify-content-start">Legs</Form.Label>
-//             </Form.Group>
-
-//         {/* Password Form*/}
-//             <Form.Group id="Chest">
-//                 <Form.Label className="d-flex justify-content-start">Chest</Form.Label>
-//             </Form.Group>
-
-//         {/* Password Confirmation Form */}
-//             <Form.Group className="mb-5" id="Core">
-//                 <Form.Label className="d-flex justify-content-start">Core</Form.Label>
-//             </Form.Group>
-
-//             <Form.Group>
-//                 <h1>Test</h1>
-//                 <p>This is the vision of the creator, Dan Bagin, a personal trainer with a goal of finding the ideal workout for all perspective clients to improve their fitness.</p>
-//                 {/* <Button onClick={() => f()}>Sign Up</Button>    */}
-//             </Form.Group>
-//         </Form>
-//       </>)
-//   	}
-
-
 	const PasswordForm = useCallback(() => {
     	
         function handleChangePassword(e) {
 
             if (newPassword === renewPassword) {
-                console.log("here")
                 updatePasswordRequest(user, oldPassword, newPassword).then(() => {
 					setErrorCode("Password was Updated")
 				})

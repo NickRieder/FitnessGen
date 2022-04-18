@@ -1,8 +1,8 @@
-import React, { useRef, useState, useContext, useEffect } from 'react'
+import React, { useRef, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { Button, Form, Card, Container, Alert } from 'react-bootstrap';
-import { signInWithEmail, logOut, AuthContext, signInWithGoogle } from './config/firebase';
-import { continueGuestBtnText } from './SignUp';
+import { signInWithEmail, signInWithGoogle } from './config/firebase';
+// import { continueGuestBtnText } from './SignUp';
 import { useCookies } from 'react-cookie';
 
 const signUpBtnText = "Don't have an account? Sign up...";
@@ -21,13 +21,15 @@ export default function SignIn() {
     const [loginPassword, setPassword] = useState("");
     const [loginEmail, setEmail] = useState("");
 
-    const { user, setUser } = useContext(AuthContext); 
+    // const { user, setUser } = useContext(AuthContext); 
 
     // Error Catching
     const [errorCode, setErrorCode] = useState(() => "");
     
     //set cookies
     const [cookies, setCookies] = useCookies(['user']);
+
+    if (cookies) console.log("")
 
     let userData = null;
 
