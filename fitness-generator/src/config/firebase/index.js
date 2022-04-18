@@ -61,13 +61,18 @@ export const AuthProvider = ({ children }) => {
 const googleProvider = new GoogleAuthProvider();
 
 export const signInWithGoogle = () => {
-  signInWithPopup(auth, googleProvider)
+  let displayName = null;
+  let email = null;
+
+  return signInWithPopup(auth, googleProvider)
       .then((result) => {
           // This gives you a Google Access Token. You can use it to access the Google API.
           // const credential = GoogleAuthProvider.credentialFromResult(result);
           // const token = credential?.accessToken;
           // The signed-in user info.
           // const user = result.user;
+          // email = result.user.email
+          // displayName = result.user.displayName
       })
       .catch((error) => {
           // Handle Errors here.
@@ -79,6 +84,8 @@ export const signInWithGoogle = () => {
           const credential = GoogleAuthProvider.credentialFromError(error);
           console.log({ errorCode, errorMessage, email, credential });
       });
+
+      // return {email, displayName}
 };
 
 export async function signInWithEmail(email, password) {
@@ -170,9 +177,30 @@ export async function updateUserData(user, email, firstName, lastName, displayNa
       LastName: lastName,
       DisplayName: displayName
     });
-} catch (error) {
+  } catch (error) {
     console.error("Error while adding document", error);
+  }
 }
+
+//update workout data personal data
+export async function updateWorkoutData(user, height, weight, days, intensity, equipment) {
+  try {
+    // Adds the email as a field in the Users collection
+    const dbUsersRef = doc(db, `Users/${user.uid}`);
+
+    // Adds firstName and lastName as fields in the Personal collection 
+    const dbUPDDataRef = doc(db, `Users/${dbUsersRef.id}/WorkoutData/Data`)
+    await setDoc(dbUPDDataRef, {
+      Days: days,
+      Equipment: equipment,
+      HeightFT: height.ft,
+      HeightIN: height.in,
+      Intensity: intensity,
+      Weight: weight
+    });
+  } catch (error) {
+    console.error("Error while adding document", error);
+  }
 }
 
 export const logOut = () => {

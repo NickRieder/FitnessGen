@@ -2,7 +2,7 @@ import React, { useRef, useState, useContext } from "react";
 import { Button, Form, Card, Container, Alert } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmail, AuthContext, signInWithGoogle } from './config/firebase';
-import { useCookies } from 'react-cookie'
+import { useCookies, setCookies } from 'react-cookie'
 
 const signInBtnText = "Already have an account? Sign in...";
 const continueGuestBtnText = "Continue as Guest...";
@@ -34,15 +34,17 @@ export default function SignUp() {
     const [errorCode, setErrorCode] = useState(() => "");
 
     // Cookies
-    const [setCookies] = useCookies(['user']);
+    const [cookies, setCookies] = useCookies(['user']);
     
 
     // confirmPassWord
     function handleSubmit(event) {
         event.preventDefault();
-    
+
         if (password !== confirmPassWord) {
             // password is not matching, you can show error to your user
+            setPassword(() => '')
+            setConfirmPassword(() => '')
             return setErrorCode("Passwords Do Not Match!");
         }
     
@@ -56,12 +58,13 @@ export default function SignUp() {
     
             navigate("/");
         }).catch((e) => {
+            setEmail(() => '')
             if (e.code === 'auth/invalid-email') {
                 setErrorCode('Invalid E-mail')
             } else if (e.code === 'auth/email-already-in-use') {
                 setErrorCode('E-mail Already Has Account')
             } else {
-                console.log('nah')
+                console.log(e)
             }
         })
 
@@ -71,15 +74,29 @@ export default function SignUp() {
         // ... rest of the codes
     }
 
+    function handleGoogleSubmit(event) {
+        signInWithGoogle().then(() => {
+            //set cookies here for firstName LastName
+            setCookies('firstName', 'New', {path: '/', sameSite: 'none', secure: true})
+            setCookies('lastName', 'User', {path: '/', sameSite: 'none', secure: true})   
+            const displayName = '';
+            setCookies('email', '', {path: '/', sameSite: 'none', secure: true})
+            setCookies('displayName', '', {path: '/', sameSite: 'none', secure: true}) 
+            navigate('/')
+        }).catch((e) => {
+            console.log(e)
+        })
+    }
+
     const buttonStyle = {
-        minWidth: '275px', 
+        maxWidth: '275px', 
         backgroundColor:'#B7D1E2', 
         borderColor:'#323334', 
         color:'#323334', 
         borderRadius:'24px'
     }
 
-    console.log(user);
+    // console.log(user);
 
     return (
       // empty fragment
@@ -182,7 +199,7 @@ export default function SignUp() {
                         </div>
                         <br></br>
                         <div>
-                            <Button style={buttonStyle} onClick={signInWithGoogle}>Sign Up with Google</Button>
+                            <Button style={buttonStyle} onClick={handleGoogleSubmit}>Sign Up with Google</Button>
 
                         </div>
                     </Card.Body>

@@ -59,7 +59,7 @@ const Home = () => {
 
     const GuestHome = () => {
         return (
-            <div className='w-100' style={{height: '100vh'}}>
+            <div className='' style={{width: '100vw', height: '100vh'}}>
                 <div className="" style={{height: '675px', background: `url(${background})`, }}>
                     {/*<Image fluid src='./fitness-rdl.jpg'></Image>*/}
                     
@@ -83,7 +83,7 @@ const Home = () => {
                     </div>
                 </div>
 
-                <div className="w-100 pt-5 ps-5 pe-5" style={{backgroundColor: '#F1F2F3'}}>
+                <div className="pt-5 ps-5 pe-5" style={{width: '100vw', backgroundColor: '#F1F2F3'}}>
                     <div className="w-75 m-auto pb-3" style={{borderStyle: ''}}>
                         <h1 className="text-center pt-5 ps-4 pe-5 pb-2 fw-bold"> Mission Statement </h1>
                         <h2 className="text-center ps-4 pe-5 lh-base" style={{maxWidth: '1050px'}}> {mockMissionStatementText2} <br/><br/> </h2>                    
@@ -105,7 +105,7 @@ const Home = () => {
 
                             </div>
                             {/* marginLeft: '150px' */}
-                            <div className="w-100 text-center me-5 pe-5" style={{display: 'flex',  justifyContent:'end', alignItems:'end'}}> 
+                            <div className="text-center me-5 pe-5" style={{width: '100vw', display: 'flex',  justifyContent:'end', alignItems:'end'}}> 
                                 <div className="me-5" style={{width: '350px', height: '350px', borderRadius:'50%', background: `url(${background})`}}> </div>
                             </div>
                     </Container>
@@ -146,7 +146,7 @@ const Home = () => {
                             }  */}
                             <h4 style={{color: 'white'}}><br/>Want to know what it feels like <br/><br/> to have your own free personal trainer?</h4>
                         </div>
-                        <Button className="mt-4" size="lg" style={{backgroundColor:'#B7D1E2', borderColor:'#323334', color:'#323334', borderRadius:'24px'}} onClick={() => navigate('/sign-up')}>Get Started</Button>
+                        <Button className="mt-4" size="lg" style={{backgroundColor:'#B7D1E2', borderColor:'#323334', color:'#323334', borderRadius:'24px'}} onClick={() => navigate('/questionnaire')}>Get Started</Button>
                     
                     
                     {/* <h1>Who we are.</h1>
