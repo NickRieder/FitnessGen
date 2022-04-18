@@ -75,19 +75,27 @@ test('Submit button navigates to assessment page', () => {
     expect(screen.getByRole('heading', {name: "Assessment"})).toBeInTheDocument();
 });
 
-test('Svg button navigates to information intensity', () => { 
-    render(<MockQuestionnaire/>)
-    const infoIntensityBtns = screen.getAllByRole('button');
-    fireEvent.click(infoIntensityBtns[0]);
-    render(<MockInfoIntensity/>)
-    expect(screen.getByRole('button', {name: "Go Back"})).toBeInTheDocument();
-    // console.log(infoIntensityBtns);
-});
+// test('Svg button navigates to information intensity', () => { 
+//     render(<MockQuestionnaire/>)
+//     const infoIntensityBtns = screen.getAllByRole('button');
+//     fireEvent.click(infoIntensityBtns[0]);
+//     render(<MockInfoIntensity/>)
+//     expect(screen.getByRole('button', {name: "Go Back"})).toBeInTheDocument();
+//     // console.log(infoIntensityBtns);
+// });
 
 test('Google Sign-in Method', () => { 
     render(<MockSignIn/>)
     const userSignInBtn = screen.getByRole('button', {name: "Sign In"});
     fireEvent.click(userSignInBtn);
     render(<MockHome/>)
-    expect(screen.getByRole('heading', {name: "Welcome to the fitness generator app."})).toBeInTheDocument();
+    expect(screen.getByRole('heading', {name: "KaloRenics Functional Fitness Health"})).toBeInTheDocument();
+});
+
+test('User personal information is set in database', () => { 
+    render(<MockSignUp />)
+    const continueAsGuestBtn = screen.getByRole('button', {name: continueGuestBtnText});
+    fireEvent.click(continueAsGuestBtn);
+    render(<MockQuestionnaire/>)
+    expect(screen.getByRole('heading', {name: "ABOUT YOURSELF"})).toBeInTheDocument();
 });

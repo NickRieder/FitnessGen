@@ -46,45 +46,11 @@ const MockQuestionnaire = () => {
         </AuthProvider>)
 }
 
-// NAVIGATION
-test('Get Started button navigates to questionnaire', () => { 
+//USER PERSPECTIVE
+test('The Footer is at bottom of all pages', () => { 
     render(<MockHome/>)
     const getStartedBtn = screen.getByRole('button', {name: "Get Started"});
     fireEvent.click(getStartedBtn);
     render(<MockSignUp/>)
     expect(screen.getByRole('heading', {name: "Sign Up"})).toBeInTheDocument();
 });
-
-test('Get Started button navigates to questionnaire2', () => { 
-    render(<MockHome/>)
-    const getStartedBtn = screen.getByRole('button', {name: "Get Started"});
-    fireEvent.click(getStartedBtn);
-    render(<MockSignUp/>)
-    expect(screen.getByRole('heading', {name: "Sign Up"})).toBeInTheDocument();
-});
-
-test('Get Started button navigates to questionnaire3', () => { 
-    render(<MockHome/>)
-    const getStartedBtn = screen.getByRole('button', {name: "Get Started"});
-    fireEvent.click(getStartedBtn);
-    render(<MockSignUp/>)
-    expect(screen.getByRole('heading', {name: "Sign Up"})).toBeInTheDocument();
-});
-
-
-// test('Sign Up button navigates to sign up page', () => { 
-//     render(<MockHome/>)
-//     const signUpBtn = screen.getByRole('button', {name: "Sign Up"});
-//     fireEvent.click(signUpBtn);
-//     render(<MockSignUp/>)
-//     expect(screen.getByRole('heading', {name: "Sign Up"})).toBeInTheDocument();
-// });
-
-// USER PERSPECTIVE
-// test("User's full name is displayed on Home Page", () => { 
-//     render(<MockHome/>)
-//     const signUpBtn = screen.getByRole('button', {name: "Sign Up"});
-//     fireEvent.click(signUpBtn);
-//     render(<MockSignUp/>)
-//     expect(screen.getByRole('heading', {name: "Sign Up"})).toBeInTheDocument();
-// });

@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 // Importing the Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { CookiesProvider } from 'react-cookie'
+import Footer from './Footer.js'
 
 ReactDOM.render(
     <React.StrictMode>
@@ -16,6 +17,9 @@ ReactDOM.render(
       }
         <CookiesProvider>
           <App />
+            {/* <div className="w-100">
+              <Footer />
+            </div> */}
         </CookiesProvider>
       </AuthProvider>
       

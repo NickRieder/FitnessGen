@@ -29,7 +29,7 @@ export default function SignIn() {
     //set cookies
     const [cookies, setCookies] = useCookies(['user']);
 
-    if (cookies) console.log("")
+    // if (cookies) console.log("")
 
     let userData = null;
 
@@ -39,7 +39,7 @@ export default function SignIn() {
             userData = await signInWithEmail(loginEmail, loginPassword)
             // console.log(userData.firstName, userData.lastName, userData.displayName)
 
-            console.log(userData.firstName===undefined)
+            // console.log(userData.firstName===undefined)
             if (userData.firstName!==undefined) {
                 //set cookies here for firstName LastName
                 setCookies('firstName', userData.firstName, {path: '/', sameSite: 'none', secure: true})
@@ -51,7 +51,7 @@ export default function SignIn() {
                 setErrorCode(() => "The email or password is incorrect.")
             }
         } catch(e) {
-            console.log(e)
+            // console.log(e)
         }
     }
     

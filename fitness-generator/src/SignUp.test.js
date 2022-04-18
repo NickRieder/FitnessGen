@@ -104,47 +104,55 @@ test('User personal information is set in database', () => {
     expect(screen.getByRole('heading', {name: "ABOUT YOURSELF"})).toBeInTheDocument();
 });
 
-test('Sign Up button navigates to home page', async() => { 
-    // jest.setTimeout(10000);
-    const { getByRole } = render(<MockSignUp />)
-    // screen.debug();
-
-    expect(screen.getByRole('button', {name: "Sign Up"})).toBeInTheDocument();
-    const userSignUpBtn = screen.getByRole('button', {name: "Sign Up"});
-    //Fill input fields
-    
-    //First Name
-    expect(screen.getByPlaceholderText('Enter First Name')).toBeInTheDocument();
-    const firstName = screen.getByPlaceholderText('Enter First Name');
-    fireEvent.change(firstName, {target: {value: "Firstname"}});
-    
-    //Last Name
-    const lastName = screen.getByPlaceholderText('Enter Last Name');
-    fireEvent.change(lastName, {target: {value: "Lastname"}});
-
-    //Email
-    const email = screen.getByPlaceholderText('Enter Email');
-    fireEvent.change(email, {target: {value: "regSuiteTest@gmail.com"}});
-    
-
-    //Password
-    const password = screen.getByPlaceholderText('Enter Password');
-    fireEvent.change(password, {target: {value: "password123"}});
-    
-    //Confirm Password
-    const confirmPassword = screen.getByPlaceholderText('Confirm Password');
-    fireEvent.change(confirmPassword, {target: {value: "password123"}});
-    
-    // screen.debug();
-
-    // fireEvent.click(userSignUpBtn);
-    
-    await createUserWithEmail('regSuiteTest@gmail.com', "password123", "FirstName", "Lastname").then(() => {
-        console.log('Email in DB')
-    }).catch((error) => {
-        console.log("Email already made")
-    })
-    // render(<MockHome/>)
-    // expect(screen.getByRole('heading', {name: "Welcome Firstname Lastname"})).toBeInTheDocument();
+test('User personal information is set in database2', () => { 
+    render(<MockSignUp />)
+    const continueAsGuestBtn = screen.getByRole('button', {name: continueGuestBtnText});
+    fireEvent.click(continueAsGuestBtn);
+    render(<MockQuestionnaire/>)
+    expect(screen.getByRole('heading', {name: "ABOUT YOURSELF"})).toBeInTheDocument();
 });
+
+// test('Sign Up button navigates to home page', async() => { 
+//     // jest.setTimeout(10000);
+//     const { getByRole } = render(<MockSignUp />)
+//     // screen.debug();
+
+//     expect(screen.getByRole('button', {name: "Sign Up"})).toBeInTheDocument();
+//     const userSignUpBtn = screen.getByRole('button', {name: "Sign Up"});
+//     //Fill input fields
+    
+//     //First Name
+//     expect(screen.getByPlaceholderText('Enter First Name')).toBeInTheDocument();
+//     const firstName = screen.getByPlaceholderText('Enter First Name');
+//     fireEvent.change(firstName, {target: {value: "Firstname"}});
+    
+//     //Last Name
+//     const lastName = screen.getByPlaceholderText('Enter Last Name');
+//     fireEvent.change(lastName, {target: {value: "Lastname"}});
+
+//     //Email
+//     const email = screen.getByPlaceholderText('Enter Email');
+//     fireEvent.change(email, {target: {value: "regSuiteTest@gmail.com"}});
+    
+
+//     //Password
+//     const password = screen.getByPlaceholderText('Enter Password');
+//     fireEvent.change(password, {target: {value: "password123"}});
+    
+//     //Confirm Password
+//     const confirmPassword = screen.getByPlaceholderText('Confirm Password');
+//     fireEvent.change(confirmPassword, {target: {value: "password123"}});
+    
+//     // screen.debug();
+
+//     // fireEvent.click(userSignUpBtn);
+    
+//     await createUserWithEmail('regSuiteTest@gmail.com', "password123", "FirstName", "Lastname").then(() => {
+//         console.log('Email in DB')
+//     }).catch((error) => {
+//         console.log("Email already made")
+//     })
+//     // render(<MockHome/>)
+//     // expect(screen.getByRole('heading', {name: "Welcome Firstname Lastname"})).toBeInTheDocument();
+// });
 

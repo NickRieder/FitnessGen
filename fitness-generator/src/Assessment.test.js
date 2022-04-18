@@ -74,3 +74,11 @@ test('Submit button navigates to WorkoutGenerator page', () => {
     render(<MockAssessment/>)
     expect(screen.getByRole('heading', {name: "Assessment"})).toBeInTheDocument();
 });
+
+test('User personal information is set in database', () => { 
+    render(<MockSignUp />)
+    const continueAsGuestBtn = screen.getByRole('button', {name: continueGuestBtnText});
+    fireEvent.click(continueAsGuestBtn);
+    render(<MockQuestionnaire/>)
+    expect(screen.getByRole('heading', {name: "ABOUT YOURSELF"})).toBeInTheDocument();
+});

@@ -36,30 +36,30 @@ const Home = () => {
     // }, [user])
 
     const [flip, set] = useState(false)
-    // const props1 = useSpring({ 
-    //     to: { opacity: 0.5, color:'white', textSize:'50px' }, 
-    //     from: { opacity: 1, color:'white', textSize:'50px' }, 
-    //     reset: true,
-    //     // reverse: flip,
-    //     delay: 500,
-    //     config: {duration: 15000},
-    //     onRest: () => set(!flip),
-    // })
+    const props1 = useSpring({ 
+        to: { opacity: 0.5, color:'white', textSize:'50px' }, 
+        from: { opacity: 1, color:'white', textSize:'50px' }, 
+        reset: true,
+        // reverse: flip,
+        delay: 500,
+        config: {duration: 15000},
+        onRest: () => set(!flip),
+    })
 
-    // const props2 = useSpring({ 
-    //     to: { opacity: 0.5, color:'white', textSize:'50px' }, 
-    //     from: { opacity: 1, color:'white', textSize:'50px' }, 
-    //     reset: true,
-    //     // reverse: flip,
-    //     delay: 500,
-    //     config: {duration: 15000},
-    //     onRest: () => set(!flip),
-    // })
+    const props2 = useSpring({ 
+        to: { opacity: 0.5, color:'white', textSize:'50px' }, 
+        from: { opacity: 1, color:'white', textSize:'50px' }, 
+        reset: true,
+        // reverse: flip,
+        delay: 500,
+        config: {duration: 15000},
+        onRest: () => set(!flip),
+    })
 
 
     const GuestHome = () => {
         return (
-            <div className='' style={{width: '100vw', height: '100vh'}}>
+            <div className='' style={{height: '100vh'}}>
                 <div className="" style={{height: '675px', background: `url(${background})`, }}>
                     {/*<Image fluid src='./fitness-rdl.jpg'></Image>*/}
                     
@@ -68,11 +68,11 @@ const Home = () => {
                         {/* Want to know what it feels like to have your own free personal trainer?  */}
                         {/* <h4  style={{color:'white'}}><br/>We use your past workout history and current metrics <br/><br/> to develop the ideal workout plan for you!</h4> */}
                         <div>
-                            {/* {flip ? <animated.h4 style={props1}><br/>Want to know what it feels like <br/><br/> to have your own free personal trainer?</animated.h4>
+                            {flip ? <animated.h4 style={props1}><br/>Want to know what it feels like <br/><br/> to have your own free personal trainer?</animated.h4>
                             : 
                             <animated.h4 style={props2}><br/>We use your past workout history and current metrics <br/><br/> to develop the ideal workout plan for you!</animated.h4>
-                            }  */}
-                            <h4 style={{color: 'white'}}><br/>Want to know what it feels like <br/><br/> to have your own free personal trainer?</h4>
+                            } 
+                            {/* <h4 style={{color: 'white'}}><br/>Want to know what it feels like <br/><br/> to have your own free personal trainer?</h4> */}
                         </div>
                         <Button className="mt-4" size="lg" style={{backgroundColor:'#B7D1E2', borderColor:'#323334', color:'#323334', borderRadius:'24px'}} onClick={() => navigate('/sign-up')}>Get Started</Button>
                     
@@ -83,7 +83,7 @@ const Home = () => {
                     </div>
                 </div>
 
-                <div className="pt-5 ps-5 pe-5" style={{width: '100vw', backgroundColor: '#F1F2F3'}}>
+                <div className="pt-5 ps-5 pe-5" style={{backgroundColor: '#F1F2F3'}}>
                     <div className="w-75 m-auto pb-3" style={{borderStyle: ''}}>
                         <h1 className="text-center pt-5 ps-4 pe-5 pb-2 fw-bold"> Mission Statement </h1>
                         <h2 className="text-center ps-4 pe-5 lh-base" style={{maxWidth: '1050px'}}> {mockMissionStatementText2} <br/><br/> </h2>                    
@@ -105,7 +105,7 @@ const Home = () => {
 
                             </div>
                             {/* marginLeft: '150px' */}
-                            <div className="text-center me-5 pe-5" style={{width: '100vw', display: 'flex',  justifyContent:'end', alignItems:'end'}}> 
+                            <div className="text-center me-5 pe-5" style={{display: 'flex',  justifyContent:'end', alignItems:'end'}}> 
                                 <div className="me-5" style={{width: '350px', height: '350px', borderRadius:'50%', background: `url(${background})`}}> </div>
                             </div>
                     </Container>
@@ -122,7 +122,7 @@ const Home = () => {
                 </div>
 
                     
-                <div className="w-100">
+                <div className="">
                     <Footer />
                 </div>
             </div>
@@ -140,11 +140,11 @@ const Home = () => {
                         {/* Want to know what it feels like to have your own free personal trainer?  */}
                         {/* <h4  style={{color:'white'}}><br/>We use your past workout history and current metrics <br/><br/> to develop the ideal workout plan for you!</h4> */}
                         <div>
-                            {/* {flip ? <animated.h4 style={props1}><br/>Want to know what it feels like <br/><br/> to have your own free personal trainer?</animated.h4>
+                            {flip ? <animated.h4 style={props1}><br/>Want to know what it feels like <br/><br/> to have your own free personal trainer?</animated.h4>
                             : 
                             <animated.h4 style={props2}><br/>We use your past workout history and current metrics <br/><br/> to develop the ideal workout plan for you!</animated.h4>
-                            }  */}
-                            <h4 style={{color: 'white'}}><br/>Want to know what it feels like <br/><br/> to have your own free personal trainer?</h4>
+                            } 
+                            {/* <h4 style={{color: 'white'}}><br/>Want to know what it feels like <br/><br/> to have your own free personal trainer?</h4> */}
                         </div>
                         <Button className="mt-4" size="lg" style={{backgroundColor:'#B7D1E2', borderColor:'#323334', color:'#323334', borderRadius:'24px'}} onClick={() => navigate('/questionnaire')}>Get Started</Button>
                     
@@ -192,11 +192,6 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-
-                    
-                <div className="w-100">
-                    <Footer />
-                </div>
             </div>
             )
     }
@@ -224,15 +219,10 @@ const Home = () => {
 
     
     const HomePage = () => {
-        if (loading) {
-            setLoading(() => user!=null)
-            return (<div> Loading... </div>)
+        if(user) {
+            return <MockUserHome/>
         } else {
-            if(user) {
-                return <MockUserHome/>
-            } else {
-                return <GuestHome />
-            }
+            return <GuestHome />
         }
     }
 

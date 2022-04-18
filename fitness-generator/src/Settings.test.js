@@ -1,15 +1,16 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import React from 'react';
-import SignUp, { signInBtnText, continueGuestBtnText } from './SignUp';
-import SignIn, { signUpBtnText } from './SignIn';
-import Questionnaire from './Questionnaire';
-import Home from './Home';
-import { AuthProvider } from "./config/firebase";
-
+import React, { useState } from 'react';
+import SignUp, { signInBtnText, continueGuestBtnText } from './SignUp'
+import SignIn from './SignIn'
+import Questionnaire from './Questionnaire'
+import Home from './Home'
+import { AuthProvider, createUserWithEmail } from "./config/firebase";
 
 // Mock Sign-up page component with BrowserRouter component to 
 // use the useNavigate hook
+
+
 const MockHome = () => {
     return (
         <AuthProvider>
@@ -35,7 +36,6 @@ const MockSignIn = () => {
                 <SignIn/>
             </BrowserRouter>
         </AuthProvider>)
-        
 }
 
 const MockQuestionnaire = () => {
@@ -50,38 +50,21 @@ const MockQuestionnaire = () => {
 // LEFT SIDE
 
 // NAVIGATION
-test('Sign Up button navigates to sign up page', () => { 
-    render(<MockSignIn/>)
+test('Sign In button navigates to sign in page', () => { 
+    render(<MockSignUp />)
     // screen.debug();
-    const signUpBtn = screen.getByRole('button', {name: signUpBtnText});
-    fireEvent.click(signUpBtn);
-    render(<MockSignUp/>)
     expect(screen.getByRole('button', {name: signInBtnText})).toBeInTheDocument();
-});
-
-// RIGHT SIDE
-
-// NAVIGATION
-test('Google Sign-in Method', () => { 
+    const signInBtn = screen.getByRole('button', {name: signInBtnText});
+    fireEvent.click(signInBtn);
     render(<MockSignIn/>)
-    const userSignInBtn = screen.getByRole('button', {name: "Sign In"});
-    fireEvent.click(userSignInBtn);
-    render(<MockHome/>)
-    expect(screen.getByRole('heading', {name: "KaloRenics Functional Fitness Health"})).toBeInTheDocument();
+    expect(screen.getByRole('button', {name: "Don't have an account? Sign up..."})).toBeInTheDocument();
 });
 
-test('Correct username and password', () => { 
-    render(<MockSignIn/>)
-    const userSignInBtn = screen.getByRole('button', {name: "Sign In"});
-    fireEvent.click(userSignInBtn);
-    render(<MockHome/>)
-    expect(screen.getByRole('heading', {name: "KaloRenics Functional Fitness Health"})).toBeInTheDocument();
-});
-
-test('User personal information is set in database', () => { 
+test('Continue as Guest button navigates to questionnaire', () => { 
     render(<MockSignUp />)
     const continueAsGuestBtn = screen.getByRole('button', {name: continueGuestBtnText});
     fireEvent.click(continueAsGuestBtn);
     render(<MockQuestionnaire/>)
     expect(screen.getByRole('heading', {name: "ABOUT YOURSELF"})).toBeInTheDocument();
 });
+
