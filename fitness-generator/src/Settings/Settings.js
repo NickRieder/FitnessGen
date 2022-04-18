@@ -212,7 +212,7 @@ export default function Settings() {
 
 			{/* Email Address Form*/}
 			<Form.Group id="newPassword2">
-              		<Form.Label className="d-flex justify-content-start">Re-enter Old Password</Form.Label>
+              		<Form.Label className="d-flex justify-content-start">Re-enter New Password</Form.Label>
 			  		<Form.Control 
 						name="newPassword2"
 						value={renewPassword}
