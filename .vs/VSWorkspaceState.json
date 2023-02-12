@@ -2,15 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\fitness-generator",
-    "\\fitness-generator\\public",
     "\\fitness-generator\\src",
-    "\\fitness-generator\\src\\Assessment",
-    "\\fitness-generator\\src\\config",
-    "\\fitness-generator\\src\\config\\firebase",
-    "\\fitness-generator\\src\\images",
-    "\\fitness-generator\\src\\Settings",
     "\\fitness-generator\\src\\WorkoutsView"
   ],
-  "SelectedNode": "\\fitness-generator\\src\\MobilityTest.js",
+  "SelectedNode": "\\fitness-generator\\src\\WorkoutsView\\WorkoutsView.js",
   "PreviewInSolutionExplorer": false
 }

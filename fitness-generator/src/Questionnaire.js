@@ -208,10 +208,12 @@ export default function Questionnaire() {
 
                   <Form.Select className='ps-1' style={{ maxWidth: '300px', minHeight: '40px' }}> 
                     <option value="injuryNone">None</option>
-                    <option value="injuryPF">Plantar fasciitis</option>
-                    <option value="injuryTE">Tennis elbow</option>
-                    <option value="injurySS">Shin splints</option>
-                    <option value="injuryRCT">Rotator cuff tendonitis</option>
+                    <option value="injuryNeck">Neck</option>
+                    <option value="injuryShoulders">Shoulders</option>
+                    <option value="injuryWrists">Wrists</option>
+                    <option value="injuryHips">Hips</option>
+                    <option value="injuryKnees">Knees</option>
+                    <option value="injuryAnkles">Ankles</option>
                   </Form.Select>
                 </Form.Group>
 
