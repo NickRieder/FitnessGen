@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Button, Card, Container, Form } from 'react-bootstrap'
 import background from "./images/fitness-rdl.jpg";
 import {  AuthContext, setUserWorkoutData } from './config/firebase';
+// import { MDBSelect } from 'mdb-react-ui-kit';
 
 export default function Questionnaire() {
   const navigate = useNavigate();
@@ -54,6 +55,25 @@ export default function Questionnaire() {
   ]
   
   // QUESTION 3
+  const injuryOpts = {
+    "None": "inj_none",
+    "Neck": "inj_neck",
+    "Shoulders": "inj_shoulders",
+    "Wrists": "inj_wrists",
+    "Hips":"inj_hips",
+    "Knees":"inj_knees",
+    "Ankles":"inj_ankles"
+    // "Kettlebell": "KB"
+  };
+
+  const [injury, setInjury] = useState({
+    "inj_none": false,
+    "inj_neck": false,
+    "inj_shoulders": false,
+    "inj_wrists": false,
+    "inj_knees": false,
+    "inj_ankles": false
+  });
 
   // QUESTION 4
   const [workoutDayNum, setWorkoutDayNum] = useState(3);
@@ -138,6 +158,18 @@ export default function Questionnaire() {
     );   
   }
 
+  function handleUserInjury(currInjury) {
+    const newBoolEVal = !(injury[currInjury])
+    // console.log(currEquipment);
+    // console.log(equipment[currEquipment]); 
+    // console.log(newBoolEVal);
+    // console.log(equipment);
+    setInjury(prevState => ({
+        ...prevState,
+        [currInjury]: newBoolEVal})
+    );   
+  }
+
   // const handleHeightChange = (e) => {
   //     setHeightFT(e)
   //     console.log(heightFT)
@@ -205,16 +237,25 @@ export default function Questionnaire() {
                   {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Past Injuries </Form.Label> */}
                   {/* <Form.Control className='ps-1' style={{ maxWidth: '300px' }}/>  */}
                   {FormLabel("Past Injuries")}
-
-                  <Form.Select className='ps-1' style={{ maxWidth: '300px', minHeight: '40px' }}> 
-                    <option value="injuryNone">None</option>
-                    <option value="injuryNeck">Neck</option>
-                    <option value="injuryShoulders">Shoulders</option>
-                    <option value="injuryWrists">Wrists</option>
-                    <option value="injuryHips">Hips</option>
-                    <option value="injuryKnees">Knees</option>
-                    <option value="injuryAnkles">Ankles</option>
-                  </Form.Select>
+                    <Form.Group className='justify-content-start' style={{ maxWidth: '300px', minHeight: '40px', textAlign: 'left' }}>
+                    {Object.keys(injuryOpts).map((currInjury, index) =>{
+                      // Some rules for selection
+                      // When select None, cannot select others.
+                      // let disabled = false;
+                      // if (injuryOpts["None"]){
+                      //   disabled = currInjury !== "None";
+                      // }else{
+                      //   disabled = true;
+                      // }
+                    return(
+                    <Form.Check inline type='checkbox' label={currInjury} value={injury[currInjury]} className='' style={{ minWidth: '300px', minHeight: '25px' }} 
+                      key={index}
+                      checked={injury[injuryOpts[currInjury]]} 
+                      onChange={() => handleUserInjury(injuryOpts[currInjury])}
+                      // disabled={disabled}
+                    />);
+                    })}
+                    </Form.Group>
                 </Form.Group>
 
                 {/* WORKOUT DAYS OPTION */}
