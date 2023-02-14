@@ -238,8 +238,61 @@ export const getUserInfo =  async (user) => {
   return docSnap.data();
 }
 
-export const getWorkout =  async (body, difficulty, equipment) => {
+export const getWorkout =  async (body, difficulty, injuries, allEquipment, equipment) => {
     //const docRef = doc(db, `/Workouts/${body}/${difficulty}/${equipment}`);
+ console.log("INSIDE GETWORKOUT");
+
+   //convert difficulty into number
+   let localDifficulty = 1;
+   if (difficulty == "Medium") {
+     localDifficulty = 2;
+   } else if (difficulty == "Hard") {
+     localDifficulty = 3;
+   }
+
+   // check if body part stresses any injuries and adjust accordingly
+   const bodyDocRef = doc(db, `/Workouts/${body}`);
+   const bodyDocSnap = await getDoc(bodyDocRef);
+   const data = bodyDocSnap.data();
+
+   for (let i = 0; i < injuries.length; i++) {
+    let currentInjury = injuries[i]; // get injury
+     if (data[currentInjury]) { // if body stresses injury
+       if (localDifficulty == 3) { //if difficulty is 3, decrement difficulty and lower to available equipment
+         localDifficulty--;
+         if (allEquipment.includes("DB")) {
+          equipment = "DB";
+         } else if (allEquipment.includes("Band")) {
+           equipment = "Band";
+         } else {
+          equipment = "BodyWeight";
+         }
+         console.log("Made it inside decrementing injury to 2");
+       } else if (localDifficulty == 2) { //if difficulty is 2, decrement difficulty and lower equipment to bodyweight
+         localDifficulty--;
+         if (allEquipment.includes("Band")) {
+           equipment = "Band";
+         } else {
+           equipment = "BodyWeight";
+         }
+         console.log("Made it inside decrementing injury to 1");
+       } else { //if difficulty is 1, lower equipment to body weight
+         equipment = "BodyWeight";
+         console.log("Made it inside setting equipment to bodyweight")
+       }
+     }
+   }
+
+    if (localDifficulty == 1) {
+      difficulty = "Easy";
+    } else if (localDifficulty == 2) {
+      difficulty = "Medium";
+    } else if (localDifficulty == 3) {
+     difficulty = "Hard";
+    } else {
+      console.log("config/firebase/index.js -> localDifficulty was not 1, 2, or 3");
+    }
+
     const docRef = doc(db, `/Workouts/${body}/${difficulty}/${equipment}`);
     const docSnap = await getDoc(docRef);
     return docSnap.data();
@@ -272,7 +325,7 @@ const getWorkout = (user) => {
   firebsase.get(wokrouts.{difficulty}.{equipemtn}(());
 }*/
 
-export async function setUserWorkoutData(user, feet, inches, weight, days, intensity, equipment) {
+export async function setUserWorkoutData(user, feet, inches, weight, days, intensity, equipment, injuries) {
   try {
     // Adds firstName and lastName as fields in the Personal collection 
     const dbUWDDataRef = doc(db, `Users/${user.uid}/WorkoutData/Data`)
@@ -282,7 +335,8 @@ export async function setUserWorkoutData(user, feet, inches, weight, days, inten
       Weight: weight,
       Days: days, 
       Intensity: intensity,
-      Equipment: equipment
+      Equipment: equipment,
+      Injuries: injuries
     });
 
   } catch (error) {

@@ -13,6 +13,7 @@ const WorkoutsView = () => {
     const [days, setDays] = useState(null);
     const [equipment, setEquipment] = useState(null);
     const [intensity, setIntensity] = useState(null);
+    const [injuries, setInjuries] = useState(null);
     const [leg, setLegs] = useState("");
     const [back, setBack] = useState("");
     const [chest, setChest] = useState("");
@@ -63,6 +64,7 @@ const WorkoutsView = () => {
         const result = docSnap.data();
         setEquipment(result.Equipment);
         setIntensity(result.Intensity);
+        setInjuries(result.Injuries);
         setDays(result.Days);
         setGenerated(true);
         
@@ -113,7 +115,7 @@ const WorkoutsView = () => {
             if (days == 3 && !generatedWorkout) {
                 for (let j = 0; j < 1; j++) {
                     for (let i = 0; i < body.length; i++) {
-                        getWorkout(body[i], intensity, equipment[(Math.floor(Math.random() * Object.keys(equipment).length))])
+                        getWorkout(body[i], intensity, injuries, equipment, equipment[(Math.floor(Math.random() * Object.keys(equipment).length))])
                             .then((event) => {
                                 console.log("EVENT")
                                 console.log(event)

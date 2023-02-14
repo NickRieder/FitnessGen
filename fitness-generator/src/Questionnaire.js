@@ -56,23 +56,23 @@ export default function Questionnaire() {
   
   // QUESTION 3
   const injuryOpts = {
-    "None": "inj_none",
-    "Neck": "inj_neck",
-    "Shoulders": "inj_shoulders",
-    "Wrists": "inj_wrists",
-    "Hips":"inj_hips",
-    "Knees":"inj_knees",
-    "Ankles":"inj_ankles"
+    "None": "none",
+    "Neck": "neck",
+    "Shoulders": "shoulders",
+    "Wrists": "wrists",
+    "Hips":"hips",
+    "Knees":"knees",
+    "Ankles":"ankles"
     // "Kettlebell": "KB"
   };
 
   const [injury, setInjury] = useState({
-    "inj_none": false,
-    "inj_neck": false,
-    "inj_shoulders": false,
-    "inj_wrists": false,
-    "inj_knees": false,
-    "inj_ankles": false
+    "none": false,
+    "neck": false,
+    "shoulders": false,
+    "wrists": false,
+    "knees": false,
+    "ankles": false
   });
 
   // QUESTION 4
@@ -125,12 +125,7 @@ export default function Questionnaire() {
 
   // FINAL SUBMIT
   function submitDBandNavAssessment() {
-    // console.log(heightFT);
-    // console.log(heightIN);
-    // console.log(weight);
-    // console.log(workoutDayNum);
-    // console.log(intensityVal);
-
+    //construct equipment array
     const equipmentArray = [];
     console.log(Object.keys(equipment).reduce((p, k) => {
       if (equipment[k]) {
@@ -139,9 +134,18 @@ export default function Questionnaire() {
       return p;
     }, equipmentArray));
 
+    //construct injury array
+    const injuryArray = [];
+    console.log(Object.keys(injury).reduce((p, k) => {
+     if (injury[k]) {
+      p.push(k);
+     }
+     return p;
+    }, injuryArray));
 
 
-    setUserWorkoutData(user, heightFT, heightIN, weight, workoutDayNum, intensityVal, equipmentArray);
+
+    setUserWorkoutData(user, heightFT, heightIN, weight, workoutDayNum, intensityVal, equipmentArray, injuryArray);
       navigate('/assessment');
     }
 
