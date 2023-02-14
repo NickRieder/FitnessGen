@@ -25,6 +25,11 @@ const Assessment = () => {
         const pushUps = forms.elements[3].value;
         const crunches = forms.elements[4].value;
 
+        if (!wallSit || !maxBench || !maxSquat || !pushUps || !crunches) {
+            alert('Please fill in all the values before generating a plan');
+            return;
+        }
+        
         const upper = upperBodyScore(pushUps, gender, age);
         const lower = lowerBodyScore(wallSit, gender, age);
         const core = coreScore(crunches, gender, age);
