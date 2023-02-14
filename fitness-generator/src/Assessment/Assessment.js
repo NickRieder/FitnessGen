@@ -43,26 +43,25 @@ const Assessment = () => {
             <Form name = 'values' id = 'responses'>
                 <Form.Group className="mb-3">
                     <Form.Label>Wall Sit Time</Form.Label>
-                    <Form.Control type="number" placeholder="Enter time in seconds" />
+                    <Form.Control type="number" min="0" placeholder="Enter time in seconds" />
                     <Form.Text className="text-muted">
-                    In seconds.
                     </Form.Text>
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>Max Barbell Bench</Form.Label>
-                    <Form.Control type="number" placeholder="Weight" />
+                    <Form.Control type="number" min="0" placeholder="Weight" />
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>Max Squat</Form.Label>
-                    <Form.Control type="number" placeholder="Weight" />
+                    <Form.Control type="number" min="0" placeholder="Weight" />
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>Max Push Ups</Form.Label>
-                    <Form.Control type="number" placeholder="Weight" />
+                    <Form.Control type="number" min="0" placeholder="Weight" />
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>Max Plank Time</Form.Label>
-                    <Form.Control type="number" placeholder="Enter time in seconds" />
+                    <Form.Control type="number" min= "0" placeholder="Enter time in seconds" />
                     <Form.Text className="text-muted">
                     Just click generate plan and we will find your ideal workout plan
                     </Form.Text>
