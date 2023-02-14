@@ -45,7 +45,6 @@ const Assessment = () => {
                     <Form.Label>Wall Sit Time</Form.Label>
                     <Form.Control type="number" placeholder="Enter time in seconds" />
                     <Form.Text className="text-muted">
-                    In seconds.
                     </Form.Text>
                 </Form.Group>
                 <Form.Group className="mb-3">
