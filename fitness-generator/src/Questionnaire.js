@@ -232,6 +232,30 @@ export default function Questionnaire() {
                   </Form.Select>
                 </Form.Group>
 
+                 {/* WORKOUT INTENSITY OPTION*/}
+                 <Form.Group id='question5' className='d-flex w-100 mb-3'>
+                  {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Workout Intensity </Form.Label> */}
+                  {/* <Form.Control className='ps-1' style={{ maxWidth: '300px', minHeight: '40px' }}/>  */}
+                  {FormLabel("Workout Intensity")}
+                
+                  <Form.Select className='ps-1' style={{ maxWidth: '300px', maxHeight: '40px' }} onChange={(e) => setIntensityVal(e.currentTarget.value)}>
+                    {intensityOpts.map((currIntensity, index) => (
+                      <option  
+                        key={index}
+                        value={currIntensity.value}
+                        checked={intensityVal === currIntensity.value}> {currIntensity.name} </option>
+                    ))}
+                  </Form.Select>
+
+                  {/* Information icon button */}
+                  {/* <Button className="ms-2" style={{ minHeight: '40px' }} onClick={() => navigate('/intensityinfo', {state: {intensityVal: intensityVal}}) }>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" fill="currentColor" className="bi bi-info-circle" viewBox="0 0 16 16">
+                        d<path d={iconPath1}></path>
+                        <path d={iconPath2}></path>
+                      </svg>
+                  </Button> */}
+                </Form.Group>
+
                 {/* INJURIES OPTIONS */}
                 <Form.Group id='question3' className='d-flex w-100 mb-3'>
                   {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Past Injuries </Form.Label> */}
@@ -274,29 +298,7 @@ export default function Questionnaire() {
                   </Form.Select>
                 </Form.Group>
 
-                {/* WORKOUT INTENSITY OPTION*/}
-                <Form.Group id='question5' className='d-flex w-100 mb-3'>
-                  {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Workout Intensity </Form.Label> */}
-                  {/* <Form.Control className='ps-1' style={{ maxWidth: '300px', minHeight: '40px' }}/>  */}
-                  {FormLabel("Workout Intensity")}
-
-                  <Form.Select className='ps-1' style={{ maxWidth: '300px', maxHeight: '40px' }} onChange={(e) => setIntensityVal(e.currentTarget.value)}>
-                    {intensityOpts.map((currIntensity, index) => (
-                      <option  
-                        key={index}
-                        value={currIntensity.value}
-                        checked={intensityVal === currIntensity.value}> {currIntensity.name} </option>
-                    ))}
-                  </Form.Select>
-
-                  {/* Information icon button */}
-                  {/* <Button className="ms-2" style={{ minHeight: '40px' }} onClick={() => navigate('/intensityinfo', {state: {intensityVal: intensityVal}}) }>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" fill="currentColor" className="bi bi-info-circle" viewBox="0 0 16 16">
-                        d<path d={iconPath1}></path>
-                        <path d={iconPath2}></path>
-                      </svg>
-                  </Button> */}
-                </Form.Group>
+               
 
                 {/* CARDIO OPTION */}
                 <Form.Group id='question6' className='d-flex w-100 mb-3'>
