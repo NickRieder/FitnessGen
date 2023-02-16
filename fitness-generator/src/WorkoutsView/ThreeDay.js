@@ -11,7 +11,7 @@ import "./Style.css"
        
        useEffect(()=>{
         
-        console.log("THREE DAY")
+         console.log("THREE DAY")
         
     }, []);
 
@@ -19,7 +19,9 @@ import "./Style.css"
      if (mobility.length != 0) {
          hasMobility = true;
      }
-     const [isMobility, setIsMobility] = useState(false);
+      const [isMobility, setIsMobility] = useState(false);
+      const [dayNum, setDayNum] = useState(0);
+
         
         const [dayTag, setDayTag] = useState("Day 1");
 
@@ -38,15 +40,15 @@ import "./Style.css"
                         </div> 
 
                         <div>
-                            <Button id="btn" className="navigate" style={{ border: "none", color: "black", borderColor: "gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => { setDayTag("Day 1"); setIsMobility(false); } }> Day 1 </Button>
+                          <Button id="btn" className="navigate" style={{ border: "none", color: "black", borderColor: "gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => { setDayTag("Day 1"); setDayNum(0); setIsMobility(false); } }> Day 1 </Button>
                         </div>
 
                         <div>
-                            <Button id="btn" className="navigate" style={{ border: "none", color: "black", borderColor: "gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => { setDayTag("Day 2"); setIsMobility(false); }}> Day 2 </Button>
+                          <Button id="btn" className="navigate" style={{ border: "none", color: "black", borderColor: "gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => { setDayTag("Day 2"); setDayNum(1); setIsMobility(false); }}> Day 2 </Button>
                         </div>
 
                         <div>
-                             <Button id="btn" className="navigate" style={{ border: "none", color: "black", borderColor: "gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => { setDayTag("Day 3"); setIsMobility(false); }}> Day 3 </Button>
+                          <Button id="btn" className="navigate" style={{ border: "none", color: "black", borderColor: "gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => { setDayTag("Day 3"); setDayNum(2); setIsMobility(false); }}> Day 3 </Button>
                         </div>
                         <div>
                             {hasMobility ? <Button id="btn" className="navigate" style={{ border: "none", color: "black", borderColor: "gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => {
@@ -64,7 +66,7 @@ import "./Style.css"
                         <Card.Body>
                             <h2 className="fst-italic d-flex justify-content-start mb-4"> {dayTag} </h2>   
                             <div>
-                                {isMobility ? <MobilityDisplay mobility={mobility} /> : <DailyWorkout leg={leg} back={back} chest={chest} arms={arms} core={core} mobility={mobility} />}
+                                {isMobility ? <MobilityDisplay mobility={mobility} /> : <DailyWorkout leg={leg[dayNum]} back={back} chest={chest} arms={arms} core={core} mobility={mobility} />}
                                 {/* hasMobility ? <MobilityDisplay mobility={mobility} /> : ""*/}
                             </div>
                         </Card.Body>

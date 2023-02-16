@@ -42,7 +42,8 @@ const DailyWorkout = ({ leg, back, chest, arms, core, mobility }) => {
                 <div className="Row">
                     <Row>
                         <Col className="Col">Legs</Col>
-                        <Col className="Col">{leg[(Math.floor(Math.random() * Object.keys(leg).length))]}</Col>
+                        <Col className="Col">{leg}</Col>
+                {/*<Col className="Col">{leg[(Math.floor(Math.random() * Object.keys(leg).length))]}</Col>*/}
                         <Col className="Col">3</Col>
                         <Col className="Col">10</Col>
                         <Col className="Col">Video</Col>
