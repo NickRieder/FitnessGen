@@ -43,7 +43,6 @@ const DailyWorkout = ({ leg, back, chest, arms, core, mobility }) => {
                     <Row>
                         <Col className="Col">Legs</Col>
                         <Col className="Col">{leg}</Col>
-                {/*<Col className="Col">{leg[(Math.floor(Math.random() * Object.keys(leg).length))]}</Col>*/}
                         <Col className="Col">3</Col>
                         <Col className="Col">10</Col>
                         <Col className="Col">Video</Col>
@@ -53,7 +52,7 @@ const DailyWorkout = ({ leg, back, chest, arms, core, mobility }) => {
                 <div className="Row">
                     <Row>
                         <Col>Back</Col>
-                        <Col>{back[(Math.floor(Math.random() * Object.keys(back).length))]}</Col>
+                        <Col>{back}</Col>
                         <Col>3</Col>
                         <Col>10</Col>
                         <Col>Video</Col>
@@ -63,7 +62,7 @@ const DailyWorkout = ({ leg, back, chest, arms, core, mobility }) => {
                 <div className="Row">
                     <Row>
                         <Col>Chest</Col>
-                        <Col>{chest[(Math.floor(Math.random() * Object.keys(chest).length))]}</Col>
+                        <Col>{chest}</Col>
                         <Col>3</Col>
                         <Col>10</Col>
                         <Col>Video</Col>
@@ -73,7 +72,7 @@ const DailyWorkout = ({ leg, back, chest, arms, core, mobility }) => {
                 <div className="Row">
                     <Row>
                         <Col>Arms</Col>
-                        <Col>{arms[(Math.floor(Math.random() * Object.keys(arms).length))]}</Col>
+                        <Col>{arms}</Col>
                         <Col>3</Col>
                         <Col>10</Col>
                         <Col>Video</Col>
@@ -83,7 +82,7 @@ const DailyWorkout = ({ leg, back, chest, arms, core, mobility }) => {
                 <div className="Row">
                     <Row>
                         <Col>Core</Col>
-                        <Col>{core[(Math.floor(Math.random() * Object.keys(core).length))]}</Col>
+                        <Col>{core}</Col>
                         <Col>3</Col>
                         <Col>10</Col>
                         <Col>Video</Col>

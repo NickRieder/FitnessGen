@@ -118,27 +118,64 @@ const WorkoutsView = () => {
 
                   switch (body[i]) {
                     case 'Legs':
-                      const legs = event;
-                      let firstEx = Math.floor(Math.random() * Object.keys(event).length);
-                      let secondEx = Math.floor(Math.random() * Object.keys(event).length);
-                      let thirdEx = Math.floor(Math.random() * Object.keys(event).length);
-                      const legArray = [event[firstEx], event[secondEx], event[thirdEx]];
 
+                      //pick three exercises from available exercises
+                      let firstLeg = Math.floor(Math.random() * Object.keys(event).length);
+                      let secondLeg = Math.floor(Math.random() * Object.keys(event).length);
+                      let thirdLeg = Math.floor(Math.random() * Object.keys(event).length);
+
+                      //create array of exercises in order of days
+                      const legArray = [event[firstLeg], event[secondLeg], event[thirdLeg]];
                       setLegs(legArray);
-                      //setLegs(legs)
+
                       break;
                     case 'Back':
-                      const backs = event;
-                      setBack(backs)
+
+                      //pick three exercises from available exercises
+                      let firstBack = Math.floor(Math.random() * Object.keys(event).length);
+                      let secondBack = Math.floor(Math.random() * Object.keys(event).length);
+                      let thirdBack = Math.floor(Math.random() * Object.keys(event).length);
+
+                      //create array of exercises in order of days
+                      const backArray = [event[firstBack], event[secondBack], event[thirdBack]];
+                      setBack(backArray);
+
                       break;
                     case 'Chest':
-                      setChest(event);
+
+                      //pick three exercises from available exercises
+                      let firstChest = Math.floor(Math.random() * Object.keys(event).length);
+                      let secondChest = Math.floor(Math.random() * Object.keys(event).length);
+                      let thirdChest = Math.floor(Math.random() * Object.keys(event).length);
+
+                      //create array of exercises in order of days
+                      const chestArray = [event[firstChest], event[secondChest], event[thirdChest]];
+                      setChest(chestArray);
+
                       break;
                     case 'Core':
-                      setCore(event);
+
+                      //pick three exercises from available exercises
+                      let firstCore = Math.floor(Math.random() * Object.keys(event).length);
+                      let secondCore = Math.floor(Math.random() * Object.keys(event).length);
+                      let thirdCore = Math.floor(Math.random() * Object.keys(event).length);
+
+                      //create array of exercises in order of days
+                      const coreArray = [event[firstCore], event[secondCore], event[thirdCore]];
+                      setCore(coreArray);
+
                       break;
                     case 'Arms':
-                      setArms(event);
+
+                      //pick three exercises from available exercises
+                      let firstArms = Math.floor(Math.random() * Object.keys(event).length);
+                      let secondArms = Math.floor(Math.random() * Object.keys(event).length);
+                      let thirdArms = Math.floor(Math.random() * Object.keys(event).length);
+
+                      //create array of exercises in order of days
+                      const armsArray = [event[firstArms], event[secondArms], event[thirdArms]];
+                      setArms(armsArray);
+
                       break;
                     default:
                       console.log("Default activated somehow")
@@ -151,23 +188,63 @@ const WorkoutsView = () => {
         } else if (days == 5 && !generatedWorkout) {
           console.log("FIVE DAY")
           for (let i = 0; i < lowerBody.length; i++) {
-            getWorkout(lowerBody[i], intensity, equipment[(Math.floor(Math.random() * Object.keys(equipment).length))])
+            getWorkout(lowerBody[i], intensity, injuries, equipment, equipment[(Math.floor(Math.random() * Object.keys(equipment).length))])
               .then((event) => {
                 switch (lowerBody[i]) {
                   case 'Legs':
-                    setLegs(event);
+
+                    //pick two exercises from available exercises
+                    let firstLeg = Math.floor(Math.random() * Object.keys(event).length);
+                    let secondLeg = Math.floor(Math.random() * Object.keys(event).length);
+
+                    //create array of exercises in order of days
+                    const legArray = [event[firstLeg], event[secondLeg]];
+                    setLegs(legArray);
+
                     break;
                   case 'Hamstrings':
-                    setHamstring(event);
+
+                    //pick two exercises from available exercises
+                    let firstHamstring = Math.floor(Math.random() * Object.keys(event).length);
+                    let secondHamstring = Math.floor(Math.random() * Object.keys(event).length);
+
+                    //create array of exercises in order of days
+                    const hamstringArray = [event[firstHamstring], event[secondHamstring]];
+                    setHamstring(hamstringArray);
+
                     break;
                   case 'Glutes':
-                    setGlutes(event);
+
+                    //pick two exercises from available exercises
+                    let firstGlutes = Math.floor(Math.random() * Object.keys(event).length);
+                    let secondGlutes = Math.floor(Math.random() * Object.keys(event).length);
+
+                    //create array of exercises in order of days
+                    const glutesArray = [event[firstGlutes], event[secondGlutes]];
+                    setGlutes(glutesArray);
+
                     break;
                   case 'Calves':
-                    setCalves(event);
+
+                    //pick two exercises from available exercises
+                    let firstCalves = Math.floor(Math.random() * Object.keys(event).length);
+                    let secondCalves = Math.floor(Math.random() * Object.keys(event).length);
+
+                    //create array of exercises in order of days
+                    const calvesArray = [event[firstCalves], event[secondCalves]];
+                    setCalves(calvesArray);
+
                     break;
                   case 'Core':
-                    setCore(event);
+
+                    //pick three exercises from available exercises
+                    let firstCore = Math.floor(Math.random() * Object.keys(event).length);
+                    let secondCore = Math.floor(Math.random() * Object.keys(event).length);
+
+                    //create array of exercises in order of days
+                    const coreArray = [event[firstCore], event[secondCore]];
+                    setCore(coreArray);
+
                     break;
                   default:
                     console.log("Default activated somehow")
@@ -176,26 +253,81 @@ const WorkoutsView = () => {
               })
           }
           for (let i = 0; i < upperBody.length; i++) {
-            getWorkout(upperBody[i], intensity, equipment[(Math.floor(Math.random() * Object.keys(equipment).length))])
+            getWorkout(upperBody[i], intensity, injuries, equipment, equipment[(Math.floor(Math.random() * Object.keys(equipment).length))])
               .then((event) => {
                 switch (upperBody[i]) {
                   case 'Back':
-                    setBack(event);
+
+                    //pick three exercises from available exercises
+                    let firstBack = Math.floor(Math.random() * Object.keys(event).length);
+                    let secondBack = Math.floor(Math.random() * Object.keys(event).length);
+                    let thirdBack = Math.floor(Math.random() * Object.keys(event).length);
+
+                    //create array of exercises in order of days
+                    const backArray = [event[firstBack], event[secondBack], event[thirdBack]];
+                    setBack(backArray);
+
                     break;
                   case 'Chest':
-                    setChest(event);
+
+                    //pick three exercises from available exercises
+                    let firstChest = Math.floor(Math.random() * Object.keys(event).length);
+                    let secondChest = Math.floor(Math.random() * Object.keys(event).length);
+                    let thirdChest = Math.floor(Math.random() * Object.keys(event).length);
+
+                    //create array of exercises in order of days
+                    const chestArray = [event[firstChest], event[secondChest], event[thirdChest]];
+                    setChest(chestArray);
+
                     break;
                   case 'Core':
-                    setCore(event);
+
+                    //pick three exercises from available exercises
+                    let firstCore = Math.floor(Math.random() * Object.keys(event).length);
+                    let secondCore = Math.floor(Math.random() * Object.keys(event).length);
+                    let thirdCore = Math.floor(Math.random() * Object.keys(event).length);
+
+                    //create array of exercises in order of days
+                    const coreArray = [event[firstCore], event[secondCore], event[thirdCore]];
+                    setCore(coreArray);
+
                     break;
                   case 'Biceps':
-                    setBicep(event)
+
+                    console.log("BICEPS");
+                    console.log(event);
+                    //pick three exercises from available exercises
+                    let firstBiceps = Math.floor(Math.random() * Object.keys(event).length);
+                    let secondBiceps = Math.floor(Math.random() * Object.keys(event).length);
+                    let thirdBiceps = Math.floor(Math.random() * Object.keys(event).length);
+
+                    //create array of exercises in order of days
+                    const bicepsArray = [event[firstBiceps], event[secondBiceps], event[thirdBiceps]];
+                    setBicep(bicepsArray);
+
                     break;
                   case 'Triceps':
-                    setTricep(event)
+
+                    //pick three exercises from available exercises
+                    let firstTriceps = Math.floor(Math.random() * Object.keys(event).length);
+                    let secondTriceps = Math.floor(Math.random() * Object.keys(event).length);
+                    let thirdTriceps = Math.floor(Math.random() * Object.keys(event).length);
+
+                    //create array of exercises in order of days
+                    const tricepsArray = [event[firstTriceps], event[secondTriceps], event[thirdTriceps]];
+                    setTricep(tricepsArray);
+
                     break;
                   case 'Shoulders':
-                    setShoulder(event)
+                    //pick three exercises from available exercises
+                    let firstShoulders = Math.floor(Math.random() * Object.keys(event).length);
+                    let secondShoulders = Math.floor(Math.random() * Object.keys(event).length);
+                    let thirdShoulders = Math.floor(Math.random() * Object.keys(event).length);
+
+                    //create array of exercises in order of days
+                    const shouldersArray = [event[firstShoulders], event[secondShoulders], event[thirdShoulders]];
+                    setShoulder(shouldersArray);
+
                     break;
                   default:
                     console.log("Default activated somehow")

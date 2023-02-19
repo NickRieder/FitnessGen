@@ -238,9 +238,7 @@ export const getUserInfo =  async (user) => {
   return docSnap.data();
 }
 
-export const getWorkout =  async (body, difficulty, injuries, allEquipment, equipment) => {
-    //const docRef = doc(db, `/Workouts/${body}/${difficulty}/${equipment}`);
- console.log("INSIDE GETWORKOUT");
+export const getWorkout = async (body, difficulty, injuries, allEquipment, equipment) => {
 
    //convert difficulty into number
    let localDifficulty = 1;
@@ -256,8 +254,8 @@ export const getWorkout =  async (body, difficulty, injuries, allEquipment, equi
    const data = bodyDocSnap.data();
 
    for (let i = 0; i < injuries.length; i++) {
-    let currentInjury = injuries[i]; // get injury
-     if (data[currentInjury]) { // if body stresses injury
+     let currentInjury = injuries[i]; // get injury
+     if (data[currentInjury]) { // if body stresses injury       
        if (localDifficulty == 3) { //if difficulty is 3, decrement difficulty and lower to available equipment
          localDifficulty--;
          if (allEquipment.includes("DB")) {
@@ -278,11 +276,11 @@ export const getWorkout =  async (body, difficulty, injuries, allEquipment, equi
          console.log("Made it inside decrementing injury to 1");
        } else { //if difficulty is 1, lower equipment to body weight
          equipment = "BodyWeight";
-         console.log("Made it inside setting equipment to bodyweight")
+         console.log("Made it inside setting equipment to bodyweight");
        }
      }
    }
-
+    
     if (localDifficulty == 1) {
       difficulty = "Easy";
     } else if (localDifficulty == 2) {

@@ -66,7 +66,7 @@ import "./Style.css"
                         <Card.Body>
                             <h2 className="fst-italic d-flex justify-content-start mb-4"> {dayTag} </h2>   
                             <div>
-                                {isMobility ? <MobilityDisplay mobility={mobility} /> : <DailyWorkout leg={leg[dayNum]} back={back} chest={chest} arms={arms} core={core} mobility={mobility} />}
+                                {isMobility ? <MobilityDisplay mobility={mobility} /> : <DailyWorkout leg={leg[dayNum]} back={back[dayNum]} chest={chest[dayNum]} arms={arms[dayNum]} core={core[dayNum]} mobility={mobility} />}
                                 {/* hasMobility ? <MobilityDisplay mobility={mobility} /> : ""*/}
                             </div>
                         </Card.Body>

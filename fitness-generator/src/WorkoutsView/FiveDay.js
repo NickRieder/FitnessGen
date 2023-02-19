@@ -9,6 +9,7 @@ const FiveDay = ({leg, back, chest, core, shoulder, glutes, calves, biceps, tric
     const [dayTag, setDayTag] = useState("Day 1");
     const [lowerSplit, setLowerSplit] = useState(false);
     const [upperSplit, setUpperSplit] = useState(true);
+    const [dayNum, setDayNum] = useState(0);
     var hasMobility = false;
     if (mobility.length != 0) {
         hasMobility = true;
@@ -32,30 +33,31 @@ const FiveDay = ({leg, back, chest, core, shoulder, glutes, calves, biceps, tric
                         <div>
                                 <Button id="btn" className="navigate" style={{ border: "none", color: "black", borderColor: "gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => {
                                     setLowerSplit(false)
-                                    setDayTag("Day 1"); setIsMobility(false); setUpperSplit(true);
+                                    setDayTag("Day 1"); setIsMobility(false); setUpperSplit(true); setDayNum(0);
                                 }}> Day 1 </Button>
                         </div>
 
                         <div>
-                                        <Button id="btn" className="navigate" style={{ border: "none", color: "black", borderColor: "gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => {
-                                            setLowerSplit(true)
-                                            setDayTag("Day 2"); setIsMobility(false); setUpperSplit(false);
-                                        }}> Day 2 </Button>
+                                <Button id="btn" className="navigate" style={{ border: "none", color: "black", borderColor: "gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => {
+                                    setLowerSplit(true)
+                                    setDayTag("Day 2"); setIsMobility(false); setUpperSplit(false); setDayNum(0);
+                                }}> Day 2 </Button>
                         </div>
 
                         <div>
-                            <Button id="btn" className="navigate" style={{  border: "none", color: "black", borderColor:"gray", minWidth: "300px", outline: "none", boxShadow: "none"  }} onClick={() => { setLowerSplit(false) 
-                                            setDayTag("Day 3"); setIsMobility(false); setUpperSplit(true)}}> Day 3 </Button>
+                                <Button id="btn" className="navigate" style={{  border: "none", color: "black", borderColor:"gray", minWidth: "300px", outline: "none", boxShadow: "none"  }} onClick={() => { setLowerSplit(false) 
+                                                        setDayTag("Day 3"); setIsMobility(false); setUpperSplit(true); setDayNum(1);
+                                }}> Day 3 </Button>
                         </div>
 
                         <div>
-                            <Button id="btn" className="navigate" style={{  border: "none", color: "black", borderColor:"gray", minWidth: "300px", outline: "none", boxShadow: "none"  }} onClick={() => { setLowerSplit(true) 
-                                            setDayTag("Day 4"); setIsMobility(false); setUpperSplit(false)}}> Day 4 </Button>
+                                <Button id="btn" className="navigate" style={{  border: "none", color: "black", borderColor:"gray", minWidth: "300px", outline: "none", boxShadow: "none"  }} onClick={() => { setLowerSplit(true) 
+                            setDayTag("Day 4"); setIsMobility(false); setUpperSplit(false); setDayNum(1);}}> Day 4 </Button>
                         </div>
 
                         <div>
-                            <Button id="btn" className="navigate" style={{  border: "none", color: "black", borderColor:"gray", minWidth: "300px", outline: "none", boxShadow: "none"  }} onClick={() => { setLowerSplit(false) 
-                                            setDayTag("Day 5"); setIsMobility(false); setUpperSplit(true)}}> Day 5 </Button>
+                                <Button id="btn" className="navigate" style={{  border: "none", color: "black", borderColor:"gray", minWidth: "300px", outline: "none", boxShadow: "none"  }} onClick={() => { setLowerSplit(false) 
+                            setDayTag("Day 5"); setIsMobility(false); setUpperSplit(true); setDayNum(2);}}> Day 5 </Button>
                         </div>
                         <div>
                             {hasMobility ? <Button id="btn" className="navigate" style={{ border: "none", color: "black", borderColor: "gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => {
@@ -73,8 +75,8 @@ const FiveDay = ({leg, back, chest, core, shoulder, glutes, calves, biceps, tric
                         <Card.Body>
                             <h2 className="fst-italic d-flex justify-content-start mb-4"> {dayTag} </h2>   
                             <div>
-                                {lowerSplit ? <LowerSplit leg={leg} hamstrings={hamstrings} glutes={glutes} calves={calves} core={core} /> : ""}
-                                {upperSplit ?    <UpperSplit back={back} chest={chest} biceps={biceps} tricep={tricep} shoulder={shoulder} core={core} /> : ""}
+                                {lowerSplit ? <LowerSplit leg={leg[dayNum]} hamstrings={hamstrings[dayNum]} glutes={glutes[dayNum]} calves={calves[dayNum]} core={core[dayNum]} /> : ""}
+                                {upperSplit ?    <UpperSplit back={back[dayNum]} chest={chest[dayNum]} biceps={biceps[dayNum]} tricep={tricep[dayNum]} shoulder={shoulder[dayNum]} core={core[dayNum]} /> : ""}
                                 {isMobility ? <MobilityDisplay mobility={mobility} />: ""}
                             </div>
                         </Card.Body>
