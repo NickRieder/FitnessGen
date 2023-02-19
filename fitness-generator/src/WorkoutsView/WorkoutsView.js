@@ -4,6 +4,7 @@ import { db, AuthContext, getUserInfo, getWorkout } from './../config/firebase'
 import ThreeDay from "./ThreeDay";
 import FiveDay from "./FiveDay";
 import { doc, getDoc } from "firebase/firestore"
+import { saveWorkoutInDatabase } from "../config/firebase/index";
 
 const WorkoutsView = () => {
     const navigate = useNavigate();
@@ -30,6 +31,7 @@ const WorkoutsView = () => {
     const [mobilityWorkout, setMobilityWorkout] = useState("");
     const [hasMobility, setHasMobility] = useState(false);
     const [workoutPlan, setWorkoutPlan] = useState(null);
+    const [hasDatabaseWorkout, setHasDatabaseWorkout] = useState(false);
     
     
     const body = [
@@ -66,10 +68,13 @@ const WorkoutsView = () => {
         setEquipment(result.Equipment);
         setIntensity(result.Intensity);
         setInjuries(result.Injuries);
-       // setWorkoutPlan(result.WorkoutPlan);
         setDays(result.Days);
         setGenerated(true);
-        
+
+        const userInfoRef2 = doc(db, `/Users/${user.uid}/WorkoutData/Workout`);
+        const docSnap2 = await getDoc(userInfoRef2);
+        const result2 = docSnap2.data();
+        setWorkoutPlan(result2.WorkoutPlan);
     }
 
     useEffect(() => {
@@ -95,17 +100,42 @@ const WorkoutsView = () => {
         setHasMobility(true);
     }
 
-    const saveWorkoutData = async () => {
+    /*const saveWorkoutData = async () => {
       if (days == 3) {
-
+        setWorkoutPlan([leg, back, chest, core, arms]);
       } else if (days == 5) {
-
+        setWorkoutPlan([leg, back, chest, core, hamstrings, glutes, calves, biceps, tricep, shoulder]);
       } else {
         console.log("WorkoutsView.js/saveWorkoutData -> days was not 3 or 5");
       }
-    }
+      saveWorkoutInDatabase(user, workoutPlan);
+    }*/
 
     const loadWorkoutData = async () => {
+      if (workoutPlan != null) { //if user has workout plan
+        setHasDatabaseWorkout(true);
+
+        setLegs(workoutPlan[0]);
+        setBack(workoutPlan[1]);
+        setChest(workoutPlan[2]);
+        setCore(workoutPlan[3]);
+
+        if (days == 3) { //if workout days is 3
+          setArms(workoutPlan[4]);
+        } else if (days == 5) { //if workout days is 5
+          setHamstring(workoutPlan[4]);
+          setGlutes(workoutPlan[5]);
+          setCalves(workoutPlan[6]);
+          setBicep(workoutPlan[7]);
+          setTricep(workoutPlan[8]);
+          setShoulder(workoutPlan[9]);
+        } else {
+          console.log("WorkoutsView.js/loadWorkoutData -> days was not 3 or 5");
+        }
+      }
+    }
+
+    const loadNewWorkout = async () => {
 
       if (generated) {
         if (days == 3 && !generatedWorkout) {
@@ -124,9 +154,9 @@ const WorkoutsView = () => {
                       let secondLeg = Math.floor(Math.random() * Object.keys(event).length);
                       let thirdLeg = Math.floor(Math.random() * Object.keys(event).length);
 
-                      //create array of exercises in order of days
-                      const legArray = [event[firstLeg], event[secondLeg], event[thirdLeg]];
-                      setLegs(legArray);
+                      //create object of exercises in order of days
+                      const legObject = { "0": event[firstLeg], "1": event[secondLeg], "2": event[thirdLeg] };
+                      setLegs(legObject);
 
                       break;
                     case 'Back':
@@ -136,9 +166,9 @@ const WorkoutsView = () => {
                       let secondBack = Math.floor(Math.random() * Object.keys(event).length);
                       let thirdBack = Math.floor(Math.random() * Object.keys(event).length);
 
-                      //create array of exercises in order of days
-                      const backArray = [event[firstBack], event[secondBack], event[thirdBack]];
-                      setBack(backArray);
+                      //create object of exercises in order of days
+                      const backObject = { "0": event[firstBack], "1": event[secondBack], "2": event[thirdBack] };
+                      setBack(backObject);
 
                       break;
                     case 'Chest':
@@ -148,9 +178,9 @@ const WorkoutsView = () => {
                       let secondChest = Math.floor(Math.random() * Object.keys(event).length);
                       let thirdChest = Math.floor(Math.random() * Object.keys(event).length);
 
-                      //create array of exercises in order of days
-                      const chestArray = [event[firstChest], event[secondChest], event[thirdChest]];
-                      setChest(chestArray);
+                      //create object of exercises in order of days
+                      const chestObject = { "0": event[firstChest], "1": event[secondChest], "2": event[thirdChest] };
+                      setChest(chestObject);
 
                       break;
                     case 'Core':
@@ -160,10 +190,10 @@ const WorkoutsView = () => {
                       let secondCore = Math.floor(Math.random() * Object.keys(event).length);
                       let thirdCore = Math.floor(Math.random() * Object.keys(event).length);
 
-                      //create array of exercises in order of days
-                      const coreArray = [event[firstCore], event[secondCore], event[thirdCore]];
-                      setCore(coreArray);
-
+                      //create object of exercises in order of days
+                      const coreObject = { "0": event[firstCore], "1": event[secondCore], "2": event[thirdCore] };
+                      setCore(coreObject);
+                      
                       break;
                     case 'Arms':
 
@@ -172,9 +202,9 @@ const WorkoutsView = () => {
                       let secondArms = Math.floor(Math.random() * Object.keys(event).length);
                       let thirdArms = Math.floor(Math.random() * Object.keys(event).length);
 
-                      //create array of exercises in order of days
-                      const armsArray = [event[firstArms], event[secondArms], event[thirdArms]];
-                      setArms(armsArray);
+                      //create object of exercises in order of days
+                      const armsObject = { "0": event[firstArms], "1": event[secondArms], "2": event[thirdArms] };
+                      setArms(armsObject);
 
                       break;
                     default:
@@ -197,9 +227,9 @@ const WorkoutsView = () => {
                     let firstLeg = Math.floor(Math.random() * Object.keys(event).length);
                     let secondLeg = Math.floor(Math.random() * Object.keys(event).length);
 
-                    //create array of exercises in order of days
-                    const legArray = [event[firstLeg], event[secondLeg]];
-                    setLegs(legArray);
+                    //create object of exercises in order of days
+                    const legObject = { "0": event[firstLeg], "1": event[secondLeg]};
+                    setLegs(legObject);;
 
                     break;
                   case 'Hamstrings':
@@ -208,9 +238,9 @@ const WorkoutsView = () => {
                     let firstHamstring = Math.floor(Math.random() * Object.keys(event).length);
                     let secondHamstring = Math.floor(Math.random() * Object.keys(event).length);
 
-                    //create array of exercises in order of days
-                    const hamstringArray = [event[firstHamstring], event[secondHamstring]];
-                    setHamstring(hamstringArray);
+                    //create object of exercises in order of days
+                    const hamstringObject = { "0": event[firstHamstring], "1": event[secondHamstring] };
+                    setHamstring(hamstringObject);
 
                     break;
                   case 'Glutes':
@@ -219,9 +249,9 @@ const WorkoutsView = () => {
                     let firstGlutes = Math.floor(Math.random() * Object.keys(event).length);
                     let secondGlutes = Math.floor(Math.random() * Object.keys(event).length);
 
-                    //create array of exercises in order of days
-                    const glutesArray = [event[firstGlutes], event[secondGlutes]];
-                    setGlutes(glutesArray);
+                    //create object of exercises in order of days
+                    const glutesObject = { "0": event[firstGlutes], "1": event[secondGlutes] };
+                    setGlutes(glutesObject);
 
                     break;
                   case 'Calves':
@@ -231,8 +261,8 @@ const WorkoutsView = () => {
                     let secondCalves = Math.floor(Math.random() * Object.keys(event).length);
 
                     //create array of exercises in order of days
-                    const calvesArray = [event[firstCalves], event[secondCalves]];
-                    setCalves(calvesArray);
+                    const calvesObject = { "0": event[firstCalves], "1": event[secondCalves] }
+                    setCalves(calvesObject);
 
                     break;
                   case 'Core':
@@ -241,9 +271,9 @@ const WorkoutsView = () => {
                     let firstCore = Math.floor(Math.random() * Object.keys(event).length);
                     let secondCore = Math.floor(Math.random() * Object.keys(event).length);
 
-                    //create array of exercises in order of days
-                    const coreArray = [event[firstCore], event[secondCore]];
-                    setCore(coreArray);
+                    //create object of exercises in order of days
+                    const coreObject = { "0": event[firstCore], "1": event[secondCore]};
+                    setCore(coreObject);
 
                     break;
                   default:
@@ -263,9 +293,9 @@ const WorkoutsView = () => {
                     let secondBack = Math.floor(Math.random() * Object.keys(event).length);
                     let thirdBack = Math.floor(Math.random() * Object.keys(event).length);
 
-                    //create array of exercises in order of days
-                    const backArray = [event[firstBack], event[secondBack], event[thirdBack]];
-                    setBack(backArray);
+                    //create object of exercises in order of days
+                    const backObject = { "0": event[firstBack], "1": event[secondBack], "2": event[thirdBack] };
+                    setBack(backObject);
 
                     break;
                   case 'Chest':
@@ -275,9 +305,9 @@ const WorkoutsView = () => {
                     let secondChest = Math.floor(Math.random() * Object.keys(event).length);
                     let thirdChest = Math.floor(Math.random() * Object.keys(event).length);
 
-                    //create array of exercises in order of days
-                    const chestArray = [event[firstChest], event[secondChest], event[thirdChest]];
-                    setChest(chestArray);
+                    //create object of exercises in order of days
+                    const chestObject = { "0": event[firstChest], "1": event[secondChest], "2": event[thirdChest] };
+                    setChest(chestObject);
 
                     break;
                   case 'Core':
@@ -287,9 +317,9 @@ const WorkoutsView = () => {
                     let secondCore = Math.floor(Math.random() * Object.keys(event).length);
                     let thirdCore = Math.floor(Math.random() * Object.keys(event).length);
 
-                    //create array of exercises in order of days
-                    const coreArray = [event[firstCore], event[secondCore], event[thirdCore]];
-                    setCore(coreArray);
+                    //create object of exercises in order of days
+                    const coreObject = { "0": event[firstCore], "1": event[secondCore], "2": event[thirdCore] };
+                    setCore(coreObject);
 
                     break;
                   case 'Biceps':
@@ -301,9 +331,9 @@ const WorkoutsView = () => {
                     let secondBiceps = Math.floor(Math.random() * Object.keys(event).length);
                     let thirdBiceps = Math.floor(Math.random() * Object.keys(event).length);
 
-                    //create array of exercises in order of days
-                    const bicepsArray = [event[firstBiceps], event[secondBiceps], event[thirdBiceps]];
-                    setBicep(bicepsArray);
+                    //create object of exercises in order of days
+                    const bicepsObject = { "0": event[firstBiceps], "1": event[secondBiceps], "2": event[thirdBiceps] };
+                    setBicep(bicepsObject);
 
                     break;
                   case 'Triceps':
@@ -313,9 +343,9 @@ const WorkoutsView = () => {
                     let secondTriceps = Math.floor(Math.random() * Object.keys(event).length);
                     let thirdTriceps = Math.floor(Math.random() * Object.keys(event).length);
 
-                    //create array of exercises in order of days
-                    const tricepsArray = [event[firstTriceps], event[secondTriceps], event[thirdTriceps]];
-                    setTricep(tricepsArray);
+                    //create object of exercises in order of days
+                    const tricepsObject = { "0": event[firstTriceps], "1": event[secondTriceps], "2": event[thirdTriceps] };
+                    setTricep(tricepsObject);
 
                     break;
                   case 'Shoulders':
@@ -324,9 +354,9 @@ const WorkoutsView = () => {
                     let secondShoulders = Math.floor(Math.random() * Object.keys(event).length);
                     let thirdShoulders = Math.floor(Math.random() * Object.keys(event).length);
 
-                    //create array of exercises in order of days
-                    const shouldersArray = [event[firstShoulders], event[secondShoulders], event[thirdShoulders]];
-                    setShoulder(shouldersArray);
+                    //create object of exercises in order of days
+                    const shouldersObject = { "0": event[firstShoulders], "1": event[secondShoulders], "2": event[thirdShoulders] };
+                    setShoulder(shouldersObject);
 
                     break;
                   default:
@@ -353,7 +383,11 @@ const WorkoutsView = () => {
     
     useEffect (() => {
 
-        loadWorkoutData();
+      loadWorkoutData();
+      if (!hasDatabaseWorkout) {
+        loadNewWorkout();
+      }
+
 
         /*if(generated) {
             if (days == 3 && !generatedWorkout) {
@@ -458,8 +492,8 @@ const WorkoutsView = () => {
     return ( 
     <>
             <div className="workout_view">
-                {isThreeDay ? <ThreeDay leg={leg} back={back} chest={chest} arms={arms} core={core} mobility={mobilityWorkout} /> : ""}
-                {isFiveDay ? <FiveDay leg={leg} hamstrings={hamstrings} glutes={glutes} calves={calves} back={back} chest={chest} biceps={biceps} tricep={tricep} shoulder={shoulder} core={core} mobility={mobilityWorkout} /> : ""}
+          {isThreeDay ? <ThreeDay user={user} leg={leg} back={back} chest={chest} arms={arms} core={core} mobility={mobilityWorkout} /> : ""}
+          {isFiveDay ? <FiveDay user={user}  leg={leg} hamstrings={hamstrings} glutes={glutes} calves={calves} back={back} chest={chest} biceps={biceps} tricep={tricep} shoulder={shoulder} core={core} mobility={mobilityWorkout} /> : ""}
         </div>
     </>
     )

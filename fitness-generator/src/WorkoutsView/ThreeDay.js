@@ -6,8 +6,9 @@ import Button from 'react-bootstrap/Button';
 import DailyWorkout from "./DailyWorkout";
 import MobilityDisplay from "./MobilityDisplay";
 import "./Style.css"
+import { saveWorkoutInDatabase } from "../config/firebase/index";
 
- const ThreeDay = ({leg, back, chest, arms, core, mobility}) => {
+ const ThreeDay = ({user, leg, back, chest, arms, core, mobility}) => {
        
        useEffect(()=>{
         
@@ -55,8 +56,15 @@ import "./Style.css"
                                 setDayTag("Mobility"); setIsMobility(true);
                             }}> Mobility </Button> : ""}
                         </div>
-                        </Form>  
+                        <div>
+                          <Button size="lg" style={{ backgroundColor: '#B7D1E2', borderColor: '#323334', color: '#323334', borderRadius: '24px', marginTop: "350px", marginBottom: "30px", minWidth: "250px" }} onClick={() => saveWorkoutInDatabase(user, [leg, back, chest, core, arms])}>Save Workout</Button>
+                        </div>
+                        <div>
+                          <Button size="lg" style={{ backgroundColor: '#B7D1E2', borderColor: '#323334', color: '#323334', borderRadius: '24px', bottom: '100px', minWidth: "250px"}}>Generate New Workout</Button>
+                        </div>
+                        </Form>
                     </Container>
+                    
                     </div>
 
                     {/* workout content - right side */}

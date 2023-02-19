@@ -203,6 +203,32 @@ export async function updateWorkoutData(user, height, weight, days, intensity, e
   }
 }
 
+export async function saveWorkoutInDatabase(user, workoutPlan) {
+  try {
+
+    const dbUsersRef = doc(db, `Users/${user.uid}`);
+
+    //save workout plan inside WorkoutData of user document
+    const dbUPDDataRef = doc(db, `Users/${dbUsersRef.id}/WorkoutData/Workout`)
+    await setDoc(dbUPDDataRef, {
+      WorkoutPlan: workoutPlan
+    });
+  } catch (error) {
+    console.error("Error while saving workout plan to database", error);
+  }
+}
+
+/*export async function loadWorkoutFromDatabase(user) {
+  try {
+    const dbWorkoutRef = doc(db, `Users/${user.uid}/WorkoutData/WorkoutPlan`);
+    const docSnap = await getDoc(dbWorkoutRef);
+    return docSnap.data();
+
+  } catch (error) {
+    console.error("Error while loading workout plan from database", error);
+  }
+}*/
+
 export const logOut = () => {
   signOut(auth)
   .then(() => {
@@ -259,7 +285,9 @@ export const getWorkout = async (body, difficulty, injuries, allEquipment, equip
        if (localDifficulty == 3) { //if difficulty is 3, decrement difficulty and lower to available equipment
          localDifficulty--;
          if (allEquipment.includes("DB")) {
-          equipment = "DB";
+           equipment = "DB";
+         } else if (allEquipment.includes("Machine")) {
+           equipment = "Machine";
          } else if (allEquipment.includes("Band")) {
            equipment = "Band";
          } else {
@@ -268,7 +296,9 @@ export const getWorkout = async (body, difficulty, injuries, allEquipment, equip
          console.log("Made it inside decrementing injury to 2");
        } else if (localDifficulty == 2) { //if difficulty is 2, decrement difficulty and lower equipment to bodyweight
          localDifficulty--;
-         if (allEquipment.includes("Band")) {
+         if (allEquipment.includes("Machine")) {
+           equipment = "Machine";
+         } else if (allEquipment.includes("Band")) {
            equipment = "Band";
          } else {
            equipment = "BodyWeight";

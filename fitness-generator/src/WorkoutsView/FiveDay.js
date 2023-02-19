@@ -3,8 +3,9 @@ import { Container, Form, Card, Button } from 'react-bootstrap';
 import UpperSplit from "./UpperSplit";
 import LowerSplit from "./LowerSplit";
 import MobilityDisplay from "./MobilityDisplay";
+import { saveWorkoutInDatabase } from "../config/firebase/index";
 
-const FiveDay = ({leg, back, chest, core, shoulder, glutes, calves, biceps, tricep, hamstrings, mobility}) => { 
+const FiveDay = ({user, leg, back, chest, core, shoulder, glutes, calves, biceps, tricep, hamstrings, mobility}) => { 
         
     const [dayTag, setDayTag] = useState("Day 1");
     const [lowerSplit, setLowerSplit] = useState(false);
@@ -63,6 +64,12 @@ const FiveDay = ({leg, back, chest, core, shoulder, glutes, calves, biceps, tric
                             {hasMobility ? <Button id="btn" className="navigate" style={{ border: "none", color: "black", borderColor: "gray", minWidth: "300px", outline: "none", boxShadow: "none" }} onClick={() => {
                                             setDayTag("Mobility"); setIsMobility(true); setUpperSplit(false); setLowerSplit(false);
                             }}> Mobility </Button> : ""}
+                        </div>
+                        <div>
+                      <Button size="lg" style={{ backgroundColor: '#B7D1E2', borderColor: '#323334', color: '#323334', borderRadius: '24px', marginTop: "300px", marginBottom: "30px", minWidth: "250px" }} onClick={() => saveWorkoutInDatabase(user, [leg, back, chest, core, hamstrings, glutes, calves, biceps, tricep, shoulder])}>Save Workout</Button>
+                        </div>
+                        <div>
+                          <Button size="lg" style={{ backgroundColor: '#B7D1E2', borderColor: '#323334', color: '#323334', borderRadius: '24px', bottom: '100px', minWidth: "250px" }}>Generate New Workout</Button>
                         </div>
                         </Form>  
                     </Container>
