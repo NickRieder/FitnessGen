@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import DailyWorkout from "./DailyWorkout";
 import MobilityDisplay from "./MobilityDisplay";
 import "./Style.css"
-import { saveWorkoutInDatabase } from "../config/firebase/index";
+import { saveWorkoutInDatabase, deleteWorkoutInDatabase } from "../config/firebase/index";
 
  const ThreeDay = ({user, leg, back, chest, arms, core, mobility}) => {
        
@@ -22,6 +22,14 @@ import { saveWorkoutInDatabase } from "../config/firebase/index";
      }
       const [isMobility, setIsMobility] = useState(false);
       const [dayNum, setDayNum] = useState(0);
+      const beginDeleteWorkout = () => {
+        if (window.confirm("Are you sure you want to generate a new workout? Your saved workout will be lost and you will have to save a new one!")) {
+          deleteWorkoutInDatabase(user);
+          window.location.reload(true);
+        } else {
+          console.log("User did not delete workout in database");
+        }
+      }
 
         
         const [dayTag, setDayTag] = useState("Day 1");
@@ -60,7 +68,7 @@ import { saveWorkoutInDatabase } from "../config/firebase/index";
                           <Button size="lg" style={{ backgroundColor: '#B7D1E2', borderColor: '#323334', color: '#323334', borderRadius: '24px', marginTop: "350px", marginBottom: "30px", minWidth: "250px" }} onClick={() => saveWorkoutInDatabase(user, [leg, back, chest, core, arms])}>Save Workout</Button>
                         </div>
                         <div>
-                          <Button size="lg" style={{ backgroundColor: '#B7D1E2', borderColor: '#323334', color: '#323334', borderRadius: '24px', bottom: '100px', minWidth: "250px"}}>Generate New Workout</Button>
+                          <Button size="lg" style={{ backgroundColor: '#B7D1E2', borderColor: '#323334', color: '#323334', borderRadius: '24px', bottom: '100px', minWidth: "250px" }} onClick={() => {beginDeleteWorkout();}}>Generate New Workout</Button>
                         </div>
                         </Form>
                     </Container>

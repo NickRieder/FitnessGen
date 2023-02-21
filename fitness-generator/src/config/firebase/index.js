@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, reauthenticateWithCredential, sendPasswordResetEmail, updatePassword, EmailAuthProvider } from "firebase/auth";
-import { getDoc, getFirestore, doc, onSnapshot, setDoc } from "firebase/firestore"
+import { getDoc, getFirestore, doc, onSnapshot, setDoc, updateDoc, deleteField } from "firebase/firestore"
 import { createContext, useEffect, useState } from 'react';
 import "firebase/auth"
 
@@ -210,13 +210,43 @@ export async function saveWorkoutInDatabase(user, workoutPlan) {
 
     //save workout plan inside WorkoutData of user document
     const dbUPDDataRef = doc(db, `Users/${dbUsersRef.id}/WorkoutData/Workout`)
-    await setDoc(dbUPDDataRef, {
+    await updateDoc(dbUPDDataRef, {
       WorkoutPlan: workoutPlan
     });
   } catch (error) {
     console.error("Error while saving workout plan to database", error);
   }
 }
+
+export async function deleteWorkoutInDatabase(user) {
+  try {
+
+    const dbUsersRef = doc(db, `Users/${user.uid}`);
+
+    //save workout plan inside WorkoutData of user document
+    const dbUPDDataRef = doc(db, `Users/${dbUsersRef.id}/WorkoutData/Workout`)
+    await updateDoc(dbUPDDataRef, {
+      WorkoutPlan: deleteField()
+    });
+  } catch (error) {
+    console.error("Error while saving workout plan to database", error);
+  }
+}
+
+/*export async function updateNewWorkoutDesire(user, desire) {
+  try {
+
+    const dbUsersRef = doc(db, `Users/${user.uid}`);
+
+    //save workout plan inside WorkoutData of user document
+    const dbUPDDataRef = doc(db, `Users/${dbUsersRef.id}/WorkoutData/Workout`)
+    await updateDoc(dbUPDDataRef, {
+      wantsToGenerateNewWorkout: desire
+    });
+  } catch (error) {
+    console.error("Error while updating user's desire to generate new workout", error);
+  }
+}*/
 
 /*export async function loadWorkoutFromDatabase(user) {
   try {

@@ -14,7 +14,7 @@ const LowerSplit = ({leg, hamstrings, calves, glutes, core}) => {
             <Container className="Container">
             <Row className="Header">
                 <Col>Body Part</Col>
-                <Col>Excercise</Col>
+                <Col>Exercise</Col>
                 <Col>Sets</Col>
                 <Col>Reps</Col>
                 <Col>Tutorial</Col>

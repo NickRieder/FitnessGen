@@ -3,7 +3,7 @@ import { Container, Form, Card, Button } from 'react-bootstrap';
 import UpperSplit from "./UpperSplit";
 import LowerSplit from "./LowerSplit";
 import MobilityDisplay from "./MobilityDisplay";
-import { saveWorkoutInDatabase } from "../config/firebase/index";
+import { deleteWorkoutInDatabase, saveWorkoutInDatabase } from "../config/firebase/index";
 
 const FiveDay = ({user, leg, back, chest, core, shoulder, glutes, calves, biceps, tricep, hamstrings, mobility}) => { 
         
@@ -15,7 +15,15 @@ const FiveDay = ({user, leg, back, chest, core, shoulder, glutes, calves, biceps
     if (mobility.length != 0) {
         hasMobility = true;
     }
-    const [isMobility, setIsMobility] = useState(false);
+    const [isMobility, setIsMobility] = useState(false)
+    const beginDeleteWorkout = () => {
+      if (window.confirm("Are you sure you want to generate a new workout? Your saved workout will be lost and you will have to save a new one!")) {
+        deleteWorkoutInDatabase(user);
+        window.location.reload(true);
+      } else {
+        console.log("User did not delete workout in database");
+      }
+    }
             
     return (
         <>
@@ -68,8 +76,8 @@ const FiveDay = ({user, leg, back, chest, core, shoulder, glutes, calves, biceps
                         <div>
                       <Button size="lg" style={{ backgroundColor: '#B7D1E2', borderColor: '#323334', color: '#323334', borderRadius: '24px', marginTop: "300px", marginBottom: "30px", minWidth: "250px" }} onClick={() => saveWorkoutInDatabase(user, [leg, back, chest, core, hamstrings, glutes, calves, biceps, tricep, shoulder])}>Save Workout</Button>
                         </div>
-                        <div>
-                          <Button size="lg" style={{ backgroundColor: '#B7D1E2', borderColor: '#323334', color: '#323334', borderRadius: '24px', bottom: '100px', minWidth: "250px" }}>Generate New Workout</Button>
+                    <div>
+                      <Button size="lg" style={{ backgroundColor: '#B7D1E2', borderColor: '#323334', color: '#323334', borderRadius: '24px', bottom: '100px', minWidth: "250px" }} onClick={() => { beginDeleteWorkout();}}>Generate New Workout</Button>
                         </div>
                         </Form>  
                     </Container>

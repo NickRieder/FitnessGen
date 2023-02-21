@@ -100,21 +100,9 @@ const WorkoutsView = () => {
         setHasMobility(true);
     }
 
-    /*const saveWorkoutData = async () => {
-      if (days == 3) {
-        setWorkoutPlan([leg, back, chest, core, arms]);
-      } else if (days == 5) {
-        setWorkoutPlan([leg, back, chest, core, hamstrings, glutes, calves, biceps, tricep, shoulder]);
-      } else {
-        console.log("WorkoutsView.js/saveWorkoutData -> days was not 3 or 5");
-      }
-      saveWorkoutInDatabase(user, workoutPlan);
-    }*/
-
     const loadWorkoutData = async () => {
       if (workoutPlan != null) { //if user has workout plan
         setHasDatabaseWorkout(true);
-
         setLegs(workoutPlan[0]);
         setBack(workoutPlan[1]);
         setChest(workoutPlan[2]);
@@ -383,109 +371,12 @@ const WorkoutsView = () => {
     
     useEffect (() => {
 
+      console.log("HasWorkoutData: " + hasDatabaseWorkout);
       loadWorkoutData();
       if (!hasDatabaseWorkout) {
         loadNewWorkout();
       }
 
-
-        /*if(generated) {
-            if (days == 3 && !generatedWorkout) {
-                for (let j = 0; j < 1; j++) {
-                    for (let i = 0; i < body.length; i++) {
-                        getWorkout(body[i], intensity, injuries, equipment, equipment[(Math.floor(Math.random() * Object.keys(equipment).length))])
-                            .then((event) => {
-                                console.log("EVENT")
-                                console.log(event)
-                               
-        
-                                switch (body[i]) {
-                                    case 'Legs':
-                                        const legs = event;
-                                        console.log("LEGS TEST")
-                                        setLegs(legs)
-                                        break;
-                                    case 'Back':
-                                        const backs = event;
-                                        setBack(backs)
-                                        break;
-                                    case 'Chest':
-                                        setChest(event);          
-                                        break;
-                                    case 'Core':
-                                        setCore(event);
-                                        break;
-                                    case 'Arms':
-                                        setArms(event);
-                                        break;
-                                    default:
-                                        console.log("Default activated somehow")
-                                        break;
-                                }                                
-                            })
-                    }
-                } 
-                setGeneratedWorkout(true)
-            } else if (days == 5 && !generatedWorkout) {
-                console.log("FIVE DAY")
-                    for (let i = 0; i < lowerBody.length; i++) {
-                        getWorkout(lowerBody[i], intensity, equipment[(Math.floor(Math.random() * Object.keys(equipment).length))])
-                            .then((event) => {
-                                switch (lowerBody[i]) {
-                                    case 'Legs':
-                                        setLegs(event);
-                                        break;
-                                    case 'Hamstrings':
-                                        setHamstring(event);
-                                        break;
-                                    case 'Glutes':
-                                        setGlutes(event);
-                                        break;
-                                    case 'Calves':
-                                        setCalves(event);
-                                        break;
-                                    case 'Core':
-                                        setCore(event);
-                                        break;
-                                    default:
-                                        console.log("Default activated somehow")
-                                        break;
-                                }
-                            })
-                    }
-                    for (let i = 0; i < upperBody.length; i++) {
-                        getWorkout(upperBody[i], intensity, equipment[(Math.floor(Math.random() * Object.keys(equipment).length))])
-                            .then((event) => {
-                                switch (upperBody[i]) {
-                                    case 'Back':
-                                        setBack(event);
-                                        break;
-                                    case 'Chest':
-                                        setChest(event);
-                                        break;
-                                    case 'Core':
-                                        //setCore(arr => [...arr, event[(Math.floor(Math.random() * Object.keys(event).length))]]);
-                                        setCore(event);
-                                        break;
-                                    case 'Biceps':
-                                        setBicep(event)
-                                        break;
-                                    case 'Triceps':
-                                        setTricep(event)
-                                        break;
-                                    case 'Shoulders':
-                                        setShoulder(event)
-                                        break;
-                                    default:
-                                        console.log("Default activated somehow")
-                                        break;
-                                }
-                            })
-                    }
-                    setGeneratedWorkout(true);
-            }  
-
-        }*/
     }, [equipment, setEquipment, days, setDays, intensity, setIntensity]);
 
 
