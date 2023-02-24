@@ -1,9 +1,10 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Card, Container, Form } from 'react-bootstrap'
 import background from "./images/fitness-rdl.jpg";
-import {  AuthContext, setUserWorkoutData } from './config/firebase';
+import {  db, AuthContext, setUserWorkoutData, getUserInfo } from './config/firebase';
 // import { MDBSelect } from 'mdb-react-ui-kit';
+import { doc, getDoc } from "firebase/firestore";
 
 export default function Questionnaire() {
   const navigate = useNavigate();
@@ -15,6 +16,8 @@ export default function Questionnaire() {
 
   // QUESTION 1 PT1
   const [heightFT, setHeightFT] = useState(3);
+  const [hasData, setHasData] = useState(false);
+  const [questionData, setQuestionData] = useState(null);
 
   const heightFTOpts = [
     {label: "3ft", value: 3},
@@ -63,7 +66,6 @@ export default function Questionnaire() {
     "Hips":"hips",
     "Knees":"knees",
     "Ankles":"ankles"
-    // "Kettlebell": "KB"
   };
 
   const [injury, setInjury] = useState({
@@ -174,10 +176,36 @@ export default function Questionnaire() {
     );   
   }
 
-  // const handleHeightChange = (e) => {
-  //     setHeightFT(e)
-  //     console.log(heightFT)
-  //   }
+   const handleHeightChange = (e) => {
+       setHeightFT(e.target.value)
+    }
+
+  const fetchUserData = async () => {
+
+    if (user != null) {
+      //const result = getUserInfo(user);
+      const userInfoRef = doc(db, `/Users/${user.uid}/WorkoutData/Data`);
+      const docSnap = await getDoc(userInfoRef);
+      const result = docSnap.data();
+      setQuestionData(result);
+      console.log("result:");
+      console.log(result);
+      if (result.HeightFT != null) {
+        console.log("BEFORE: " + heightFT);
+        console.log("height: ");
+        console.log(result.HeightFT);
+        handleHeightChange(result.HeightFT);
+        console.log("AFTER: " + heightFT);
+        
+      }
+
+    }
+    
+  } 
+
+  useEffect(() => {
+      fetchUserData();
+  }, [user, heightFT, setHeightFT])
 
   return (   
     <div className='d-flex justify-content-center' style={{ background: `url(${background})` }}>
@@ -202,7 +230,7 @@ export default function Questionnaire() {
                   {FormLabel("Height")}
                   
                   {/* FEET OPTIONS */}
-                  <Form.Select className='ps-1' style={{ maxWidth: '150px', minHeight: '40px' }} onChange={(e) => setHeightFT(e.currentTarget.value)}> 
+                  <Form.Select className='ps-1' style={{ maxWidth: '150px', minHeight: '40px' }} defaultValue={heightFT} onChange={(e) => setHeightFT(e.currentTarget.value)}> 
                     { heightFTOpts.map((currHeight, index) => 
                       <option 
                         key={index} 

@@ -286,11 +286,13 @@ export async function getUserName(user) {
   return userPDDSnap.data();
 }
 
-export const getUserInfo =  async (user) => {
+export const getUserInfo = async (user) => {
   const dbUWDDataRef = doc(db, `/Users/${user.uid}/WorkoutData/Data`);
-
+  
   // const docRef = doc(db, `/Users/${user.uid}/Answers/ID`);
   const docSnap = await getDoc(dbUWDDataRef);
+  console.log("DATA");
+  console.log(docSnap.data());
   return docSnap.data();
 }
 
