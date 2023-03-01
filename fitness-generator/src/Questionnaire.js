@@ -2,9 +2,9 @@ import React, { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Card, Container, Form } from 'react-bootstrap'
 import background from "./images/fitness-rdl.jpg";
-import {  db, AuthContext, setUserWorkoutData, getUserInfo } from './config/firebase';
+import { db, AuthContext, setUserWorkoutData } from './config/firebase';
+import { doc, getDoc } from "firebase/firestore"
 // import { MDBSelect } from 'mdb-react-ui-kit';
-import { doc, getDoc } from "firebase/firestore";
 
 export default function Questionnaire() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ export default function Questionnaire() {
   function FormLabel(label) {
     return (<Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px', maxWidth: '175px', textAlign: 'initial' }}> {label} </Form.Label>)
   }
-
+ 
   // QUESTION 1 PT1
   const [heightFT, setHeightFT] = useState(3);
   const [hasData, setHasData] = useState(false);
@@ -207,7 +207,7 @@ export default function Questionnaire() {
       fetchUserData();
   }, [user, heightFT, setHeightFT])
 
-  return (   
+  return (
     <div className='d-flex justify-content-center' style={{ background: `url(${background})` }}>
       <div id="Questionnaire" className="d-flex flex-column justify-content-center w-100" style={{ minHeight: '100vh', maxWidth: '600px'}}>
 

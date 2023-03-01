@@ -74,7 +74,9 @@ const WorkoutsView = () => {
         const userInfoRef2 = doc(db, `/Users/${user.uid}/WorkoutData/Workout`);
         const docSnap2 = await getDoc(userInfoRef2);
         const result2 = docSnap2.data();
-        setWorkoutPlan(result2.WorkoutPlan);
+        if (result2 != null) {
+          setWorkoutPlan(result2.WorkoutPlan);
+        }
     }
 
     useEffect(() => {
@@ -85,6 +87,7 @@ const WorkoutsView = () => {
             if(days == 3){
                 setIsThreeDay(true);
             }
+      
     }, [generated, setGenerated, workoutPlan, setWorkoutPlan, user])
 
     const fetchUserMobilityData = async () => {
@@ -107,7 +110,8 @@ const WorkoutsView = () => {
         setBack(workoutPlan[1]);
         setChest(workoutPlan[2]);
         setCore(workoutPlan[3]);
-
+        console.log("WorkoutPlan:");
+        console.log(workoutPlan);
         if (days == 3) { //if workout days is 3
           setArms(workoutPlan[4]);
         } else if (days == 5) { //if workout days is 5
@@ -141,9 +145,10 @@ const WorkoutsView = () => {
                       let firstLeg = Math.floor(Math.random() * Object.keys(event).length);
                       let secondLeg = Math.floor(Math.random() * Object.keys(event).length);
                       let thirdLeg = Math.floor(Math.random() * Object.keys(event).length);
-
                       //create object of exercises in order of days
                       const legObject = { "0": event[firstLeg], "1": event[secondLeg], "2": event[thirdLeg] };
+                      console.log("legObject");
+                      console.log(legObject);
                       setLegs(legObject);
 
                       break;
@@ -228,6 +233,7 @@ const WorkoutsView = () => {
 
                     //create object of exercises in order of days
                     const hamstringObject = { "0": event[firstHamstring], "1": event[secondHamstring] };
+                    console.log("hamstringObject" + hamstringObject);
                     setHamstring(hamstringObject);
 
                     break;
@@ -374,6 +380,7 @@ const WorkoutsView = () => {
       console.log("HasWorkoutData: " + hasDatabaseWorkout);
       loadWorkoutData();
       if (!hasDatabaseWorkout) {
+        console.log("loadNewWorkout ran");
         loadNewWorkout();
       }
 

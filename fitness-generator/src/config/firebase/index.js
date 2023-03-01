@@ -209,13 +209,26 @@ export async function saveWorkoutInDatabase(user, workoutPlan) {
     const dbUsersRef = doc(db, `Users/${user.uid}`);
 
     //save workout plan inside WorkoutData of user document
-    const dbUPDDataRef = doc(db, `Users/${dbUsersRef.id}/WorkoutData/Workout`)
-    await updateDoc(dbUPDDataRef, {
-      WorkoutPlan: workoutPlan
-    });
+    const dbUPDDataRef = doc(db, `Users/${dbUsersRef.id}/WorkoutData/Workout`);
+    const docSnap = await getDoc(dbUPDDataRef);
+    console.log(dbUPDDataRef);
+    if (docSnap.data() == null) {
+      await setDoc(dbUPDDataRef, {
+        WorkoutPlan: workoutPlan
+      });
+    }
+    else {
+      console.log(workoutPlan);
+      await updateDoc(dbUPDDataRef, {
+        WorkoutPlan: workoutPlan
+      });
+      
+    } 
   } catch (error) {
     console.error("Error while saving workout plan to database", error);
   }
+    
+    
 }
 
 export async function deleteWorkoutInDatabase(user) {
