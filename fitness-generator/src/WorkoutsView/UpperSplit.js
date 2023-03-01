@@ -10,7 +10,7 @@ const UpperSplit = ({ back, chest, biceps, tricep, shoulder, core }) => {
             <Container className="Container">
             <Row className="Header">
                 <Col>Body Part</Col>
-                <Col>Excercise</Col>
+                <Col>Exercise</Col>
                 <Col>Sets</Col>
                 <Col>Reps</Col>
                 <Col>Tutorial</Col>
@@ -20,7 +20,7 @@ const UpperSplit = ({ back, chest, biceps, tricep, shoulder, core }) => {
                 <div className="Row">
                     <Row>
                         <Col className="Col">Chest</Col>
-                        <Col className="Col">{chest[(Math.floor(Math.random() * Object.keys(chest).length))]}</Col>
+                        <Col className="Col">{chest}</Col>
                         <Col className="Col">3</Col>
                         <Col className="Col">10</Col>
                         <Col className="Col">Video</Col>
@@ -30,7 +30,7 @@ const UpperSplit = ({ back, chest, biceps, tricep, shoulder, core }) => {
                 <div className="Row">
                     <Row>
                         <Col>Back</Col>
-                        <Col>{back[(Math.floor(Math.random() * Object.keys(back).length))]}</Col>
+                        <Col>{back}</Col>
                         <Col>3</Col>
                         <Col>10</Col>
                         <Col>Video</Col>
@@ -40,7 +40,7 @@ const UpperSplit = ({ back, chest, biceps, tricep, shoulder, core }) => {
                 <div className="Row">
                     <Row>
                         <Col>Biceps</Col>
-                        <Col>{biceps[(Math.floor(Math.random() * Object.keys(biceps).length))]}</Col>
+                        <Col>{biceps}</Col>
                         <Col>3</Col>
                         <Col>10</Col>
                         <Col>Video</Col>
@@ -50,7 +50,7 @@ const UpperSplit = ({ back, chest, biceps, tricep, shoulder, core }) => {
                 <div className="Row">
                     <Row>
                         <Col>Triceps</Col>
-                        <Col>{tricep[(Math.floor(Math.random() * Object.keys(tricep).length))]}</Col>
+                        <Col>{tricep}</Col>
                         <Col>3</Col>
                         <Col>10</Col>
                         <Col>Video</Col>
@@ -60,7 +60,7 @@ const UpperSplit = ({ back, chest, biceps, tricep, shoulder, core }) => {
                 <div className="Row">
                     <Row>
                         <Col>Shoulders</Col>
-                        <Col>{shoulder[(Math.floor(Math.random() * Object.keys(shoulder).length))]}</Col>
+                        <Col>{shoulder}</Col>
                         <Col>3</Col>
                         <Col>10</Col>
                         <Col>Video</Col>
@@ -70,7 +70,7 @@ const UpperSplit = ({ back, chest, biceps, tricep, shoulder, core }) => {
                 <div className="Row">
                     <Row>
                         <Col>Core</Col>
-                        <Col>{core[(Math.floor(Math.random() * Object.keys(core).length))]}</Col>
+                        <Col>{core}</Col>
                         <Col>3</Col>
                         <Col>10</Col>
                         <Col>Video</Col>

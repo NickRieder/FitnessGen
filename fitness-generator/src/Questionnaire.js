@@ -1,8 +1,10 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Card, Container, Form } from 'react-bootstrap'
 import background from "./images/fitness-rdl.jpg";
-import {  AuthContext, setUserWorkoutData } from './config/firebase';
+import { db, AuthContext, setUserWorkoutData } from './config/firebase';
+import { doc, getDoc } from "firebase/firestore"
+// import { MDBSelect } from 'mdb-react-ui-kit';
 
 export default function Questionnaire() {
   const navigate = useNavigate();
@@ -11,9 +13,11 @@ export default function Questionnaire() {
   function FormLabel(label) {
     return (<Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px', maxWidth: '175px', textAlign: 'initial' }}> {label} </Form.Label>)
   }
-
+ 
   // QUESTION 1 PT1
   const [heightFT, setHeightFT] = useState(3);
+  const [hasData, setHasData] = useState(false);
+  const [questionData, setQuestionData] = useState(null);
 
   const heightFTOpts = [
     {label: "3ft", value: 3},
@@ -54,6 +58,24 @@ export default function Questionnaire() {
   ]
   
   // QUESTION 3
+  const injuryOpts = {
+    "None": "none",
+    "Neck": "neck",
+    "Shoulders": "shoulders",
+    "Wrists": "wrists",
+    "Hips":"hips",
+    "Knees":"knees",
+    "Ankles":"ankles"
+  };
+
+  const [injury, setInjury] = useState({
+    "none": false,
+    "neck": false,
+    "shoulders": false,
+    "wrists": false,
+    "knees": false,
+    "ankles": false
+  });
 
   // QUESTION 4
   const [workoutDayNum, setWorkoutDayNum] = useState(3);
@@ -105,12 +127,7 @@ export default function Questionnaire() {
 
   // FINAL SUBMIT
   function submitDBandNavAssessment() {
-    // console.log(heightFT);
-    // console.log(heightIN);
-    // console.log(weight);
-    // console.log(workoutDayNum);
-    // console.log(intensityVal);
-
+    //construct equipment array
     const equipmentArray = [];
     console.log(Object.keys(equipment).reduce((p, k) => {
       if (equipment[k]) {
@@ -119,9 +136,18 @@ export default function Questionnaire() {
       return p;
     }, equipmentArray));
 
+    //construct injury array
+    const injuryArray = [];
+    console.log(Object.keys(injury).reduce((p, k) => {
+     if (injury[k]) {
+      p.push(k);
+     }
+     return p;
+    }, injuryArray));
 
 
-    setUserWorkoutData(user, heightFT, heightIN, weight, workoutDayNum, intensityVal, equipmentArray);
+
+    setUserWorkoutData(user, heightFT, heightIN, weight, workoutDayNum, intensityVal, equipmentArray, injuryArray);
       navigate('/assessment');
     }
 
@@ -138,12 +164,50 @@ export default function Questionnaire() {
     );   
   }
 
-  // const handleHeightChange = (e) => {
-  //     setHeightFT(e)
-  //     console.log(heightFT)
-  //   }
+  function handleUserInjury(currInjury) {
+    const newBoolEVal = !(injury[currInjury])
+    // console.log(currEquipment);
+    // console.log(equipment[currEquipment]); 
+    // console.log(newBoolEVal);
+    // console.log(equipment);
+    setInjury(prevState => ({
+        ...prevState,
+        [currInjury]: newBoolEVal})
+    );   
+  }
 
-  return (   
+   const handleHeightChange = (e) => {
+       setHeightFT(e.target.value)
+    }
+
+  const fetchUserData = async () => {
+
+    if (user != null) {
+      //const result = getUserInfo(user);
+      const userInfoRef = doc(db, `/Users/${user.uid}/WorkoutData/Data`);
+      const docSnap = await getDoc(userInfoRef);
+      const result = docSnap.data();
+      setQuestionData(result);
+      console.log("result:");
+      console.log(result);
+      if (result.HeightFT != null) {
+        console.log("BEFORE: " + heightFT);
+        console.log("height: ");
+        console.log(result.HeightFT);
+        handleHeightChange(result.HeightFT);
+        console.log("AFTER: " + heightFT);
+        
+      }
+
+    }
+    
+  } 
+
+  useEffect(() => {
+      fetchUserData();
+  }, [user, heightFT, setHeightFT])
+
+  return (
     <div className='d-flex justify-content-center' style={{ background: `url(${background})` }}>
       <div id="Questionnaire" className="d-flex flex-column justify-content-center w-100" style={{ minHeight: '100vh', maxWidth: '600px'}}>
 
@@ -166,7 +230,7 @@ export default function Questionnaire() {
                   {FormLabel("Height")}
                   
                   {/* FEET OPTIONS */}
-                  <Form.Select className='ps-1' style={{ maxWidth: '150px', minHeight: '40px' }} onChange={(e) => setHeightFT(e.currentTarget.value)}> 
+                  <Form.Select className='ps-1' style={{ maxWidth: '150px', minHeight: '40px' }} defaultValue={heightFT} onChange={(e) => setHeightFT(e.currentTarget.value)}> 
                     { heightFTOpts.map((currHeight, index) => 
                       <option 
                         key={index} 
@@ -200,21 +264,54 @@ export default function Questionnaire() {
                   </Form.Select>
                 </Form.Group>
 
+                 {/* WORKOUT INTENSITY OPTION*/}
+                 <Form.Group id='question5' className='d-flex w-100 mb-3'>
+                  {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Workout Intensity </Form.Label> */}
+                  {/* <Form.Control className='ps-1' style={{ maxWidth: '300px', minHeight: '40px' }}/>  */}
+                  {FormLabel("Workout Intensity")}
+                
+                  <Form.Select className='ps-1' style={{ maxWidth: '300px', maxHeight: '40px' }} onChange={(e) => setIntensityVal(e.currentTarget.value)}>
+                    {intensityOpts.map((currIntensity, index) => (
+                      <option  
+                        key={index}
+                        value={currIntensity.value}
+                        checked={intensityVal === currIntensity.value}> {currIntensity.name} </option>
+                    ))}
+                  </Form.Select>
+
+                  {/* Information icon button */}
+                  {/* <Button className="ms-2" style={{ minHeight: '40px' }} onClick={() => navigate('/intensityinfo', {state: {intensityVal: intensityVal}}) }>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" fill="currentColor" className="bi bi-info-circle" viewBox="0 0 16 16">
+                        d<path d={iconPath1}></path>
+                        <path d={iconPath2}></path>
+                      </svg>
+                  </Button> */}
+                </Form.Group>
+
                 {/* INJURIES OPTIONS */}
                 <Form.Group id='question3' className='d-flex w-100 mb-3'>
                   {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Past Injuries </Form.Label> */}
                   {/* <Form.Control className='ps-1' style={{ maxWidth: '300px' }}/>  */}
                   {FormLabel("Past Injuries")}
-
-                  <Form.Select className='ps-1' style={{ maxWidth: '300px', minHeight: '40px' }}> 
-                    <option value="injuryNone">None</option>
-                    <option value="injuryNeck">Neck</option>
-                    <option value="injuryShoulders">Shoulders</option>
-                    <option value="injuryWrists">Wrists</option>
-                    <option value="injuryHips">Hips</option>
-                    <option value="injuryKnees">Knees</option>
-                    <option value="injuryAnkles">Ankles</option>
-                  </Form.Select>
+                    <Form.Group className='justify-content-start' style={{ maxWidth: '300px', minHeight: '40px', textAlign: 'left' }}>
+                    {Object.keys(injuryOpts).map((currInjury, index) =>{
+                      // Some rules for selection
+                      // When select None, cannot select others.
+                      // let disabled = false;
+                      // if (injuryOpts["None"]){
+                      //   disabled = currInjury !== "None";
+                      // }else{
+                      //   disabled = true;
+                      // }
+                    return(
+                    <Form.Check inline type='checkbox' label={currInjury} value={injury[currInjury]} className='' style={{ minWidth: '300px', minHeight: '25px' }} 
+                      key={index}
+                      checked={injury[injuryOpts[currInjury]]} 
+                      onChange={() => handleUserInjury(injuryOpts[currInjury])}
+                      // disabled={disabled}
+                    />);
+                    })}
+                    </Form.Group>
                 </Form.Group>
 
                 {/* WORKOUT DAYS OPTION */}
@@ -233,29 +330,7 @@ export default function Questionnaire() {
                   </Form.Select>
                 </Form.Group>
 
-                {/* WORKOUT INTENSITY OPTION*/}
-                <Form.Group id='question5' className='d-flex w-100 mb-3'>
-                  {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Workout Intensity </Form.Label> */}
-                  {/* <Form.Control className='ps-1' style={{ maxWidth: '300px', minHeight: '40px' }}/>  */}
-                  {FormLabel("Workout Intensity")}
-
-                  <Form.Select className='ps-1' style={{ maxWidth: '300px', maxHeight: '40px' }} onChange={(e) => setIntensityVal(e.currentTarget.value)}>
-                    {intensityOpts.map((currIntensity, index) => (
-                      <option  
-                        key={index}
-                        value={currIntensity.value}
-                        checked={intensityVal === currIntensity.value}> {currIntensity.name} </option>
-                    ))}
-                  </Form.Select>
-
-                  {/* Information icon button */}
-                  {/* <Button className="ms-2" style={{ minHeight: '40px' }} onClick={() => navigate('/intensityinfo', {state: {intensityVal: intensityVal}}) }>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" fill="currentColor" className="bi bi-info-circle" viewBox="0 0 16 16">
-                        d<path d={iconPath1}></path>
-                        <path d={iconPath2}></path>
-                      </svg>
-                  </Button> */}
-                </Form.Group>
+               
 
                 {/* CARDIO OPTION */}
                 <Form.Group id='question6' className='d-flex w-100 mb-3'>
