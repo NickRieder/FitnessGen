@@ -37,7 +37,7 @@ const Assessment = () => {
 
 
         setUserAssessmentData(user, wallSit, maxBench, maxSquat, pushUps, crunches, upper, lower, core, total);
-        navigate('/workout-view');
+        navigate('/mobilitytest');
     }
 
     return (

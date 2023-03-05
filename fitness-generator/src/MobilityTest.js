@@ -56,13 +56,13 @@ const MobilityTest = () => {
         const workouts = decideMobility(posture, overheadSquat, squat, hip, ankle, windmill, lumbarSpine, wall, shoulder, scapula);
 
         setUserMobilityData(user, posture, overheadSquat, squat, hip, ankle, windmill, lumbarSpine, wall, shoulder, scapula, workouts);
-        navigate('/');
+        navigate('/workout-view');
     }
 
 
     //Each different form represents a different test the users must take. The radio buttons are pass fail and default to fail if not performed.
     return (
-        <div>
+        <div className="mobilitytest">
             <Container>
                 <h1>Mobility Test</h1>
                 <p>Perform these quick tasks for a baseline understanding of your current mobility level. Click the hyperlink to see each tutorial video. Select pass if you meet all the requirements in the video.</p>
