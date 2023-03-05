@@ -74,7 +74,7 @@ const Assessment = () => {
                    
                 </Form>
                 <div className='d-flex justify-content-end me-2 mt-4'>
-                    <Button onClick={() => submitDBandNavWorkout()}>Generate Plan</Button>
+                    <Button onClick={() => submitDBandNavWorkout()}>Submit</Button>
                     {/* <Button onClick={() => console.log(equipment)}>equ</Button> */}
                 </div>
             </Container>

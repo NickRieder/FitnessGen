@@ -239,7 +239,7 @@ const MobilityTest = () => {
 
                 
                 <div className='d-flex justify-content-end me-2 mt-4'>
-                    <Button onClick={() => submitMobilityTest()}>Complete</Button>
+                    <Button onClick={() => submitMobilityTest()}>Generate Plan</Button>
                 </div>
             </Container>
         </div>
