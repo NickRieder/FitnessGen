@@ -311,6 +311,11 @@ export const getUserInfo = async (user) => {
 
 export const getWorkout = async (body, difficulty, injuries, allEquipment, equipment) => {
 
+
+  //console.log(body)
+  //console.log(difficulty)
+  //console.log(injuries)
+  //console.log(allEquipment)
    //convert difficulty into number
    let localDifficulty = 1;
    if (difficulty == "Medium") {
