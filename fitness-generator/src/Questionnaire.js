@@ -13,7 +13,25 @@ export default function Questionnaire() {
   function FormLabel(label) {
     return (<Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px', maxWidth: '175px', textAlign: 'initial' }}> {label} </Form.Label>)
   }
- 
+
+  // QUESTION 0 PT1
+  const [sexVal, setSexVal] = useState("M");
+  const sexOpts = [
+    { name: "Male", value: "M" },
+    { name: "Female", value: "F" }
+  ];
+
+  // QUESTION 0 PT2  
+  const [ageVal, setAgeVal] = useState("18-25");
+  const ageOpts = [
+    { label: "age18", value: "18-25" },
+    { label: "age26", value: "26-35" },
+    { label: "age36", value: "36-45" },
+    { label: "age46", value: "46-55" },
+    { label: "age56", value: "56-65" },
+    { label: "age65+", value: "65+" }
+  ]
+
   // QUESTION 1 PT1
   const [heightFT, setHeightFT] = useState(3);
   const [hasData, setHasData] = useState(false);
@@ -89,14 +107,6 @@ export default function Questionnaire() {
     // {label: "workoutDayNum7", value: 7}
   ];
 
-  // QUESTION 5
-  const [intensityVal, setIntensityVal] = useState('Easy');
-  const intensityOpts = [
-    {name: 'Easy', value: 'Easy'},
-    {name: 'Medium', value: 'Medium'},
-    {name: 'Hard', value: 'Hard'},
-  ]
-
   // ICON INFO BTN
   const iconPath1 = "M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
   const iconPath2 = "m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"
@@ -147,7 +157,7 @@ export default function Questionnaire() {
 
 
 
-    setUserWorkoutData(user, heightFT, heightIN, weight, workoutDayNum, intensityVal, equipmentArray, injuryArray);
+    setUserWorkoutData(user, heightFT, heightIN, weight, workoutDayNum, equipmentArray, injuryArray, ageVal, sexVal);
       navigate('/assessment');
     }
 
@@ -218,7 +228,36 @@ export default function Questionnaire() {
             
             <Card.Body className='justify-content-center'>  
               <Form onSubmit={submitDBandNavAssessment}>
-                
+
+
+                <Form.Group id='question0pt1' className='d-flex w-100 mb-3'>
+                  {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Height </Form.Label> */}
+                  {FormLabel("Sex")}
+
+                  {/* FEET OPTIONS */}
+                  <Form.Select className='ps-1' style={{ maxWidth: '150px', minHeight: '40px' }} defaultValue={sexVal} onChange={(e) => setSexVal(e.currentTarget.value)}>
+                    {sexOpts.map((currSex, index) =>
+                      <option
+                        key={index}
+                        value={currSex.value}> {currSex.value} </option>
+                    )}
+                  </Form.Select>
+                </Form.Group>
+
+                <Form.Group id='question0pt2' className='d-flex w-100 mb-3'>
+                  {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Height </Form.Label> */}
+                  {FormLabel("Age")}
+
+                  {/* AGE OPTIONS */}
+                  <Form.Select className='ps-1' style={{ maxWidth: '150px', minHeight: '40px' }} defaultValue={ageVal} onChange={(e) => setAgeVal(e.currentTarget.value)}>
+                    {ageOpts.map((currAge, index) =>
+                      <option
+                        key={index}
+                        value={currAge.value}> {currAge.value} </option>
+                    )}
+                  </Form.Select>
+                </Form.Group>
+
                 {/* QUESTION 1 */}
                 {/* style={{ maxWidth: '400px' }} */}
                 {/* d-flex puts question inline with answer box */}
@@ -262,30 +301,6 @@ export default function Questionnaire() {
                         value={currWeight.value}> {currWeight.value} lbs </option>
                     )}
                   </Form.Select>
-                </Form.Group>
-
-                 {/* WORKOUT INTENSITY OPTION*/}
-                 <Form.Group id='question5' className='d-flex w-100 mb-3'>
-                  {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Workout Intensity </Form.Label> */}
-                  {/* <Form.Control className='ps-1' style={{ maxWidth: '300px', minHeight: '40px' }}/>  */}
-                  {FormLabel("Workout Intensity")}
-                
-                  <Form.Select className='ps-1' style={{ maxWidth: '300px', maxHeight: '40px' }} onChange={(e) => setIntensityVal(e.currentTarget.value)}>
-                    {intensityOpts.map((currIntensity, index) => (
-                      <option  
-                        key={index}
-                        value={currIntensity.value}
-                        checked={intensityVal === currIntensity.value}> {currIntensity.name} </option>
-                    ))}
-                  </Form.Select>
-
-                  {/* Information icon button */}
-                  {/* <Button className="ms-2" style={{ minHeight: '40px' }} onClick={() => navigate('/intensityinfo', {state: {intensityVal: intensityVal}}) }>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" fill="currentColor" className="bi bi-info-circle" viewBox="0 0 16 16">
-                        d<path d={iconPath1}></path>
-                        <path d={iconPath2}></path>
-                      </svg>
-                  </Button> */}
                 </Form.Group>
 
                 {/* INJURIES OPTIONS */}

@@ -403,7 +403,7 @@ const getWorkout = (user) => {
   firebsase.get(wokrouts.{difficulty}.{equipemtn}(());
 }*/
 
-export async function setUserWorkoutData(user, feet, inches, weight, days, intensity, equipment, injuries) {
+export async function setUserWorkoutData(user, feet, inches, weight, days, equipment, injuries, age, sex) {
   try {
     // Adds firstName and lastName as fields in the Personal collection 
     const dbUWDDataRef = doc(db, `Users/${user.uid}/WorkoutData/Data`)
@@ -412,9 +412,10 @@ export async function setUserWorkoutData(user, feet, inches, weight, days, inten
       HeightIN: inches,
       Weight: weight,
       Days: days, 
-      Intensity: intensity,
       Equipment: equipment,
-      Injuries: injuries
+      Injuries: injuries,
+      Age: age,
+      Sex: sex
     });
 
   } catch (error) {
