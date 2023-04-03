@@ -22,14 +22,13 @@ export default function Questionnaire() {
   ];
 
   // QUESTION 0 PT2  
-  const [ageVal, setAgeVal] = useState("18-25");
+  const [ageVal, setAgeVal] = useState("18-29");
   const ageOpts = [
-    { label: "age18", value: "18-25" },
-    { label: "age26", value: "26-35" },
-    { label: "age36", value: "36-45" },
-    { label: "age46", value: "46-55" },
-    { label: "age56", value: "56-65" },
-    { label: "age65+", value: "65+" }
+    { label: "age20", value: "18-29" },
+    { label: "age30", value: "30-39" },
+    { label: "age40", value: "40-49" },
+    { label: "age50", value: "50-59" },
+    { label: "age60", value: "60+" }
   ]
 
   // QUESTION 1 PT1
@@ -63,16 +62,22 @@ export default function Questionnaire() {
   ]
 
   // QUESTION 2
-  const [weight, setWeight] = useState("120-130");
+  const [weight, setWeight] = useState("123-131");
   const weightOpts = [
-    {label:"weight120", value: "120-130"},
-    {label:"weight130", value: "130-140"},
-    {label:"weight140", value: "140-150"},
-    {label:"weight150", value: "150-160"},
-    {label:"weight160", value: "160-170"},
-    {label:"weight170", value: "170-180"},
-    {label:"weight190", value: "190-200"},
-    {label:"weight200", value: "200-210"}
+    {label:"weight96", value: "<97"},
+    {label:"weight97", value: "97-104"},
+    {label:"weight105", value: "105-113"},
+    {label:"weight114", value: "114-122"},
+    {label:"weight123", value: "123-131"},
+    {label:"weight132", value: "132-147"},
+    {label:"weight148", value: "148-164"},
+    {label:"weight165", value: "165-180" },
+    {label:"weight181", value: "181-197" },
+    {label:"weight198", value: "198-219" },
+    {label:"weight220", value: "220-241" },
+    {label:"weight242", value: "242-274" },
+    {label:"weight275", value: "275-318" },
+    {label:"weight319", value: ">318" },
   ]
   
   // QUESTION 3

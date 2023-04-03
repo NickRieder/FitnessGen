@@ -23,20 +23,20 @@ const Assessment = () => {
         const maxBench = forms.elements[1].value;
         const maxSquat = forms.elements[2].value;
         const pushUps = forms.elements[3].value;
-        const crunches = forms.elements[4].value;
+        const plank = forms.elements[4].value;
 
-        if (!wallSit || !maxBench || !maxSquat || !pushUps || !crunches) {
+        if (!wallSit || !maxBench || !maxSquat || !pushUps || !plank) {
             alert('Please fill in all the values before generating a plan');
             return;
         }
         
-        const upper = upperBodyScore(pushUps, gender, age);
-        const lower = lowerBodyScore(wallSit, gender, age);
-        const core = coreScore(crunches, gender, age);
+        const upper = upperBodyScore(pushUps, gender);
+        const lower = lowerBodyScore(wallSit, gender);
+        const core = coreScore(plank);
         var total = (upper + lower + core) / 3.0;
 
 
-        setUserAssessmentData(user, wallSit, maxBench, maxSquat, pushUps, crunches, upper, lower, core, total);
+        setUserAssessmentData(user, wallSit, maxBench, maxSquat, pushUps, plank, upper, lower, core, total);
         navigate('/mobilitytest');
     }
 
