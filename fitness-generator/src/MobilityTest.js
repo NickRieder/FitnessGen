@@ -62,11 +62,12 @@ const MobilityTest = () => {
 
     //Each different form represents a different test the users must take. The radio buttons are pass fail and default to fail if not performed.
     return (
-        <div className="mobilitytest">
+        <div className="mobilitytest" style={{ paddingTop: '50px' }} >
             <Container>
                 <h1>Mobility Test</h1>
                 <p>Perform these quick tasks for a baseline understanding of your current mobility level. Click the hyperlink to see each tutorial video. Select pass if you meet all the requirements in the video.</p>
-                <form id="Posture" style={{ textAlign: 'left' }}>
+                <div className='mobilitycontent'>
+                <form id="Posture" >
                     <a href="https://www.youtube.com/watch?v=dCsgXitfdls">Posture Test</a>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="posture" id="posture1"/>
@@ -83,7 +84,7 @@ const MobilityTest = () => {
                     <br/>
                 </form>
 
-                <form id="Overhead Squat" style={{ textAlign: 'left' }}>
+                <form id="Overhead Squat" >
                     <a href="https://www.youtube.com/watch?v=8uvhPH3b2qY">Overhead Squat Test</a>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="overheadSquat" id="overheadSquat1" />
@@ -100,7 +101,7 @@ const MobilityTest = () => {
                     <br />
                 </form>
 
-                <form id="Squat" style={{ textAlign: 'left' }}>
+                <form id="Squat" >
                     <a href="https://www.youtube.com/watch?v=1jOlzkrLz_w">Squat Test</a>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="squat" id="squat1" />
@@ -117,7 +118,7 @@ const MobilityTest = () => {
                     <br/>
                 </form>
 
-                <form id="Hip" style={{ textAlign: 'left' }}>
+                <form id="Hip">
                     <a href="https://www.youtube.com/watch?v=syai-30jRgE">Hip Test</a>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="hip" id="hip1" />
@@ -134,7 +135,7 @@ const MobilityTest = () => {
                     <br />
                 </form>
 
-                <form id="Ankle" style={{ textAlign: 'left' }}>
+                <form id="Ankle" >
                     <a href="https://www.youtube.com/watch?v=U7woPNLUT3Q">Ankle Test</a>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="ankle" id="ankle1" />
@@ -151,7 +152,7 @@ const MobilityTest = () => {
                     <br />
                 </form>
 
-                <form id="Windmill" style={{ textAlign: 'left' }}>
+                <form id="Windmill" >
                     <a href="https://youtube.com/shorts/BiGHWMY1Ya8?feature=share">Windmill Test</a>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="windmill" id="windmill1" />
@@ -167,7 +168,7 @@ const MobilityTest = () => {
                     </div>
                     <br />
                 </form>
-                <form id="Lumbar Spine" style={{ textAlign: 'left' }}>
+                <form id="Lumbar Spine" >
                     <a href="https://www.youtube.com/watch?v=4GBjhAcwh90">Lumbar Spine Test</a>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="lumbarSpine" id="lumbarSpine1" />
@@ -184,7 +185,7 @@ const MobilityTest = () => {
                     <br />
                 </form>
 
-                <form id="Wall" style={{ textAlign: 'left' }}>
+                <form id="Wall" >
                     <a href="https://www.youtube.com/watch?v=kbzYML05Vac">Wall Test</a>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="wall" id="wall1" />
@@ -201,7 +202,7 @@ const MobilityTest = () => {
                     <br />
                 </form>
 
-                <form id="Shoulder" style={{ textAlign: 'left' }}>
+                <form id="Shoulder" >
                     <a href="https://www.youtube.com/watch?v=FrOKZLkJSeo">Shoulder Test</a>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="shoulder" id="shoulder1" />
@@ -218,7 +219,7 @@ const MobilityTest = () => {
                     <br />
                 </form>
 
-                <form id="Scapula" style={{ textAlign: 'left' }}>
+                <form id="Scapula" >
                     <a href="https://www.youtube.com/watch?v=vY90UK6ZEOg">Scapula Test</a>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="scapula" id="scapula1" />
@@ -236,7 +237,7 @@ const MobilityTest = () => {
                 </form>
 
                     
-
+                </div>
                 
                 <div className='d-flex justify-content-end me-2 mt-4'>
                     <Button onClick={() => submitMobilityTest()}>Generate Plan</Button>
