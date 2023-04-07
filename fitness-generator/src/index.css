@@ -11,3 +11,38 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.mobilitycontent {
+  margin-left: 360px;
+  margin-right: 360px;
+  margin-top: 35px;
+  display: flex;
+  align-items: left;
+  text-align: left;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.mobilitytest a {
+  text-align: left;
+  color: #007bff;
+  text-decoration: none;
+  border: 1px solid #007bff; 
+  padding: 8px; 
+  margin-bottom: 30px;
+}
+
+.mobilitytest a:hover {
+  color: #000000;
+  text-decoration: none;
+  border-color: #000000; 
+}
+
+.form-check {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.form-check-input {
+  margin-right: 10px;
+}
