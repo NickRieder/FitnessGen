@@ -4,6 +4,7 @@ import UpperSplit from "./UpperSplit";
 import LowerSplit from "./LowerSplit";
 import MobilityDisplay from "./MobilityDisplay";
 import { deleteWorkoutInDatabase, saveWorkoutInDatabase } from "../config/firebase/index";
+import Footer from '../Footer';
 
 const FiveDay = ({ user, quads, back, chest, core, shoulder, glutes, calves, biceps, tricep, hamstrings, mobility }) => {
 
@@ -27,7 +28,7 @@ const FiveDay = ({ user, quads, back, chest, core, shoulder, glutes, calves, bic
 
   return (
     <>
-      <Container style={{ paddingTop: "20px", maxWidth: "1300px", borderColor: "none" }}>
+      <Container style={{ paddingTop: "20px", maxWidth: "1300px", borderColor: "none", marginBottom:'2rem'}}>
         <Card className="w-100" style={{ maxWidth: "1200px", boxSizing: "content-box", backgroundColor: "#395a80" }}>
           <Card.Body className="p-0" style={{}}>
 
@@ -82,16 +83,16 @@ const FiveDay = ({ user, quads, back, chest, core, shoulder, glutes, calves, bic
                     <Button size="lg" style={{ backgroundColor: '#B7D1E2', borderColor: '#323334', color: '#323334', borderRadius: '24px', marginTop: "300px", marginBottom: "30px", minWidth: "250px" }} onClick={() => saveWorkoutInDatabase(user, [quads, back, chest, core, hamstrings, glutes, calves, biceps, tricep, shoulder])}>Save Workout</Button>
                   </div>
                   <div>
-                    <Button size="lg" style={{ backgroundColor: '#B7D1E2', borderColor: '#323334', color: '#323334', borderRadius: '24px', bottom: '100px', minWidth: "250px" }} onClick={() => { beginDeleteWorkout(); }}>Generate New Workout</Button>
+                    <Button size="lg" style={{ backgroundColor: '#B7D1E2', borderColor: '#323334', color: '#323334', borderRadius: '24px', bottom: '100px', minWidth: "250px", marginBottom:'2rem' }} onClick={() => { beginDeleteWorkout(); }}>Generate New Workout</Button>
                   </div>
                 </Form>
               </Container>
             </div>
 
             {/* workout content - right side */}
-            <div className="d-inline-flex w-100 h-100" style={{ maxWidth: "900px" }}>
-              <Container className="d-inline-flex align-items-center p-0" style={{ minHeight: "150px" }}>
-                <Card className="w-100" style={{ minHeight: "75vh", border: "none" }}>
+            <div className="d-inline-flex w-100 h-100" style={{ maxWidth: "900px"}}>
+              <Container className="d-inline-flex align-items-center p-0" style={{ minHeight: "150px"}}>
+                <Card className="w-100" style={{ minHeight: "75vh", border: "none"}}>
                   <Card.Body>
                     <h2 className="fst-italic d-flex justify-content-start mb-4"> {dayTag} </h2>
                     <div>
@@ -107,6 +108,9 @@ const FiveDay = ({ user, quads, back, chest, core, shoulder, glutes, calves, bic
           </Card.Body>
         </Card>
       </Container>
+
+      
+        <Footer />
     </>
   )
 }

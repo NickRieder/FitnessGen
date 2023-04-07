@@ -24,10 +24,10 @@ const NavBar = () => {
     }
 
     return (
-        <div style={{ marginBottom: '3.5rem' }}>
+        <div style={{ marginBottom: '4rem', fontSize:'20px'}}>
             <Navbar fixed="top" bg="light" expand="lg">
                 <Container>
-                <Navbar.Brand href="/">KaloRenics</Navbar.Brand>
+                <Navbar.Brand href="/" style={{fontSize: '25px', fontWeight:'bold'}}>KaloRenics</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
