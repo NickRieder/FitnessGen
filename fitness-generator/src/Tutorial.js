@@ -4,7 +4,7 @@ import { Card, Container, Row, Col } from 'react-bootstrap';
 const Tutorials = () => {
 
     return ( 
-        <div style={{marginTop:"10rem"}}>
+        <div style={{marginTop:"5rem"}}>
             
             <Container fluid>
                 <h1>Tutorials</h1>
@@ -29,7 +29,7 @@ const Tutorials = () => {
                         </div>
                     </Col>
                 </Row>
-                <Row style={{marginBottom:"10rem", marginTop:"4rem", backgroundColor: 'lightblue',
+                <Row style={{marginBottom:"3rem", marginTop:"4rem", backgroundColor: 'lightblue',
       color: 'white', padding: '4rem', borderRadius:'25px'}}>
                     <Col>
                         <div className="embed-responsive embed-responsive-16by9">
