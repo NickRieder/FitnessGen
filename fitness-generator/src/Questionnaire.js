@@ -191,6 +191,14 @@ export default function Questionnaire() {
     );   
   }
 
+  function displayUserData() {
+    if (user == null) {
+      alert('You do not have any previous data');
+      return;
+    }
+    console.log("Display User Data button pressed");
+  }
+
    const handleHeightChange = (e) => {
        setHeightFT(e.target.value)
     }
@@ -205,15 +213,24 @@ export default function Questionnaire() {
       setQuestionData(result);
       console.log("result:");
       console.log(result);
-      if (result.HeightFT != null) {
-        console.log("BEFORE: " + heightFT);
-        console.log("height: ");
-        console.log(result.HeightFT);
-        handleHeightChange(result.HeightFT);
-        console.log("AFTER: " + heightFT);
-        
-      }
 
+      setAgeVal(result.Age);
+      setWorkoutDayNum(result.Days);
+      setEquipment(result.Equipment);
+      setHeightFT(result.HeightFT);
+      setHeightIN(result.HeightIN);
+      setInjury(result.Injuries);
+      setSexVal(result.Sex);
+      setWeight(result.Weight);
+
+      /*console.log(ageVal);
+      console.log(workoutDayNum);
+      console.log(equipment);
+      console.log(heightFT);
+      console.log(heightIN);
+      console.log(injury);
+      console.log(sexVal);
+      console.log(weight);*/
     }
     
   } 
@@ -229,7 +246,11 @@ export default function Questionnaire() {
         <Container className='mt-5'>
           <Card style={ {maxWidth: '600px'} }>
             
-            <div> <h2 className='d-flex justify-content-start ms-3 mb-5'> ABOUT YOURSELF </h2></div>
+            <div> <h2 className='d-flex justify-content-center ms-3 mb-2'> ABOUT YOURSELF </h2></div>
+
+            <div className='justify-content-center me-2 mt-2 mb-2'>
+              <Button onClick={() => displayUserData()}>Display Previous Data</Button>
+            </div>
             
             <Card.Body className='justify-content-center'>  
               <Form onSubmit={submitDBandNavAssessment}>
