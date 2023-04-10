@@ -241,7 +241,7 @@ export function coreScore(value, gender, age) {
     return score;
 }
 
-export function wallSitScore(time, gender) {
+export function calculateWallSitScore(time, gender) {
   var score = 0;
   if (gender == "M") {
     if (time < 22) {
@@ -272,7 +272,7 @@ export function wallSitScore(time, gender) {
   return score;
 }
 
-export function benchScore(gender, weight, amount) {
+export function calculateBenchScore(gender, weight, amount) {
   var score = 0
   if (gender == "M") {
     if (weight == "<97") {
@@ -507,11 +507,11 @@ export function benchScore(gender, weight, amount) {
     return score;
 }
 
-export function squatScore(amount, weight, gender) {
+export function calculateSquatScore(amount, weight, gender) {
   var score = 0;
   if (gender == 'M') {
     switch (weight) {
-      case "<114":
+      default:
         if (amount <= 78) { // Un-trained
           return 1;
         } else if (amount > 78 && amount <= 144) { // Novice
@@ -523,7 +523,7 @@ export function squatScore(amount, weight, gender) {
         } else { // Elite
           return 5;
         }
-      case "115-123":
+      case "123-131":
         if (amount <= 84) { // Un-trained
           return 1;
         } else if (amount > 84 && amount <= 155) { // Novice
@@ -535,7 +535,7 @@ export function squatScore(amount, weight, gender) {
         } else { // Elite
           return 5;
         }
-      case "124-132":
+      case "132-147":
         if (amount <= 91) { // Un-trained
           return 1;
         } else if (amount > 91 && amount <= 168) { // Novice
@@ -547,7 +547,7 @@ export function squatScore(amount, weight, gender) {
         } else { // Elite
           return 5;
         }
-      case "133-148":
+      case "148-164":
         if (amount <= 101) { // Un-trained
           return 1;
         } else if (amount > 101 && amount <= 188) { // Novice
@@ -559,7 +559,7 @@ export function squatScore(amount, weight, gender) {
         } else { // Elite
           return 5;
         }
-      case "149-165":
+      case "165-180":
         if (amount <= 110) { // Un-trained
           return 1;
         } else if (amount > 110 && amount <= 204) { // Novice
@@ -571,7 +571,7 @@ export function squatScore(amount, weight, gender) {
         } else { // Elite
           return 5;
         }
-      case "166-181":
+      case "181-197":
         if (amount <= 119) { // Un-trained
           return 1;
         } else if (amount > 119 && amount <= 220) { // Novice
@@ -583,7 +583,7 @@ export function squatScore(amount, weight, gender) {
         } else { // Elite
           return 5;
         }
-      case "182-198":
+      case "198-219":
         if (amount <= 125) { // Un-trained
           return 1;
         } else if (amount > 125 && amount <= 232) { // Novice
@@ -595,7 +595,7 @@ export function squatScore(amount, weight, gender) {
         } else { // Elite
           return 5;
         }
-      case "199-220":
+      case "220-241":
         if (amount <= 132) { // Un-trained
           return 1;
         } else if (amount > 132 && amount <= 244) { // Novice
@@ -607,7 +607,7 @@ export function squatScore(amount, weight, gender) {
         } else { // Elite
           return 5;
         }
-      case "221-242":
+      case "242-274":
         if (amount <= 137) { // Un-trained
           return 1;
         } else if (amount > 137 && amount <= 255) { // Novice
@@ -619,7 +619,7 @@ export function squatScore(amount, weight, gender) {
         } else { // Elite
           return 5;
         }
-      case "243-275":
+      case "275-318":
         if (amount <= 141) { // Un-trained
           return 1;
         } else if (amount > 141 && amount <= 261) { // Novice
@@ -631,7 +631,7 @@ export function squatScore(amount, weight, gender) {
         } else { // Elite
           return 5;
         }
-      case "276-319":
+      case ">318":
         if (amount <= 144) { // Un-trained
           return 1;
         } else if (amount > 144 && amount <= 267) { // Novice
@@ -639,18 +639,6 @@ export function squatScore(amount, weight, gender) {
         } else if (amount > 267 && amount <= 326) { // Intermediate
           return 3;
         } else if (amount > 326 && amount <= 445) { // Advanced
-          return 4;
-        } else { // Elite
-          return 5;
-        }
-      case ">320":
-        if (amount <= 147) { // Un-trained
-          return 1;
-        } else if (amount > 147 && amount <= 272) { // Novice
-          return 2;
-        } else if (amount > 272 && amount <= 332) { // Intermediate
-          return 3;
-        } else if (amount > 332 && amount <= 454) { // Advanced
           return 4;
         } else { // Elite
           return 5;
@@ -770,149 +758,112 @@ export function squatScore(amount, weight, gender) {
   return score;
 }
 
-export function pushUpScore(amount, gender, age) {
+export function calculatePushUpScore(amount, gender, age) {
+
   if (gender == 'M') {
     switch (age) {
-      case "20-29":
-        switch (amount) {
-          case amount > 54:
-            return 5;
-          case amount >= 45 && amount <=54:
-            return 4;
-          case amount >= 35 && amount <= 44:
-            return 3;
-          case amount >= 20 && amount <= 34:
-            return 2;
-          case amount < 20:
-            return 1;
-        }
+      case "18-29":
+        console.log("Made it inside Male 18-29");
+        if (amount > 54) { return 5; }
+        else if (amount >= 45 && amount <= 54) { return 4; }
+        else if (amount >= 35 && amount <= 44) { return 3; }
+        else if (amount >= 20 && amount <= 34) { return 2; }
+        else if (amount < 20) { return 1; }
       case "30-39":
-        switch (amount) {
-          case amount > 44:
-            return 5;
-          case amount >= 35 && amount <= 44:
-            return 4;
-          case amount >= 25 && amount <= 34:
-            return 3;
-          case amount >= 15 && amount <= 24:
-            return 2;
-          case amount < 15:
-            return 1;
-        }
+        if (amount > 44) { return 5; }
+        else if (amount >= 35 && amount <= 44) { return 4; }
+        else if (amount >= 25 && amount <= 34) { return 3; }
+        else if (amount >= 15 && amount <= 24) { return 2; }
+        else if (amount < 15) { return 1; }
       case "40-49":
-        switch (amount) {
-          case amount > 39:
-            return 5;
-          case amount >= 30 && amount <= 39:
-            return 4;
-          case amount >= 20 && amount <= 29:
-            return 3;
-          case amount >= 12 && amount <= 19:
-            return 2;
-          case amount < 12:
-            return 1;
-        }
+        if (amount > 39) { return 5; }
+        else if (amount >= 30 && amount <= 39) { return 4; }
+        else if (amount >= 20 && amount <= 29) { return 3; }
+        else if (amount >= 12 && amount <= 19) { return 2; }
+        else if (amount < 12) { return 1; }
       case "50-59":
-        switch (amount) {
-          case amount > 34:
-            return 5;
-          case amount >= 25 && amount <= 34:
-            return 4;
-          case amount >= 15 && amount <= 24:
-            return 3;
-          case amount >= 8 && amount <= 14:
-            return 2;
-          case amount < 8:
-            return 1;
-        }
+        if (amount > 34) { return 5; }
+        else if (amount >= 25 && amount <= 34) { return 4; }
+        else if (amount >= 15 && amount <= 24) { return 3; }
+        else if (amount >= 8 && amount <= 14) { return 2; }
+        else if (amount < 8) { return 1; }
       case "60+":
-        switch (amount) {
-          case amount > 29:
-            return 5;
-          case amount >= 20 && amount <= 29:
-            return 4;
-          case amount >= 10 && amount <= 19:
-            return 3;
-          case amount >= 5 && amount <= 9:
-            return 2;
-          case amount < 5:
-            return 1;
-        }
+        if (amount > 29) { return 5; }
+        else if (amount >= 20 && amount <= 29) { return 4; }
+        else if (amount >= 10 && amount <= 19) { return 3; }
+        else if (amount >= 5 && amount <= 9) { return 2; }
+        else if (amount < 5) { return 1; }
     }
   } else {
     switch (age) {
-      case "20-29":
-        switch (amount) {
-          case amount > 48:
-            return 5;
-          case amount >= 34 && amount <= 48:
-            return 4;
-          case amount >= 17 && amount <= 33:
-            return 3;
-          case amount >= 6 && amount <= 16:
-            return 2;
-          case amount < 6:
-            return 1;
+      case "18-29":
+        if (amount < 6) {
+          return 1;
+        } else if (amount < 17) {
+          return 2;
+        } else if (amount < 34) {
+          return 3;
+        } else if (amount < 48) {
+          return 4;
+        } else {
+          return 5;
         }
       case "30-39":
-        switch (amount) {
-          case amount > 39:
-            return 5;
-          case amount >= 25 && amount <= 39:
-            return 4;
-          case amount >= 12 && amount <= 24:
-            return 3;
-          case amount >= 4 && amount <= 11:
-            return 2;
-          case amount < 4:
-            return 1;
+        if (amount < 4) {
+          return 1;
+        } else if (amount < 12) {
+          return 2;
+        } else if (amount < 25) {
+          return 3;
+        } else if (amount < 39) {
+          return 4;
+        } else {
+          return 5;
         }
       case "40-49":
-        switch (amount) {
-          case amount > 34:
-            return 5;
-          case amount >= 20 && amount <= 34:
-            return 4;
-          case amount >= 8 && amount <= 19:
-            return 3;
-          case amount >= 3 && amount <= 7:
-            return 2;
-          case amount < 3:
-            return 1;
+        if (amount < 3) {
+          return 1;
+        } else if (amount < 8) {
+          return 2;
+        } else if (amount < 20) {
+          return 3;
+        } else if (amount < 34) {
+          return 4;
+        } else {
+          return 5;
         }
       case "50-59":
-        switch (amount) {
-          case amount > 29:
-            return 5;
-          case amount >= 15 && amount <= 29:
-            return 4;
-          case amount >= 6 && amount <= 14:
-            return 3;
-          case amount >= 2 && amount <= 5:
-            return 2;
-          case amount < 2:
-            return 1;
+        if (amount < 2) {
+          return 1;
+        } else if (amount < 6) {
+          return 2;
+        } else if (amount < 15) {
+          return 3;
+        } else if (amount < 29) {
+          return 4;
+        } else {
+          return 5;
         }
       case "60+":
-        switch (amount) {
-          case amount > 19:
-            return 5;
-          case amount >= 5 && amount <= 19:
-            return 4;
-          case amount >= 3 && amount <= 4:
-            return 3;
-          case amount >= 1 && amount <= 2:
-            return 2;
-          case amount < 1:
-            return 1;
+        if (amount < 1) {
+          return 1;
+        } else if (amount < 3) {
+          return 2;
+        } else if (amount < 5) {
+          return 3;
+        } else if (amount < 19) {
+          return 4;
+        } else {
+          return 5;
         }
     }
   }
 }
 
-export function plankScore(time) {
+export function calculatePlankScore(time) {
   var score = 0;
-  if (time = 0) {
+  console.log("Time -> " + time);
+  if (time == 0) {
     score = 1;
   } else if (time < 20) {
     score = 2;
@@ -924,6 +875,33 @@ export function plankScore(time) {
     score = 5;
   }
   return score;
+}
+
+export function calculateIntensity(gender, age, weight, wallSitTime, bench, squat, pushups, plankTime) {
+  var wallSitScore = calculateWallSitScore(wallSitTime, gender);
+  var benchScore = calculateBenchScore(gender, weight, bench);
+  var squatScore = calculateSquatScore(squat, weight, gender);
+  var pushUpScore = calculatePushUpScore(pushups, gender, age);
+  var plankScore = calculatePlankScore(plankTime);
+
+  console.log("wallSitScore" + wallSitScore);
+  console.log("benchScore" + benchScore);
+  console.log("squatScore" + squatScore);
+  console.log("pushUpScore" + pushUpScore);
+  console.log("plankScore" + plankScore);
+
+  var totalScore = wallSitScore + benchScore + squatScore + pushUpScore + plankScore;
+  console.log("total score" + totalScore);
+  if (totalScore >= 5 && totalScore <= 10) {
+    return "Easy"
+  } else if (totalScore >= 11 && totalScore <= 20) {
+    return "Medium"
+  } else if (totalScore >= 21 && totalScore <= 25) {
+    return "Hard"
+  } else {
+    console.log("data.js/calculateIntensity -> error calculating intensity.")
+    return "Easy"
+  }
 }
 
 

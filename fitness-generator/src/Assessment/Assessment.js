@@ -1,19 +1,38 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
-import { AuthContext, setUserAssessmentData } from '.././config/firebase';
-import { upperBodyScore, lowerBodyScore, coreScore } from '../data.js';
+import { db, AuthContext, setUserAssessmentData } from '.././config/firebase';
+import { calculateIntensity, wallSitScore, benchScore, squatScore, pushUpScore, plankScore } from '../data.js';
+import { doc, getDoc } from "firebase/firestore"
 // import background from '../images/fitness-rdl.jpg';
 
 const Assessment = () => {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
 
+  const [age, setAge] = useState(0);
+  const [gender, setGender] = useState("M");
+  const [weight, setWeight] = useState(0);
+
+  const fetchUserData = async () => {
+    const userInfoRef = doc(db, `/Users/${user.uid}/WorkoutData/Data`);
+    const docSnap = await getDoc(userInfoRef);
+
+    const result = docSnap.data();
+    setAge(result.Age);
+    setGender(result.Sex);
+    setWeight(result.Weight);
+  }
+
+  useEffect(() => {
+    fetchUserData();
+  }, [user])
+
+
     function submitDBandNavWorkout() {
-        const age = 30;
-        const gender = 'M';
+
         const forms = document.getElementById("responses");
         for (var i = 0; i < forms.length; i++) {
             console.log(forms.elements[i].value);
@@ -25,18 +44,21 @@ const Assessment = () => {
         const pushUps = forms.elements[3].value;
         const plank = forms.elements[4].value;
 
+        
+
         if (!wallSit || !maxBench || !maxSquat || !pushUps || !plank) {
             alert('Please fill in all the values before generating a plan');
             return;
         }
-        
+        /*
         const upper = upperBodyScore(pushUps, gender);
         const lower = lowerBodyScore(wallSit, gender);
         const core = coreScore(plank);
         var total = (upper + lower + core) / 3.0;
+        */
+        var intensity = calculateIntensity(gender, age, weight, wallSit, maxBench, maxSquat, pushUps, plank);
 
-
-        setUserAssessmentData(user, wallSit, maxBench, maxSquat, pushUps, plank, upper, lower, core, total);
+        setUserAssessmentData(user, wallSit, maxBench, maxSquat, pushUps, plank, intensity);
         navigate('/mobilitytest');
     }
 

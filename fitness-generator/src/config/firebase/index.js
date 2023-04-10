@@ -311,12 +311,8 @@ export const getUserInfo = async (user) => {
 
 export const getWorkout = async (body, difficulty, injuries, allEquipment, equipment) => {
 
-
-  //console.log(body)
-  //console.log(difficulty)
-  //console.log(injuries)
-  //console.log(allEquipment)
-   //convert difficulty into number
+  console.log("Difficulty");
+  console.log(difficulty);
    let localDifficulty = 1;
    if (difficulty == "Medium") {
      localDifficulty = 2;
@@ -442,7 +438,7 @@ export async function updatePasswordRequest(user, currentPassword, newPassword) 
   });
 }
 
-export async function setUserAssessmentData(user, wallSit, maxBench, maxSquat, pushUps, crunches, upper, lower, core, total) {
+export async function setUserAssessmentData(user, wallSit, maxBench, maxSquat, pushUps, crunches, intensity) {
     try {
         // Adds user's input assessment data to the database
         const dbUWDDataRef = doc(db, `Users/${user.uid}/WorkoutData/AssessmentData`)
@@ -452,10 +448,7 @@ export async function setUserAssessmentData(user, wallSit, maxBench, maxSquat, p
             MaxSquat: maxSquat,
             PushUps: pushUps,
             Crunches: crunches,
-            UpperBodyStrength: upper,
-            LowerBodyStrength: lower,
-            CoreStrength: core,
-            TotalStrength: total
+            Intensity: intensity
         });
 
     } catch (error) {
