@@ -14,6 +14,8 @@ export default function Questionnaire() {
     return (<Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px', maxWidth: '175px', textAlign: 'initial' }}> {label} </Form.Label>)
   }
 
+  const [wantsOldData, setWantsOldData] = useState(false);
+
   // QUESTION 0 PT1
   const [sexVal, setSexVal] = useState("M");
   const sexOpts = [
@@ -223,22 +225,22 @@ export default function Questionnaire() {
       setSexVal(result.Sex);
       setWeight(result.Weight);
 
-      /*console.log(ageVal);
+      console.log(ageVal);
       console.log(workoutDayNum);
       console.log(equipment);
       console.log(heightFT);
       console.log(heightIN);
       console.log(injury);
       console.log(sexVal);
-      console.log(weight);*/
+      console.log(weight);
     }
     
   } 
 
   useEffect(() => {
-      fetchUserData();
+    fetchUserData();
+    //}, [user, heightFT, setHeightFT, ageVal, setAgeVal, workoutDayNum, setWorkoutDayNum, setEquipment, heightIN, setHeightIN, injury, setInjury, sexVal, setSexVal, weight, setWeight])
   }, [user, heightFT, setHeightFT])
-
   return (
     <div className='d-flex justify-content-center' style={{ background: `url(${background})` }}>
       <div id="Questionnaire" className="d-flex flex-column justify-content-center w-100" style={{ minHeight: '100vh', maxWidth: '600px'}}>
@@ -249,7 +251,23 @@ export default function Questionnaire() {
             <div> <h2 className='d-flex justify-content-center ms-3 mb-2'> ABOUT YOURSELF </h2></div>
 
             <div className='justify-content-center me-2 mt-2 mb-2'>
-              <Button onClick={() => displayUserData()}>Display Previous Data</Button>
+              <Button onClick={() => { displayUserData(); setWantsOldData(true); }}>Display Previous Data</Button>
+              {wantsOldData && (
+                <div>
+                  <div>
+                    Sex: {sexVal} <br />
+                    Age: {ageVal} <br />
+                    Height: {heightFT} FT, {heightIN} IN <br />
+                    Weight: {weight} lbs <br />
+                    Past Injuries: {injury.toString().replaceAll(",", ", ")} <br />
+                    Number of Workout Days: {workoutDayNum} <br />
+                    Equipment: {equipment.toString().replaceAll(",", ", ")} < br />
+                  </div>
+                  <Button onClick={() => setWantsOldData(false)}>
+                    Hide Previous Data
+                  </Button>
+                </div>
+              )}
             </div>
             
             <Card.Body className='justify-content-center'>  
