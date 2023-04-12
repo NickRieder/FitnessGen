@@ -12,9 +12,16 @@ const Assessment = () => {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
 
-  const [age, setAge] = useState(0);
-  const [gender, setGender] = useState("M");
-  const [weight, setWeight] = useState(0);
+    const [wallSitNum, setWallSitNum] = useState(null);
+    const [benchNum, setBenchNum] = useState(null);
+    const [squatNum, setSquatNum] = useState(null);
+    const [pushUpNum, setPushUpNum] = useState(null);
+    const [plankNum, setPlankNum] = useState(null);
+    const [wantsOldData, setWantsOldData] = useState(false);
+
+    const [age, setAge] = useState('');
+    const [gender, setGender] = useState('M');
+    const [weight, setWeight] = useState('');
 
   const fetchUserData = async () => {
     const userInfoRef = doc(db, `/Users/${user.uid}/WorkoutData/Data`);
@@ -24,6 +31,17 @@ const Assessment = () => {
     setAge(result.Age);
     setGender(result.Sex);
     setWeight(result.Weight);
+
+    const userInfoRef2 = doc(db, `/Users/${user.uid}/WorkoutData/AssessmentData`);
+    const docSnap2 = await getDoc(userInfoRef2);
+
+    const result2 = docSnap2.data();
+    setWallSitNum(result2.WallSit);
+    setBenchNum(result2.MaxBench);
+    setSquatNum(result2.MaxSquat);
+    setPushUpNum(result2.PushUps);
+    setPlankNum(result2.PlankTime);
+
   }
 
   useEffect(() => {
@@ -67,6 +85,23 @@ const Assessment = () => {
             <Container>
                 <h1>Assessment</h1>
                 <p>Perform these quick tasks for a baseline understanding of your current fitness level. Enter 0 for any exercise you cannot perform.</p>
+                <div className='justify-content-center me-2 mt-2 mb-2'>
+                  <Button onClick={() => {setWantsOldData(true); }}>Display Previous Data</Button>
+                  {wantsOldData && (
+                    <div>
+                      <div>
+                        Wall Sit: {wallSitNum} <br />
+                        Bench: {benchNum} <br />
+                        Squat: {squatNum} <br />
+                        Push Ups: {pushUpNum} <br />
+                        Plank Time: {plankNum} <br />
+                      </div>
+                      <Button onClick={() => setWantsOldData(false)}>
+                        Hide Previous Data
+                      </Button>
+                    </div>
+                  )}
+                </div>
             <Form name = 'values' id = 'responses'>
                 <Form.Group className="mb-3">
                     <Form.Label>Wall Sit Time</Form.Label>

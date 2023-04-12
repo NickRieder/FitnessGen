@@ -438,7 +438,7 @@ export async function updatePasswordRequest(user, currentPassword, newPassword) 
   });
 }
 
-export async function setUserAssessmentData(user, wallSit, maxBench, maxSquat, pushUps, crunches, intensity) {
+export async function setUserAssessmentData(user, wallSit, maxBench, maxSquat, pushUps, plankTime, intensity) {
     try {
         // Adds user's input assessment data to the database
         const dbUWDDataRef = doc(db, `Users/${user.uid}/WorkoutData/AssessmentData`)
@@ -447,7 +447,7 @@ export async function setUserAssessmentData(user, wallSit, maxBench, maxSquat, p
             MaxBench: maxBench,
             MaxSquat: maxSquat,
             PushUps: pushUps,
-            Crunches: crunches,
+            PlankTime: plankTime,
             Intensity: intensity
         });
 
