@@ -62,186 +62,133 @@ const MobilityTest = () => {
 
     //Each different form represents a different test the users must take. The radio buttons are pass fail and default to fail if not performed.
     return (
-        <div className="mobilitytest" style={{ paddingTop: '50px' }} >
+        <div className="mobilitytest" style={{ paddingTop: '50px', backgroundColor:'#B7D1E2' }} >
             <Container>
-                <h1>Mobility Test</h1>
-                <p>Perform these quick tasks for a baseline understanding of your current mobility level. Click the hyperlink to see each tutorial video. Select pass if you meet all the requirements in the video.</p>
-                <div className='mobilitycontent'>
-                <form id="Posture" >
-                    <a href="https://www.youtube.com/watch?v=dCsgXitfdls">Posture Test</a>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="posture" id="posture1"/>
-                            <label class="form-check-label" for="posture1">
-                                Pass
-                            </label>
-                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="posture" id="posture2"/>
-                            <label class="form-check-label" for="posture2">
-                                Fail
-                            </label>
-                    </div>
-                    <br/>
-                </form>
+                <h1 style={{paddingBottom:'2rem'}}>Mobility Test</h1>
 
-                <form id="Overhead Squat" >
-                    <a href="https://www.youtube.com/watch?v=8uvhPH3b2qY">Overhead Squat Test</a>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="overheadSquat" id="overheadSquat1" />
-                        <label class="form-check-label" for="overheadSquat1">
-                            Pass
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="overheadSquat" id="overheadSquat2" />
-                        <label class="form-check-label" for="overheadSquat2">
-                            Fail
-                        </label>
-                    </div>
-                    <br />
-                </form>
+				<form style={{paddingBottom:'3rem'}}>
+                <table style={{marginLeft:'auto', marginRight:'auto'}}>
+                    <tr>
+                        <th>Mobility</th>
+                        <th>Video</th>
+                        <th>Pass</th>
+                        <th>Fail</th>
+                    </tr>
 
-                <form id="Squat" >
-                    <a href="https://www.youtube.com/watch?v=1jOlzkrLz_w">Squat Test</a>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="squat" id="squat1" />
-                        <label class="form-check-label" for="squat1">
-                            Pass
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="squat" id="squat2" />
-                        <label class="form-check-label" for="squat2">
-                            Fail
-                        </label>
-                    </div>
-                    <br/>
-                </form>
+                    <tr id="Posture">
+					{/* <form id="Posture"  style={{fontSize:'20px', textAlign:'left'}}>  */}
+						<td for="posture">Posture</td>
+                        <td><iframe title="Embeds Page" className="embed-responsive-item" src="https://www.youtube.com/embed/watch?v=dCsgXitfdls" allowfullscreen></iframe></td>
+						<td><input class="form-check-input" type="radio" name="posture" id="posture1"/></td>
+						<td><input class="form-check-input" type="radio" name="posture" id="posture2"/></td>
+					{/* </form> */}
+                    </tr>
 
-                <form id="Hip">
-                    <a href="https://www.youtube.com/watch?v=syai-30jRgE">Hip Test</a>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="hip" id="hip1" />
-                        <label class="form-check-label" for="hip1">
-                            Pass
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="hip" id="hip2" />
-                        <label class="form-check-label" for="hip2">
-                            Fail
-                        </label>
-                    </div>
-                    <br />
-                </form>
+                    {/* <br></br> */}
 
-                <form id="Ankle" >
-                    <a href="https://www.youtube.com/watch?v=U7woPNLUT3Q">Ankle Test</a>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="ankle" id="ankle1" />
-                        <label class="form-check-label" for="ankle1">
-                            Pass
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="ankle" id="ankle2" />
-                        <label class="form-check-label" for="ankle2">
-                            Fail
-                        </label>
-                    </div>
-                    <br />
-                </form>
+                    <tr id="Overhead Squat">
+                    {/* <form id="Overhead Squat"  style={{fontSize:'20px', textAlign:'left'}}>  */}
+						<td for="overheadSquat">Overhead Squat</td>
+                        <td><iframe title="Embeds Page" className="embed-responsive-item" src="https://www.youtube.com/embed/watch?v=8uvhPH3b2qY" allowfullscreen></iframe></td>
+						<td><input class="form-check-input" type="radio" name="overheadSquat" id="overheadSquat1"/></td>
+						<td><input class="form-check-input" type="radio" name="overheadSquat" id="overheadSquat2"/></td>
+					{/* </form> */}
+                    </tr>
 
-                <form id="Windmill" >
-                    <a href="https://youtube.com/shorts/BiGHWMY1Ya8?feature=share">Windmill Test</a>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="windmill" id="windmill1" />
-                        <label class="form-check-label" for="windmill1">
-                            Pass
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="windmill" id="windmill2" />
-                        <label class="form-check-label" for="windmill2">
-                            Fail
-                        </label>
-                    </div>
-                    <br />
-                </form>
-                <form id="Lumbar Spine" >
-                    <a href="https://www.youtube.com/watch?v=4GBjhAcwh90">Lumbar Spine Test</a>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="lumbarSpine" id="lumbarSpine1" />
-                        <label class="form-check-label" for="lumbarSpine1">
-                            Pass
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="lumbarSpine" id="limbarSpine2" />
-                        <label class="form-check-label" for="lumbarSpine2">
-                            Fail
-                        </label>
-                    </div>
-                    <br />
-                </form>
+                    <tr id="Squat">
+                    {/* <form id="Squat"  style={{fontSize:'20px', textAlign:'left'}}>  */}
+                    <td for="squat">Squat</td>
+                    <td><iframe title="Embeds Page" className="embed-responsive-item" src="https://www.youtube.com/embed/watch?v=1jOlzkrLz_w" allowfullscreen></iframe></td>
+                    <td><input class="form-check-input" type="radio" name="squat" id="squat1"/></td>
+                    <td><input class="form-check-input" type="radio" name="squat" id="squat2"/></td>
+					{/* </form> */}
+                    </tr>
 
-                <form id="Wall" >
-                    <a href="https://www.youtube.com/watch?v=kbzYML05Vac">Wall Test</a>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="wall" id="wall1" />
-                        <label class="form-check-label" for="wall1">
-                            Pass
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="wall" id="wall2" />
-                        <label class="form-check-label" for="wall2">
-                            Fail
-                        </label>
-                    </div>
-                    <br />
-                </form>
+                    {/* <br></br> */}
 
-                <form id="Shoulder" >
-                    <a href="https://www.youtube.com/watch?v=FrOKZLkJSeo">Shoulder Test</a>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="shoulder" id="shoulder1" />
-                        <label class="form-check-label" for="shoulder1">
-                            Pass
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="shoulder" id="shoulder2" />
-                        <label class="form-check-label" for="shoulder2">
-                            Fail
-                        </label>
-                    </div>
-                    <br />
-                </form>
+                    <tr id="Hip">
+                    {/* <form id="Hip"  style={{fontSize:'20px', textAlign:'left'}}>  */}
+                    <td for="hip">Hip</td>
+                    <td><iframe title="Embeds Page" className="embed-responsive-item" src="https://www.youtube.com/embed/watch?v=syai-30jRgE" allowfullscreen></iframe></td>
+                    <td><input class="form-check-input" type="radio" name="hip" id="hip1"/></td>
+                    <td><input class="form-check-input" type="radio" name="hip" id="hip2"/></td>
+					{/* </form> */}
+                    </tr>
 
-                <form id="Scapula" >
-                    <a href="https://www.youtube.com/watch?v=vY90UK6ZEOg">Scapula Test</a>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="scapula" id="scapula1" />
-                        <label class="form-check-label" for="scapula1">
-                            Pass
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="scapula" id="scapula2" />
-                        <label class="form-check-label" for="scapula2">
-                            Fail
-                        </label>
-                    </div>
-                    <br />
-                </form>
+                    {/* <br></br> */}
 
-                    
-                </div>
-                
-                <div className='d-flex justify-content-end me-2 mt-4'>
+                    <tr id="Ankle">
+                    {/* <form id="Ankle"  style={{fontSize:'20px', textAlign:'left'}}>  */}
+                    <td for="ankle">Ankle</td>
+                    <td><iframe title="Embeds Page" className="embed-responsive-item" src="https://www.youtube.com/embed/watch?v=U7woPNLUT3Q" allowfullscreen></iframe></td>
+                    <td><input class="form-check-input" type="radio" name="ankle" id="ankle1"/></td>
+                    <td><input class="form-check-input" type="radio" name="posture" id="ankl2"/></td>
+					{/* </form> */}
+                    </tr>
+
+                    {/* <br></br> */}
+
+                    <tr id="Windmill">
+                    {/* <form id="Windmill"  style={{fontSize:'20px', textAlign:'left'}}>  */}
+                    <td for="windmill">Windmill</td>
+                    <td><iframe title="Embeds Page" className="embed-responsive-item" src="https://youtube.com/embed/shorts/BiGHWMY1Ya8?feature=share" allowfullscreen></iframe></td>
+                    <td><input class="form-check-input" type="radio" name="windmill" id="windmill1"/></td>
+                    <td><input class="form-check-input" type="radio" name="windmill" id="windmill2"/></td>
+					{/* </form> */}
+                    </tr>
+
+                    {/* <br></br> */}
+
+                    <tr id="Lumbar Spine">
+                    {/* <form id="Lumbar Spine"  style={{fontSize:'20px', textAlign:'left'}}>  */}
+                    <td for="lumbarSpine">Lumbar Spine</td>
+                    <td><iframe title="Embeds Page" className="embed-responsive-item" src="https://www.youtube.com/embed/watch?v=4GBjhAcwh90" allowfullscreen></iframe></td>
+                    <td><input class="form-check-input" type="radio" name="lumbarSpine" id="lumbarSpine1"/></td>
+                    <td><input class="form-check-input" type="radio" name="lumbarSpine" id="lumbarSpine2"/></td>
+					{/* </form> */}
+                    </tr>
+
+                    {/* <br></br> */}
+
+                    <tr id="Wall">
+                    {/* <form id="Wall"  style={{fontSize:'20px', textAlign:'left'}}>  */}
+                    <td for="wall">Wall</td>
+                    <td><iframe title="Embeds Page" className="embed-responsive-item" src="https://www.youtube.com/embed/watch?v=kbzYML05Vac" allowfullscreen></iframe></td>
+                    <td><input class="form-check-input" type="radio" name="wall" id="wall1"/></td>
+                    <td><input class="form-check-input" type="radio" name="wall" id="wall2"/></td>
+					{/* </form> */}
+                    </tr>
+
+                    {/* <br></br> */}
+
+                    <tr id="Shoulder">
+                    {/* <form id="Shoulder"  style={{fontSize:'20px', textAlign:'left'}}>  */}
+                    <td for="shoulder">Shoulder</td>
+                    <td><iframe title="Embeds Page" className="embed-responsive-item" src="https://www.youtube.com/embed/watch?v=FrOKZLkJSeo" allowfullscreen></iframe></td>
+                    <td><input class="form-check-input" type="radio" name="shoulder" id="shoulder1"/></td>
+                    <td><input class="form-check-input" type="radio" name="shoulder" id="shoulder2"/></td>
+					{/* </form> */}
+                    </tr>
+
+                    {/* <br></br> */}
+
+                    <tr id="Scapula">
+                    {/* <form   style={{fontSize:'20px', textAlign:'left'}}>  */}
+                    <td for="scapula">Scapula</td>
+                    <td><iframe title="Embeds Page" className="embed-responsive-item" src="https://www.youtube.com/embed/watch?v=vY90UK6ZEOg" allowfullscreen></iframe></td>
+                    <td><input class="form-check-input" type="radio" name="scapula" id="scapula1"/></td>
+                    <td><input class="form-check-input" type="radio" name="scapula" id="scapula2"/></td>
+					{/* </form> */}
+                    </tr>
+				
+                </table>
+				
+				</form>
+
+                <div className='d-flex justify-content-end me-2 mt-4 mb-4'>
                     <Button onClick={() => submitMobilityTest()}>Generate Plan</Button>
                 </div>
+				
             </Container>
         </div>
     )

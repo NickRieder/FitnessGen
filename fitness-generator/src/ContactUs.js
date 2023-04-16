@@ -1,5 +1,4 @@
 import React from 'react'
-import {aboutUsText1, aboutUsText2, aboutUsText3, workoutText} from './HomeText.js'
 
 import Footer from './Footer';
 
