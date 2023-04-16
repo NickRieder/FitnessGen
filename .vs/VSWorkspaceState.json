@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\fitness-generator",
+    "\\fitness-generator\\src",
+    "\\fitness-generator\\src\\Assessment",
+    "\\fitness-generator\\src\\config",
+    "\\fitness-generator\\src\\config\\firebase",
+    "\\fitness-generator\\src\\WorkoutsView"
+  ],
+  "SelectedNode": "\\fitness-generator\\src\\Assessment\\Assessment.js",
+  "PreviewInSolutionExplorer": false
+}

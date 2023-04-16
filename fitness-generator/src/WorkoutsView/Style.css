@@ -1,5 +1,6 @@
 .workout_view {
-    height: 100vh;
+    height: fit-content;
+    /* height: 100vh; */
     background-color: lightblue;
 }
 

@@ -20,7 +20,7 @@ return (
                 <div className="w-100">
                     <i className="">
                         <span style={{ marginLeft: "10px" }}>
-                        Contact Us
+                        <a href='ContactUs' style={{textDecoration: 'none', color:'black'}}>Contact Us</a>
                         </span>
                     </i>
                 </div>

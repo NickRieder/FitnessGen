@@ -311,12 +311,8 @@ export const getUserInfo = async (user) => {
 
 export const getWorkout = async (body, difficulty, injuries, allEquipment, equipment) => {
 
-
-  //console.log(body)
-  //console.log(difficulty)
-  //console.log(injuries)
-  //console.log(allEquipment)
-   //convert difficulty into number
+  console.log("Difficulty");
+  console.log(difficulty);
    let localDifficulty = 1;
    if (difficulty == "Medium") {
      localDifficulty = 2;
@@ -403,7 +399,7 @@ const getWorkout = (user) => {
   firebsase.get(wokrouts.{difficulty}.{equipemtn}(());
 }*/
 
-export async function setUserWorkoutData(user, feet, inches, weight, days, intensity, equipment, injuries) {
+export async function setUserWorkoutData(user, feet, inches, weight, days, equipment, injuries, age, sex) {
   try {
     // Adds firstName and lastName as fields in the Personal collection 
     const dbUWDDataRef = doc(db, `Users/${user.uid}/WorkoutData/Data`)
@@ -412,9 +408,10 @@ export async function setUserWorkoutData(user, feet, inches, weight, days, inten
       HeightIN: inches,
       Weight: weight,
       Days: days, 
-      Intensity: intensity,
       Equipment: equipment,
-      Injuries: injuries
+      Injuries: injuries,
+      Age: age,
+      Sex: sex
     });
 
   } catch (error) {
@@ -441,7 +438,7 @@ export async function updatePasswordRequest(user, currentPassword, newPassword) 
   });
 }
 
-export async function setUserAssessmentData(user, wallSit, maxBench, maxSquat, pushUps, crunches, upper, lower, core, total) {
+export async function setUserAssessmentData(user, wallSit, maxBench, maxSquat, pushUps, plankTime, intensity) {
     try {
         // Adds user's input assessment data to the database
         const dbUWDDataRef = doc(db, `Users/${user.uid}/WorkoutData/AssessmentData`)
@@ -450,11 +447,8 @@ export async function setUserAssessmentData(user, wallSit, maxBench, maxSquat, p
             MaxBench: maxBench,
             MaxSquat: maxSquat,
             PushUps: pushUps,
-            Crunches: crunches,
-            UpperBodyStrength: upper,
-            LowerBodyStrength: lower,
-            CoreStrength: core,
-            TotalStrength: total
+            PlankTime: plankTime,
+            Intensity: intensity
         });
 
     } catch (error) {

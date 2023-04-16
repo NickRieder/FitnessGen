@@ -13,7 +13,26 @@ export default function Questionnaire() {
   function FormLabel(label) {
     return (<Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px', maxWidth: '175px', textAlign: 'initial' }}> {label} </Form.Label>)
   }
- 
+
+  const [wantsOldData, setWantsOldData] = useState(false);
+
+  // QUESTION 0 PT1
+  const [sexVal, setSexVal] = useState("M");
+  const sexOpts = [
+    { name: "Male", value: "M" },
+    { name: "Female", value: "F" }
+  ];
+
+  // QUESTION 0 PT2  
+  const [ageVal, setAgeVal] = useState("18-29");
+  const ageOpts = [
+    { label: "age20", value: "18-29" },
+    { label: "age30", value: "30-39" },
+    { label: "age40", value: "40-49" },
+    { label: "age50", value: "50-59" },
+    { label: "age60", value: "60+" }
+  ]
+
   // QUESTION 1 PT1
   const [heightFT, setHeightFT] = useState(3);
   const [hasData, setHasData] = useState(false);
@@ -45,16 +64,22 @@ export default function Questionnaire() {
   ]
 
   // QUESTION 2
-  const [weight, setWeight] = useState("120-130");
+  const [weight, setWeight] = useState("123-131");
   const weightOpts = [
-    {label:"weight120", value: "120-130"},
-    {label:"weight130", value: "130-140"},
-    {label:"weight140", value: "140-150"},
-    {label:"weight150", value: "150-160"},
-    {label:"weight160", value: "160-170"},
-    {label:"weight170", value: "170-180"},
-    {label:"weight190", value: "190-200"},
-    {label:"weight200", value: "200-210"}
+    {label:"weight96", value: "<97"},
+    {label:"weight97", value: "97-104"},
+    {label:"weight105", value: "105-113"},
+    {label:"weight114", value: "114-122"},
+    {label:"weight123", value: "123-131"},
+    {label:"weight132", value: "132-147"},
+    {label:"weight148", value: "148-164"},
+    {label:"weight165", value: "165-180" },
+    {label:"weight181", value: "181-197" },
+    {label:"weight198", value: "198-219" },
+    {label:"weight220", value: "220-241" },
+    {label:"weight242", value: "242-274" },
+    {label:"weight275", value: "275-318" },
+    {label:"weight319", value: ">318" },
   ]
   
   // QUESTION 3
@@ -88,14 +113,6 @@ export default function Questionnaire() {
     // {label: "workoutDayNum6", value: 6},
     // {label: "workoutDayNum7", value: 7}
   ];
-
-  // QUESTION 5
-  const [intensityVal, setIntensityVal] = useState('Easy');
-  const intensityOpts = [
-    {name: 'Easy', value: 'Easy'},
-    {name: 'Medium', value: 'Medium'},
-    {name: 'Hard', value: 'Hard'},
-  ]
 
   // ICON INFO BTN
   const iconPath1 = "M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
@@ -147,7 +164,7 @@ export default function Questionnaire() {
 
 
 
-    setUserWorkoutData(user, heightFT, heightIN, weight, workoutDayNum, intensityVal, equipmentArray, injuryArray);
+    setUserWorkoutData(user, heightFT, heightIN, weight, workoutDayNum, equipmentArray, injuryArray, ageVal, sexVal);
       navigate('/assessment');
     }
 
@@ -176,6 +193,14 @@ export default function Questionnaire() {
     );   
   }
 
+  function displayUserData() {
+    if (user == null) {
+      alert('You do not have any previous data');
+      return;
+    }
+    console.log("Display User Data button pressed");
+  }
+
    const handleHeightChange = (e) => {
        setHeightFT(e.target.value)
     }
@@ -190,23 +215,32 @@ export default function Questionnaire() {
       setQuestionData(result);
       console.log("result:");
       console.log(result);
-      if (result.HeightFT != null) {
-        console.log("BEFORE: " + heightFT);
-        console.log("height: ");
-        console.log(result.HeightFT);
-        handleHeightChange(result.HeightFT);
-        console.log("AFTER: " + heightFT);
-        
-      }
 
+      setAgeVal(result.Age);
+      setWorkoutDayNum(result.Days);
+      setEquipment(result.Equipment);
+      setHeightFT(result.HeightFT);
+      setHeightIN(result.HeightIN);
+      setInjury(result.Injuries);
+      setSexVal(result.Sex);
+      setWeight(result.Weight);
+
+      console.log(ageVal);
+      console.log(workoutDayNum);
+      console.log(equipment);
+      console.log(heightFT);
+      console.log(heightIN);
+      console.log(injury);
+      console.log(sexVal);
+      console.log(weight);
     }
     
   } 
 
   useEffect(() => {
-      fetchUserData();
+    fetchUserData();
+    //}, [user, heightFT, setHeightFT, ageVal, setAgeVal, workoutDayNum, setWorkoutDayNum, setEquipment, heightIN, setHeightIN, injury, setInjury, sexVal, setSexVal, weight, setWeight])
   }, [user, heightFT, setHeightFT])
-
   return (
     <div className='d-flex justify-content-center' style={{ background: `url(${background})` }}>
       <div id="Questionnaire" className="d-flex flex-column justify-content-center w-100" style={{ minHeight: '100vh', maxWidth: '600px'}}>
@@ -214,11 +248,60 @@ export default function Questionnaire() {
         <Container className='mt-5'>
           <Card style={ {maxWidth: '600px'} }>
             
-            <div> <h2 className='d-flex justify-content-start ms-3 mb-5'> ABOUT YOURSELF </h2></div>
+            <div> <h2 className='d-flex justify-content-center ms-3 mb-2'> ABOUT YOURSELF </h2></div>
+
+            <div className='justify-content-center me-2 mt-2 mb-2'>
+              <Button onClick={() => { displayUserData(); setWantsOldData(true); }}>Display Previous Data</Button>
+              {wantsOldData && (
+                <div>
+                  <div>
+                    Sex: {sexVal} <br />
+                    Age: {ageVal} <br />
+                    Height: {heightFT} FT, {heightIN} IN <br />
+                    Weight: {weight} lbs <br />
+                    Past Injuries: {injury.toString().replaceAll(",", ", ")} <br />
+                    Number of Workout Days: {workoutDayNum} <br />
+                    Equipment: {equipment.toString().replaceAll(",", ", ")} < br />
+                  </div>
+                  <Button onClick={() => setWantsOldData(false)}>
+                    Hide Previous Data
+                  </Button>
+                </div>
+              )}
+            </div>
             
             <Card.Body className='justify-content-center'>  
               <Form onSubmit={submitDBandNavAssessment}>
-                
+
+
+                <Form.Group id='question0pt1' className='d-flex w-100 mb-3'>
+                  {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Height </Form.Label> */}
+                  {FormLabel("Sex")}
+
+                  {/* FEET OPTIONS */}
+                  <Form.Select className='ps-1' style={{ maxWidth: '150px', minHeight: '40px' }} defaultValue={sexVal} onChange={(e) => setSexVal(e.currentTarget.value)}>
+                    {sexOpts.map((currSex, index) =>
+                      <option
+                        key={index}
+                        value={currSex.value}> {currSex.value} </option>
+                    )}
+                  </Form.Select>
+                </Form.Group>
+
+                <Form.Group id='question0pt2' className='d-flex w-100 mb-3'>
+                  {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Height </Form.Label> */}
+                  {FormLabel("Age")}
+
+                  {/* AGE OPTIONS */}
+                  <Form.Select className='ps-1' style={{ maxWidth: '150px', minHeight: '40px' }} defaultValue={ageVal} onChange={(e) => setAgeVal(e.currentTarget.value)}>
+                    {ageOpts.map((currAge, index) =>
+                      <option
+                        key={index}
+                        value={currAge.value}> {currAge.value} </option>
+                    )}
+                  </Form.Select>
+                </Form.Group>
+
                 {/* QUESTION 1 */}
                 {/* style={{ maxWidth: '400px' }} */}
                 {/* d-flex puts question inline with answer box */}
@@ -262,30 +345,6 @@ export default function Questionnaire() {
                         value={currWeight.value}> {currWeight.value} lbs </option>
                     )}
                   </Form.Select>
-                </Form.Group>
-
-                 {/* WORKOUT INTENSITY OPTION*/}
-                 <Form.Group id='question5' className='d-flex w-100 mb-3'>
-                  {/* <Form.Label className='d-flex justify-content-start' style={{ minWidth: '175px' }}> Workout Intensity </Form.Label> */}
-                  {/* <Form.Control className='ps-1' style={{ maxWidth: '300px', minHeight: '40px' }}/>  */}
-                  {FormLabel("Workout Intensity")}
-                
-                  <Form.Select className='ps-1' style={{ maxWidth: '300px', maxHeight: '40px' }} onChange={(e) => setIntensityVal(e.currentTarget.value)}>
-                    {intensityOpts.map((currIntensity, index) => (
-                      <option  
-                        key={index}
-                        value={currIntensity.value}
-                        checked={intensityVal === currIntensity.value}> {currIntensity.name} </option>
-                    ))}
-                  </Form.Select>
-
-                  {/* Information icon button */}
-                  {/* <Button className="ms-2" style={{ minHeight: '40px' }} onClick={() => navigate('/intensityinfo', {state: {intensityVal: intensityVal}}) }>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" fill="currentColor" className="bi bi-info-circle" viewBox="0 0 16 16">
-                        d<path d={iconPath1}></path>
-                        <path d={iconPath2}></path>
-                      </svg>
-                  </Button> */}
                 </Form.Group>
 
                 {/* INJURIES OPTIONS */}

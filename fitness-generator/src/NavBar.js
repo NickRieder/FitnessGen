@@ -24,10 +24,10 @@ const NavBar = () => {
     }
 
     return (
-        <div style={{ marginBottom: '3.5rem' }}>
+        <div style={{ marginBottom: '4rem', fontSize:'20px'}}>
             <Navbar fixed="top" bg="light" expand="lg">
                 <Container>
-                <Navbar.Brand href="/">KaloRenics</Navbar.Brand>
+                <Navbar.Brand href="/" style={{fontSize: '25px', fontWeight:'bold'}}>KaloRenics</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
@@ -37,8 +37,9 @@ const NavBar = () => {
                         <NavDropdown title="Get Started" id="">
                             <NavDropdown.Item href='questionnaire' >Questionnaire</NavDropdown.Item>
                             <NavDropdown.Item href='assessment' >Assessment</NavDropdown.Item>
-                            <NavDropdown.Item href='workout-view' >Workout Plan</NavDropdown.Item>
                             <NavDropdown.Item href='mobilitytest'>Mobility Test</NavDropdown.Item>
+                            <NavDropdown.Item href='workout-view' >Workout Plan</NavDropdown.Item>
+                            
                         </NavDropdown>
                     : 
                         <Nav.Link href="sign-up">Get Started</Nav.Link> 

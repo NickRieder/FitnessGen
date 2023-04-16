@@ -67,15 +67,24 @@ const WorkoutsView = () => {
 
     const result = docSnap.data();
     setEquipment(result.Equipment);
-    setIntensity(result.Intensity);
     setInjuries(result.Injuries);
     setDays(result.Days);
+    
+
+    const userInfoRef3 = doc(db, `/Users/${user.uid}/WorkoutData/AssessmentData`);
+    const docSnap3 = await getDoc(userInfoRef3);
+    const result3 = docSnap3.data();
+    console.log("Intensity")
+    console.log(result3.Intensity);
+    setIntensity(result3.Intensity);
     setGenerated(true);
 
     const userInfoRef2 = doc(db, `/Users/${user.uid}/WorkoutData/Workout`);
     const docSnap2 = await getDoc(userInfoRef2);
     const result2 = docSnap2.data();
     setWorkoutPlan(result2.WorkoutPlan);
+
+    
   }
 
   useEffect(() => {
@@ -133,7 +142,7 @@ const WorkoutsView = () => {
           for (let i = 0; i < body.length; i++) {
             getWorkout(body[i], intensity, injuries, equipment, equipment[(Math.floor(Math.random() * Object.keys(equipment).length))])
               .then((event) => {
-                console.log("EVENT")
+                console.log("Event")
                 console.log(event)
 
                 switch (body[i]) {

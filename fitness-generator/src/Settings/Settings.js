@@ -1,17 +1,20 @@
 import React, { useEffect, useState, useContext, useRef, useCallback } from 'react';
+import { useNavigate } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
-import { AuthContext, updateUserData, updatePasswordRequest, updateWorkoutData } from '../config/firebase'
+import { AuthContext, updateUserData, updatePasswordRequest, updateWorkoutData} from '../config/firebase'
 import { useCookies } from 'react-cookie';
+import { deleteUser } from "firebase/auth";
 
 export default function Settings() {
 
 	
 	//user context
 	const { user } = useContext(AuthContext); 
+	const navigate = useNavigate();
 	// const [userData, setUserData] = userdata; 
 
 	//cookies and data AccountForm
@@ -44,6 +47,21 @@ export default function Settings() {
 	const [days, setDays] = useState(() => cookies.days);
 	const [intensity, setIntensity] = useState(() => cookies.intensity);
 	const [equipment, setEquipment] = useState(() => cookies.equipment);
+
+	function deleteAccount() {
+
+		if (window.confirm('Do you want to delete your account? You will lose your information permanently!')) {
+			deleteUser(user).then(() => {
+				console.log("User was deleted");
+				navigate('/');
+			}).catch((error) => {
+				console.log("Failed to delete user ->" + error);
+			});
+
+		}
+
+		
+	}
 
 	const AccountForm = useCallback(() => {
 		
@@ -164,7 +182,8 @@ export default function Settings() {
 
          	<Form.Group >
 				{/* <Button className='mt-5' disabled={disableChangesBtn} onClick={disableUndoChangesBtn}>Undo Changes</Button> */}
-				<Button className='ms-5 mt-5' disabled={disableChangesBtn} onClick={disableApplyChangesBtn}>Apply Changes</Button>
+						<Button className='ms-5 mt-5' disabled={disableChangesBtn} onClick={disableApplyChangesBtn}>Apply Changes</Button>
+						<Button className='ms-5 mt-5' onClick={deleteAccount}>Delete Account</Button>
 			</Form.Group>
       </Form>)
   	}, [disableChangesBtn, email, firstName, lastName, displayName, user, setCookies])
