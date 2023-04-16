@@ -15,6 +15,15 @@ export default function Questionnaire() {
   }
 
   const [wantsOldData, setWantsOldData] = useState(false);
+  const [oldAgeVal, setOldAgeVal] = useState(null);
+  const [oldWorkoutDayNum, setOldWorkoutDayNum] = useState(null);
+  const [oldEquipment, setOldEquipment] = useState(null);
+  const [oldHeightFT, setOldHeightFT] = useState(null);
+  const [oldHeightIN, setOldHeightIN] = useState(null);
+  const [oldInjury, setOldInjury] = useState(null);
+  const [oldSexVal, setOldSexVal] = useState(null);
+  const [oldWeight, setOldWeight] = useState(null);
+
 
   // QUESTION 0 PT1
   const [sexVal, setSexVal] = useState("M");
@@ -216,14 +225,14 @@ export default function Questionnaire() {
       console.log("result:");
       console.log(result);
 
-      setAgeVal(result.Age);
-      setWorkoutDayNum(result.Days);
-      setEquipment(result.Equipment);
-      setHeightFT(result.HeightFT);
-      setHeightIN(result.HeightIN);
-      setInjury(result.Injuries);
-      setSexVal(result.Sex);
-      setWeight(result.Weight);
+      setOldAgeVal(result.Age);
+      setOldWorkoutDayNum(result.Days);
+      setOldEquipment(result.Equipment);
+      setOldHeightFT(result.HeightFT);
+      setOldHeightIN(result.HeightIN);
+      setOldInjury(result.Injuries);
+      setOldSexVal(result.Sex);
+      setOldWeight(result.Weight);
 
       console.log(ageVal);
       console.log(workoutDayNum);
@@ -255,13 +264,13 @@ export default function Questionnaire() {
               {wantsOldData && (
                 <div>
                   <div>
-                    Sex: {sexVal} <br />
-                    Age: {ageVal} <br />
-                    Height: {heightFT} FT, {heightIN} IN <br />
-                    Weight: {weight} lbs <br />
-                    Past Injuries: {injury.toString().replaceAll(",", ", ")} <br />
-                    Number of Workout Days: {workoutDayNum} <br />
-                    Equipment: {equipment.toString().replaceAll(",", ", ")} < br />
+                    Sex: {oldSexVal} <br />
+                    Age: {oldAgeVal} <br />
+                    Height: {oldHeightFT} FT, {oldHeightIN} IN <br />
+                    Weight: {oldWeight} lbs <br />
+                    Past Injuries: {oldInjury.toString().replaceAll(",", ", ")} <br />
+                    Number of Workout Days: {oldWorkoutDayNum} <br />
+                    Equipment: {oldEquipment.toString().replaceAll(",", ", ")} < br />
                   </div>
                   <Button onClick={() => setWantsOldData(false)}>
                     Hide Previous Data
