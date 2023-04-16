@@ -78,7 +78,7 @@ const MobilityTest = () => {
                     <tr id="Posture">
 					{/* <form id="Posture"  style={{fontSize:'20px', textAlign:'left'}}>  */}
 						<td for="posture">Posture</td>
-                        <td><iframe title="Embeds Page" className="embed-responsive-item" src="https://www.youtube.com/embed/watch?v=dCsgXitfdls" allowfullscreen></iframe></td>
+                        <td><iframe width="560" height="315" src="https://www.youtube.com/embed/dCsgXitfdls" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></td>
 						<td><input class="form-check-input" type="radio" name="posture" id="posture1"/></td>
 						<td><input class="form-check-input" type="radio" name="posture" id="posture2"/></td>
 					{/* </form> */}
@@ -89,7 +89,7 @@ const MobilityTest = () => {
                     <tr id="Overhead Squat">
                     {/* <form id="Overhead Squat"  style={{fontSize:'20px', textAlign:'left'}}>  */}
 						<td for="overheadSquat">Overhead Squat</td>
-                        <td><iframe title="Embeds Page" className="embed-responsive-item" src="https://www.youtube.com/embed/watch?v=8uvhPH3b2qY" allowfullscreen></iframe></td>
+                        <td><iframe width="560" height="315" src="https://www.youtube.com/embed/8uvhPH3b2qY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></td>
 						<td><input class="form-check-input" type="radio" name="overheadSquat" id="overheadSquat1"/></td>
 						<td><input class="form-check-input" type="radio" name="overheadSquat" id="overheadSquat2"/></td>
 					{/* </form> */}
@@ -98,7 +98,7 @@ const MobilityTest = () => {
                     <tr id="Squat">
                     {/* <form id="Squat"  style={{fontSize:'20px', textAlign:'left'}}>  */}
                     <td for="squat">Squat</td>
-                    <td><iframe title="Embeds Page" className="embed-responsive-item" src="https://www.youtube.com/embed/watch?v=1jOlzkrLz_w" allowfullscreen></iframe></td>
+                    <td><iframe width="560" height="315" src="https://www.youtube.com/embed/1jOlzkrLz_w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></td>
                     <td><input class="form-check-input" type="radio" name="squat" id="squat1"/></td>
                     <td><input class="form-check-input" type="radio" name="squat" id="squat2"/></td>
 					{/* </form> */}
@@ -109,7 +109,7 @@ const MobilityTest = () => {
                     <tr id="Hip">
                     {/* <form id="Hip"  style={{fontSize:'20px', textAlign:'left'}}>  */}
                     <td for="hip">Hip</td>
-                    <td><iframe title="Embeds Page" className="embed-responsive-item" src="https://www.youtube.com/embed/watch?v=syai-30jRgE" allowfullscreen></iframe></td>
+                    <td><iframe width="560" height="315" src="https://www.youtube.com/embed/syai-30jRgE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></td>
                     <td><input class="form-check-input" type="radio" name="hip" id="hip1"/></td>
                     <td><input class="form-check-input" type="radio" name="hip" id="hip2"/></td>
 					{/* </form> */}
@@ -120,7 +120,7 @@ const MobilityTest = () => {
                     <tr id="Ankle">
                     {/* <form id="Ankle"  style={{fontSize:'20px', textAlign:'left'}}>  */}
                     <td for="ankle">Ankle</td>
-                    <td><iframe title="Embeds Page" className="embed-responsive-item" src="https://www.youtube.com/embed/watch?v=U7woPNLUT3Q" allowfullscreen></iframe></td>
+                    <td><iframe width="560" height="315" src="https://www.youtube.com/embed/U7woPNLUT3Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></td>
                     <td><input class="form-check-input" type="radio" name="ankle" id="ankle1"/></td>
                     <td><input class="form-check-input" type="radio" name="posture" id="ankl2"/></td>
 					{/* </form> */}
@@ -142,7 +142,7 @@ const MobilityTest = () => {
                     <tr id="Lumbar Spine">
                     {/* <form id="Lumbar Spine"  style={{fontSize:'20px', textAlign:'left'}}>  */}
                     <td for="lumbarSpine">Lumbar Spine</td>
-                    <td><iframe title="Embeds Page" className="embed-responsive-item" src="https://www.youtube.com/embed/watch?v=4GBjhAcwh90" allowfullscreen></iframe></td>
+                    <td><iframe width="560" height="315" src="https://www.youtube.com/embed/4GBjhAcwh90" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></td>
                     <td><input class="form-check-input" type="radio" name="lumbarSpine" id="lumbarSpine1"/></td>
                     <td><input class="form-check-input" type="radio" name="lumbarSpine" id="lumbarSpine2"/></td>
 					{/* </form> */}
@@ -153,7 +153,7 @@ const MobilityTest = () => {
                     <tr id="Wall">
                     {/* <form id="Wall"  style={{fontSize:'20px', textAlign:'left'}}>  */}
                     <td for="wall">Wall</td>
-                    <td><iframe title="Embeds Page" className="embed-responsive-item" src="https://www.youtube.com/embed/watch?v=kbzYML05Vac" allowfullscreen></iframe></td>
+                    <td><iframe width="560" height="315" src="https://www.youtube.com/embed/kbzYML05Vac" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></td>
                     <td><input class="form-check-input" type="radio" name="wall" id="wall1"/></td>
                     <td><input class="form-check-input" type="radio" name="wall" id="wall2"/></td>
 					{/* </form> */}
@@ -164,7 +164,7 @@ const MobilityTest = () => {
                     <tr id="Shoulder">
                     {/* <form id="Shoulder"  style={{fontSize:'20px', textAlign:'left'}}>  */}
                     <td for="shoulder">Shoulder</td>
-                    <td><iframe title="Embeds Page" className="embed-responsive-item" src="https://www.youtube.com/embed/watch?v=FrOKZLkJSeo" allowfullscreen></iframe></td>
+                    <td><iframe width="560" height="315" src="https://www.youtube.com/embed/FrOKZLkJSeo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></td>
                     <td><input class="form-check-input" type="radio" name="shoulder" id="shoulder1"/></td>
                     <td><input class="form-check-input" type="radio" name="shoulder" id="shoulder2"/></td>
 					{/* </form> */}
@@ -175,7 +175,7 @@ const MobilityTest = () => {
                     <tr id="Scapula">
                     {/* <form   style={{fontSize:'20px', textAlign:'left'}}>  */}
                     <td for="scapula">Scapula</td>
-                    <td><iframe title="Embeds Page" className="embed-responsive-item" src="https://www.youtube.com/embed/watch?v=vY90UK6ZEOg" allowfullscreen></iframe></td>
+                    <td><iframe width="560" height="315" src="https://www.youtube.com/embed/vY90UK6ZEOg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></td>
                     <td><input class="form-check-input" type="radio" name="scapula" id="scapula1"/></td>
                     <td><input class="form-check-input" type="radio" name="scapula" id="scapula2"/></td>
 					{/* </form> */}
